@@ -1,0 +1,7 @@
+{
+  "name": "follow",
+  "main": "worker.js",
+  "compatibility_date": "2025-01-01",
+  "assets": { "directory": "./", "binding": "ASSETS", "run_worker_first": true },
+  "kv_namespaces": [{ "binding": "KV", "id": "8eaae12be3cb422d82a2760952f19b91" }]
+}
