@@ -1278,11 +1278,11 @@ let activeQueryClass = NONE, selectedStudentIndex = '', currentPage = 1, classLi
 const ROWS = 12;
  
 function loadGradeData(){
-  lessons = load(K.lessons(), null) || JSON.parse(JSON.stringify(gradeScienceData[currentGrade]));
+  lessons = load(K.lessons(), null) || JSON.parse(JSON.stringify(CURRICULUM[profile.subject][currentGrade]));
   students = load(K.students(), []);
   lessonStatus = load(K.status(), {});
   lessonMastery = load(K.mastery(), {});
-  customMotivations = load(K.motiv, null) || defaultMotivations;
+  customMotivations = load(K.motiv, null) || defaultMotivations();
 }
 const saveStudents = () => localStorage.setItem(K.students(), JSON.stringify(students));
 const saveLessons  = () => localStorage.setItem(K.lessons(), JSON.stringify(lessons));
