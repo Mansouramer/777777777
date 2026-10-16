@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -54,7 +52,7 @@ h1,h2,h3,h4,h5,p{margin:0}
 button,input,select,textarea{font-family:inherit;font-size:16px;color:inherit}
 a{color:var(--accent)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
- 
+
 /* ---------- Lock ---------- */
 .lock{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:24px;
   background:radial-gradient(700px 500px at 50% 30%,rgba(60,40,140,.5),transparent 70%),rgba(5,6,15,.94);}
@@ -71,7 +69,7 @@ a{color:var(--accent)}
 .remember input{accent-color:var(--accent);width:16px;height:16px}
 .lock.shake .lock-card{animation:shake .4s}
 @keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
- 
+
 /* ---------- Layout ---------- */
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;
   padding:calc(12px + env(safe-area-inset-top,0px)) 16px 10px;max-width:1040px;margin:0 auto}
@@ -85,7 +83,7 @@ main{max-width:1040px;margin:0 auto;padding:0 14px}
 .view{display:none}
 .view.active{display:block}
 .stack{display:flex;flex-direction:column;gap:14px}
- 
+
 .panel{background:var(--panel);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   border:1px solid var(--line);border-radius:18px;padding:16px}
 .panel-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
@@ -94,7 +92,7 @@ main{max-width:1040px;margin:0 auto;padding:0 14px}
 .hint{font-size:12px;color:var(--ink-dim)}
 .sub-panel{background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px}
 .sub-panel h5{font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px}
- 
+
 /* ---------- Controls ---------- */
 input[type=text],input[type=tel],input[type=search],input[type=number],select,textarea{
   width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line-strong);
@@ -118,7 +116,7 @@ input::placeholder,textarea::placeholder{color:var(--ink-faint)}
 .btn-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .tag{display:inline-block;padding:1px 9px;border-radius:99px;font-size:11px;font-weight:500;
   background:rgba(var(--accent-rgb),.16);color:var(--accent);border:1px solid rgba(var(--accent-rgb),.35)}
- 
+
 /* ---------- Home hero ---------- */
 .hero{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-bottom:14px}
 .hero>*{min-width:0}
@@ -143,7 +141,7 @@ html,body{overflow-x:hidden}
   .hero-text h2{font-size:64px}
   .chips-col{grid-column:1/-1}
 }
- 
+
 /* mission clock */
 .clock{display:flex;align-items:center;gap:14px;cursor:pointer}
 .clock-ring{position:relative;width:78px;height:78px;flex:none}
@@ -156,7 +154,7 @@ html,body{overflow-x:hidden}
 .clock .chev{color:var(--ink-faint);font-size:12px}
 .sched{display:none;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line-strong)}
 .sched.open{display:block}
- 
+
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 @media(min-width:700px){.stats{grid-template-columns:repeat(4,1fr)}}
@@ -165,11 +163,11 @@ html,body{overflow-x:hidden}
 .stat .n{font-family:var(--display);font-size:30px;line-height:1.2;color:var(--ink)}
 .stat .bar{height:4px;border-radius:4px;background:rgba(255,255,255,.1);margin-top:6px;overflow:hidden}
 .stat .bar b{display:block;height:100%;background:var(--accent);border-radius:4px;width:0;transition:width .5s}
- 
+
 .banner{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
   padding:12px 14px;border-radius:14px;background:rgba(255,207,112,.1);border:1px solid rgba(255,207,112,.4);
   font-size:13px;margin-bottom:14px}
- 
+
 /* ---------- Students ---------- */
 .class-list{display:flex;flex-wrap:wrap;gap:8px}
 .class-pill{display:flex;align-items:stretch;border-radius:10px;overflow:hidden;border:1px solid var(--line-strong)}
@@ -181,7 +179,7 @@ html,body{overflow-x:hidden}
 @media(min-width:760px){.students{grid-template-columns:1fr 1fr}}
 .s-card{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.03)}
 .s-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:8px;
-  border-bottom:1px dashed var(--line);margin-bottom:10px}
+  border-bottom:1px dashed var(--line);margin-bottom:10px;flex-wrap:wrap}
 .s-head strong{font-size:15px}
 .s-head .acts{display:flex;gap:6px}
 .metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -199,7 +197,7 @@ html,body{overflow-x:hidden}
 .pager{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
 .empty{padding:22px 12px;text-align:center;color:var(--ink-dim);font-size:13px;
   border:1px dashed var(--line-strong);border-radius:12px}
- 
+
 /* ---------- Lessons timeline ---------- */
 .chapter-h{font-size:12px;color:var(--accent);font-weight:600;margin:14px 0 6px}
 .lesson{position:relative;padding:10px 26px 10px 10px;border-inline-start:none;border-right:2px solid var(--line);margin-right:8px}
@@ -224,7 +222,7 @@ td:first-child,th:first-child{text-align:right}
 .mini-stats strong{display:block;font-size:20px;font-family:var(--display);font-weight:400;color:var(--ink)}
 .score{width:56px!important;min-height:36px!important;padding:4px!important;text-align:center}
 .st-ok{color:var(--good);font-weight:600}.st-re{color:var(--bad);font-weight:600}
- 
+
 .dd{position:relative}
 .dd-list{position:absolute;top:100%;right:0;left:0;z-index:20;max-height:220px;overflow-y:auto;background:#151836;
   border:1px solid var(--accent);border-radius:0 0 10px 10px;display:none;box-shadow:0 10px 24px rgba(0,0,0,.5)}
@@ -237,7 +235,7 @@ td:first-child,th:first-child{text-align:right}
 .send-list{display:grid;gap:8px;max-height:260px;overflow-y:auto;margin-top:8px}
 .send-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-radius:10px;
   border:1px solid var(--line);background:rgba(255,255,255,.03);font-size:13px}
- 
+
 /* ---------- Tab bar ---------- */
 .tabbar{position:fixed;bottom:0;right:0;left:0;z-index:30;display:flex;justify-content:center;
   padding:0 10px calc(8px + env(safe-area-inset-bottom,0px));pointer-events:none}
@@ -248,13 +246,13 @@ td:first-child,th:first-child{text-align:right}
   border-radius:16px;color:var(--ink-faint);cursor:pointer;font-size:11px;font-weight:500}
 .tab svg{width:22px;height:22px}
 .tab.active{color:var(--accent);background:rgba(var(--accent-rgb),.14)}
- 
+
 .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;
   background:#1b1e44;border:1px solid var(--accent);color:var(--ink);padding:10px 18px;border-radius:99px;font-size:13px;
   display:none;max-width:90%;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 .footer-note{text-align:center;color:var(--ink-faint);font-size:11px;line-height:1.8;margin:22px 0 8px}
 .footer-note a{color:var(--ink-dim)}
- 
+
 /* ---------- Print ---------- */
 @media print{
   body{background:#fff!important;color:#000!important;padding:0}
@@ -269,7 +267,7 @@ td:first-child,th:first-child{text-align:right}
   .printing .qrow{border:1px solid #000!important}
   .noprint,button,select,input,textarea,.btn{display:none!important}
 }
- 
+
 /* ---------- التصحيح الآلي ---------- */
 .grid{display:grid;gap:10px;grid-template-columns:1fr 1fr}
 @media(max-width:560px){.grid{grid-template-columns:1fr}}
@@ -344,7 +342,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
 <noscript><p style="color:#fff;padding:20px;text-align:center">تحتاج هذه الصفحة إلى تفعيل JavaScript، افتحها من متصفح الجوال (كروم أو سفاري).</p></noscript>
 <canvas id="stars"></canvas>
 <div class="shooting" aria-hidden="true"></div>
- 
+
 <!-- ================= شاشة القفل ================= -->
 <div class="lock" id="lock">
   <div class="lock-card">
@@ -369,7 +367,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
     </form>
   </div>
 </div>
- 
+
 <!-- ================= التطبيق ================= -->
 <div id="app" hidden>
   <header class="topbar">
@@ -386,7 +384,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
     </button>
     </div>
   </header>
- 
+
   <main>
     <!-- ===== المدار (الرئيسية) ===== -->
     <section id="view-home" class="view active">
@@ -394,7 +392,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
         <span>مرّ أكثر من أسبوع على آخر نسخة احتياطية. احفظ نسخة الآن حتى لا تضيع بياناتك.</span>
         <button class="btn sm warn" onclick="backupAll()">حفظ نسخة</button>
       </div>
- 
+
       <div class="hero">
         <div class="hero-text">
           <div class="eyebrow">مادة العلوم – المرحلة الابتدائية</div>
@@ -429,7 +427,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
         <div class="orbit-wrap"><svg id="orbit" viewBox="0 0 360 360" role="group" aria-label="النظام الشمسي: اختر الصف"></svg></div>
         <div class="chips-col"><div class="chips" id="gradeChips"></div></div>
       </div>
- 
+
       <div class="stats noprint">
         <div class="stat"><div class="k">الطلاب</div><div class="n" id="totalStudents">0</div></div>
         <div class="stat"><div class="k">إتقان الدروس</div><div class="n" id="totalSkills">0%</div><div class="bar"><b id="barSkills"></b></div></div>
@@ -437,49 +435,49 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
         <div class="stat"><div class="k">المشاركات</div><div class="n" id="totalParticipation">0</div></div>
         <div class="stat"><div class="k">الواجبات المنجزة</div><div class="n" id="totalHomework">0</div></div>
         <div class="stat"><div class="k">أيام الغياب</div><div class="n" id="totalAbsence">0</div></div>
-        <div class="stat"><div class="k">االانشطة</div><div class="n" id="totalProjects">0</div></div>
+        <div class="stat"><div class="k">الأنشطة</div><div class="n" id="totalProjects">0</div></div>
         <div class="stat"><div class="k">رسائل الواتساب</div><div class="n" id="totalMessagesSent">0</div></div>
-      </div>}
+      </div>
       <div class="panel noprint" style="margin-top:14px;border-color:rgba(94,234,212,.4)">
-  <div class="panel-h"><h3>الحصة السريعة</h3></div>
-  <select id="quickClass" onchange="qkSet(this.value)"></select>
-  <div id="quickList" style="margin-top:10px"></div>
-</div>
- <div class="panel noprint" style="margin-top:14px;border-color:rgba(255,207,112,.4)">
-  <div class="panel-h"><h3>يحتاجون انتباهك اليوم</h3><span class="hint" id="attnCount"></span></div>
-  <div id="attnList"></div>
-</div>
+        <div class="panel-h"><h3>الحصة السريعة</h3></div>
+        <select id="quickClass" onchange="qkSet(this.value)"></select>
+        <div id="quickList" style="margin-top:10px"></div>
+      </div>
+      <div class="panel noprint" style="margin-top:14px;border-color:rgba(255,207,112,.4)">
+        <div class="panel-h"><h3>يحتاجون انتباهك اليوم</h3><span class="hint" id="attnCount"></span></div>
+        <div id="attnList"></div>
+      </div>
       <div class="panel noprint" style="margin-top:14px">
-  <div class="panel-h"><h3>الطلاب الصامتون</h3><span class="hint" id="silentCount"></span></div>
-  <div id="silentList"></div>
-</div>
+        <div class="panel-h"><h3>الطلاب الصامتون</h3><span class="hint" id="silentCount"></span></div>
+        <div id="silentList"></div>
+      </div>
       <div class="panel noprint" style="margin-top:14px">
-  <div class="panel-h"><h3>عدالة التشجيع</h3><span class="hint" id="fairCount"></span></div>
-  <div id="fairList"></div>
-</div>
+        <div class="panel-h"><h3>عدالة التشجيع</h3><span class="hint" id="fairCount"></span></div>
+        <div id="fairList"></div>
+      </div>
       <div class="panel noprint" style="margin-top:14px;border-color:rgba(94,234,212,.4)">
         <div class="panel-h"><h3>التصحيح الآلي والاختبارات</h3></div>
         <button class="btn good block" onclick="showView('grade')">فتح التصحيح الآلي</button>
       </div>
     </section>
- 
+
     <!-- ===== الطلاب ===== -->
     <section id="view-students" class="view">
       <div class="stack">
         <div class="panel noprint">
           <div class="panel-h"><h3>إضافة طالب</h3></div>
           <div class="form">
-            <select id="studentGender">
-  <option value="">الجنس (حسب الإعداد الافتراضي)</option>
-  <option value="m">ذكر</option><option value="f">أنثى</option>
-</select>
-            <input type="text" id="studentName" placeholder="اسم الطالب">
+            <input type="text" id="studentName" placeholder="اسم الطالب / الطالبة">
             <input type="text" id="studentClassCustom" placeholder="الصف والفصل (مثال: رابع ابتدائي أول)">
             <input type="tel" id="studentPhone" maxlength="10" inputmode="numeric" placeholder="جوال ولي الأمر (10 أرقام)">
+            <select id="studentGender">
+              <option value="">الجنس (حسب الإعداد الافتراضي)</option>
+              <option value="m">ذكر</option><option value="f">أنثى</option>
+            </select>
             <button class="btn block" onclick="addStudent()">إضافة الطالب</button>
           </div>
         </div>
- 
+
         <div class="panel" id="studentsPanel">
           <div class="panel-h">
             <h3>الفصول والطلاب</h3>
@@ -497,7 +495,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
             <button class="btn sm ghost" id="nextBtn" onclick="changePage(1)">التالي</button>
           </div>
         </div>
- 
+
         <div class="panel noprint">
           <div class="panel-h"><h3>تصدير واستيراد الطلاب</h3></div>
           <div class="btn-grid">
@@ -509,7 +507,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
         </div>
       </div>
     </section>
- 
+
     <!-- ===== الدروس ===== -->
     <section id="view-lessons" class="view">
       <div class="stack">
@@ -520,7 +518,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
           </select>
           <div id="lessonDetail" class="detail-box" hidden></div>
           <div id="lessonsTimeline" style="margin-top:8px"></div>
- 
+
           <div class="sub-panel">
             <h5>إضافة درس</h5>
             <div class="form">
@@ -534,7 +532,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
             </div>
           </div>
         </div>
- 
+
         <div class="panel" id="masteryPanel">
           <div class="panel-h">
             <h3>تتبع إتقان الدروس</h3>
@@ -552,7 +550,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
             <thead><tr><th>الطالب</th><th>الفصل</th><th>الحالة</th><th class="noprint">تغيير</th></tr></thead>
             <tbody id="masteryTbody"></tbody></table></div>
         </div>
- 
+
         <div class="panel noprint">
           <div class="panel-h"><h3>إرسال الواجب لأولياء الأمور</h3></div>
           <div class="form">
@@ -567,15 +565,15 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
         </div>
       </div>
     </section>
- 
+
     <!-- ===== التصحيح الآلي ===== -->
     <section id="view-grade" class="view">
       <nav class="steps noprint" aria-label="الخطوات">
-  <a href="#setup"><b>١</b>الإعداد</a><a href="#sheet"><b>٢</b>الورقة</a><a href="#grading"><b>٣</b>التصحيح</a>
-  <a href="#results"><b>٤</b>النتائج</a><a href="#analysisPanel"><b>٥</b>التحليل</a>
-</nav>
+        <a href="#setup"><b>١</b>الإعداد</a><a href="#sheet"><b>٢</b>الورقة</a><a href="#grading"><b>٣</b>التصحيح</a>
+        <a href="#results"><b>٤</b>النتائج</a><a href="#analysisPanel"><b>٥</b>التحليل</a>
+      </nav>
       <div class="stack" style="margin-top:6px">
- 
+
   <section class="panel noprint" id="setup">
     <div class="panel-h"><h3>إعدادات الاختبار</h3></div>
     <div class="grid">
@@ -587,10 +585,9 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
           <option value="الاختبار البعدي النهائي">الاختبار البعدي (نهائي)</option>
           <option value="اختبارات نافس الوطنية">اختبارات نافس الوطنية</option>
         </select></div>
-      <div class="f"><label>المادة</label>
-        <select id="selectSubject" onchange="switchExamModel()">
+      <div class="f"><label>المادة (من الملف الشخصي)</label>
+        <select id="selectSubject" onchange="switchExamModel()" disabled>
           <option value="science">العلوم</option><option value="math">الرياضيات</option><option value="arabic">لغتي الجميلة</option>
-          <option value="english">اللغة الإنجليزية</option><option value="islamic">الدراسات الإسلامية</option>
         </select></div>
       <div class="f"><label>الصف الدراسي</label>
         <select id="selectGrade" onchange="onGradeChange()">
@@ -614,15 +611,10 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
           <option value="5">5 أسئلة</option><option value="10" selected>10 أسئلة</option>
         </select></div>
     </div>
- 
+
     <div id="nafisBox" class="sub" hidden>
-      <h5>مجالات مادة العلوم في اختبارات نافس</h5>
-      <div class="checks">
-        <label class="check"><input type="checkbox" class="nafis-cb" value="علوم الحياة" checked>علوم الحياة</label>
-        <label class="check"><input type="checkbox" class="nafis-cb" value="العلوم الفيزيائية" checked>العلوم الفيزيائية</label>
-        <label class="check"><input type="checkbox" class="nafis-cb" value="علوم الأرض والفضاء" checked>علوم الأرض والفضاء</label>
-        <label class="check"><input type="checkbox" class="nafis-cb" value="الاستقصاء العلمي" checked>الاستقصاء العلمي</label>
-      </div>
+      <h5>مجالات المادة في اختبارات نافس</h5>
+      <div class="checks" id="nafisChecks"></div>
     </div>
     <div id="lessonBox" class="sub" hidden>
       <h5>الدروس المستهدفة بالاختبار</h5>
@@ -631,7 +623,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
     </div>
     <div class="sub">
       <h5>الكلمة الدلالية أو عنوان النموذج</h5>
-      <div class="f"><input type="text" id="examKeywordInput" placeholder="مثال: اختبار نافس علوم – نموذج د"></div>
+      <div class="f"><input type="text" id="examKeywordInput" placeholder="مثال: اختبار نافس – نموذج د"></div>
     </div>
     <div class="sub" style="border-color:rgba(var(--accent-rgb),.4)">
       <h5>توليد الأسئلة بالذكاء الاصطناعي (Gemini)</h5>
@@ -640,12 +632,12 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
     </div>
     <div class="sub">
       <h5>صورة مرجعية للورقة (اختياري)</h5>
-      <p class="hint" style="margin-bottom:8px">رفع الصورة اختياري ولا تُقرأ تلقائياً، بل يُستخدم فقط لتذكيرك بالورقة الأصلية إن وُجدت.</p>
+      <p class="hint" style="margin-bottom:8px">ارفع صورة ورقة اختبار خارجية ليقرأ Gemini أسئلتها ويحلّها (يتطلب مفتاح Gemini).</p>
       <input type="file" id="examImageUploadInput" accept="image/*" onchange="handleExamImageUpload(event)">
       <div class="status" id="imageUploadStatus"></div>
     </div>
   </section>
- 
+
   <section class="panel" id="sheet">
     <div class="panel-h noprint"><h3>ورقة الاختبار (A4)</h3></div>
     <div class="row noprint">
@@ -667,7 +659,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
       <button class="btn ghost block" onclick="printSection('paper')">طباعة الاختبار على صفحة A4</button>
     </div>
   </section>
- 
+
   <section class="panel noprint" id="grading">
     <div class="panel-h"><h3>التصحيح السريع</h3></div>
     <p class="hint" style="margin-bottom:10px">اضغط الحرف الذي اختاره الطالب على ورقته، ويظهر لك فوراً هل هو صحيح.</p>
@@ -684,7 +676,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
       <button class="btn warn sm" style="margin-top:10px" onclick="skipStudent()">تخطي الطالب (غائب)</button>
     </div>
   </section>
- 
+
   <section class="panel" id="results">
     <div class="panel-h noprint"><h3>سجل الدرجات</h3></div>
     <div class="noprint">
@@ -701,7 +693,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
       <button class="btn warn" onclick="toggleAnalysisBox()">تقرير التحليل والخطط العلاجية</button>
     </div>
   </section>
- 
+
   <section id="gradesSheet" class="paper sheet">
     <div class="head">
       <h3>المملكة العربية السعودية – وزارة التعليم</h3>
@@ -716,7 +708,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
       <div>ختم المدرسة: ....................</div><div>معلم المادة: منصور عامر الرحيلي</div>
     </div>
   </section>
- 
+
   <section class="panel" id="analysisPanel" hidden>
     <div class="head" style="text-align:center;margin-bottom:8px">
       <h3 style="font-size:14px">تقرير تحليل نواتج التعلم والخطط العلاجية</h3>
@@ -725,10 +717,10 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
     <div id="analysisContentText"></div>
     <div class="noprint" style="margin-top:12px"><button class="btn ghost block" onclick="printSection('analysisPanel')">طباعة التقرير</button></div>
   </section>
- 
+
 </div>
     </section>
- 
+
     <!-- ===== التقارير ===== -->
     <section id="view-reports" class="view">
       <div class="stack">
@@ -746,7 +738,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
             <thead><tr><th>الطالب</th><th>الفترة 1</th><th>الفترة 2</th><th class="noprint">إرسال</th></tr></thead>
             <tbody id="examsTbody"></tbody></table></div>
         </div>
- 
+
         <div class="panel" id="studentFilePanel">
           <div class="panel-h">
             <h3>ملف الطالب</h3>
@@ -763,10 +755,10 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
               <div>الواجبات<strong id="sdHomework">0</strong></div>
               <div>الغياب<strong id="sdAbsence">0</strong></div>
               <div>الدروس المتقنة<strong id="sdSkills">0</strong></div>
-              <div>الانشطة<strong id="sdProjects">0</strong></div>
+              <div>الأنشطة<strong id="sdProjects">0</strong></div>
               <div>الرسائل<strong id="sdMessages">0</strong></div>
             </div>
- 
+
             <div class="sub-panel noprint">
               <h5>نقل الطالب وسجله إلى فصل آخر</h5>
               <div class="form">
@@ -774,12 +766,12 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
                 <button class="btn block" style="background:var(--accent)" onclick="transferSelected()">نقل الطالب</button>
               </div>
             </div>
- 
+
             <div class="btn-grid noprint" style="margin-top:12px">
               <button class="btn ghost" onclick="printSection('studentFilePanel')">طباعة التقرير</button>
               <button class="btn wa" onclick="sendFullReport()">التقرير عبر واتساب</button>
             </div>
- 
+
             <div class="sub-panel noprint">
               <h5>إشعار ولي الأمر بالدرس</h5>
               <div class="hint">الجوال: <span id="sdPhone" style="direction:ltr;display:inline-block">لا يوجد</span></div>
@@ -787,7 +779,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
               <div id="lessonMsgPreview" class="preview">اختر الدرس لتظهر الرسالة.</div>
               <a id="waLessonBtn" href="#" target="_blank" class="btn wa block" onclick="return sendVia(this)">إرسال لولي الأمر</a>
             </div>
- 
+
             <div class="sub-panel noprint">
               <h5>رسالة تشجيع وشكر</h5>
               <select id="selectMotivation" onchange="updateMotivationMsg()"><option value="">اختر الرسالة</option></select>
@@ -795,7 +787,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
               <a id="waMotivBtn" href="#" target="_blank" class="btn wa block" onclick="return sendVia(this)">إرسال التشجيع</a>
               <div class="form" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--line-strong)">
                 <input type="text" id="newMotivationTitle" placeholder="عنوان رسالة جديدة">
-                <input type="text" id="newMotivationText" placeholder="نص الرسالة">
+                <input type="text" id="newMotivationText" placeholder="نص الرسالة (يمكنك استخدام {student} {son} {t} {h} {subj})">
                 <button class="btn ghost block" onclick="addNewMotivation()">حفظ الرسالة</button>
               </div>
             </div>
@@ -803,23 +795,36 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
         </div>
       </div>
     </section>
- 
+
     <!-- ===== المزيد ===== -->
     <section id="view-more" class="view">
       <div class="stack">
         <div class="panel noprint">
+          <div class="panel-h"><h3>الملف الشخصي والمادة</h3></div>
+          <div class="form">
+            <input type="text" id="pfName" placeholder="اسم المعلم / المعلمة">
+            <input type="text" id="pfSchool" placeholder="اسم المدرسة">
+            <select id="pfTeacherGender"><option value="m">أنا معلم</option><option value="f">أنا معلمة</option></select>
+            <select id="pfStudentGender"><option value="m">الطلاب: بنين</option><option value="f">الطلاب: بنات</option></select>
+            <select id="pfSubject"><option value="science">العلوم</option><option value="math">الرياضيات</option><option value="arabic">لغتي الجميلة</option></select>
+            <button class="btn block" onclick="saveProfile()">حفظ وتطبيق</button>
+          </div>
+          <p class="hint" style="margin-top:8px">بيانات كل مادة محفوظة بشكل منفصل. الإعداد (بنين/بنات) هو الافتراضي فقط، ويمكن تغيير جنس كل طالب من بطاقته.</p>
+        </div>
+
+        <div class="panel noprint">
           <div class="panel-h"><h3>النسخ الاحتياطي</h3></div>
-          <p class="hint" style="margin-bottom:10px">بياناتك محفوظة في متصفح هذا الجهاز فقط. احفظ نسخة كاملة (كل الصفوف) لتنقلها إلى جهاز آخر أو تحميها من الضياع.</p>
+          <p class="hint" style="margin-bottom:10px">بياناتك محفوظة في متصفح هذا الجهاز فقط. احفظ نسخة كاملة (كل الصفوف والمواد) لتنقلها إلى جهاز آخر أو تحميها من الضياع.</p>
           <div class="btn-grid">
             <button class="btn" onclick="backupAll()">حفظ نسخة كاملة</button>
             <button class="btn warn" onclick="$('restoreFile').click()">استرجاع نسخة</button>
           </div>
           <input type="file" id="restoreFile" accept=".json" hidden onchange="restoreBackup(event)">
         </div>
- 
+
         <div class="panel noprint">
           <div class="panel-h"><h3>الذكاء الاصطناعي (Gemini) لتوليد أسئلة الاختبارات</h3></div>
-          <p class="hint" style="margin-bottom:10px">أدخل مفتاح Gemini API الخاص بك ليقوم التصحيح الآلي بتوليد أسئلة جديدة تلقائياً: حسب محتوى الدرس المختار في الاختبارات الفصلية، أو حسب مجالات نافس الأربعة في اختبارات نافس، بدلاً من الاعتماد على نموذج ثابت من 10 أسئلة محفوظة.</p>
+          <p class="hint" style="margin-bottom:10px">أدخل مفتاح Gemini API الخاص بك ليقوم التصحيح الآلي بتوليد أسئلة جديدة تلقائياً: حسب محتوى الدرس المختار في الاختبارات الفصلية، أو حسب مجالات نافس في اختبارات نافس، بدلاً من الاعتماد على نموذج ثابت.</p>
           <div class="form">
             <input type="password" id="geminiApiKeyInput" placeholder="مفتاح Gemini API" autocomplete="off">
             <input type="text" id="geminiModelInput" placeholder="اسم النموذج (اختياري، افتراضي: gemini-2.5-flash)">
@@ -827,7 +832,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
           </div>
           <p class="hint" style="margin-top:8px">يمكنك الحصول على مفتاح من <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a>. يُحفظ المفتاح داخل متصفح هذا الجهاز فقط، ولا يصل إلى أي جهة سوى Google عند توليد الأسئلة.</p>
         </div>
- 
+
         <div class="panel noprint">
           <div class="panel-h"><h3>الرقم السري</h3></div>
           <div class="form">
@@ -837,7 +842,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
             <button class="btn danger block" onclick="lockNow()">قفل اللوحة الآن</button>
           </div>
         </div>
- 
+
         <div class="panel noprint">
           <div class="panel-h"><h3>التطبيق والدعم</h3></div>
           <div class="form">
@@ -845,7 +850,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
             <a class="btn wa block" href="https://wa.me/966581015002" target="_blank">تواصل مع الدعم الفني</a>
           </div>
         </div>
- 
+
         <div class="footer-note noprint">
           ﴿ هذا الجهد استغرق وقتاً وعناية، ولا أحلّ نقله تجارياً أو نسخه دون إذن ﴾<br>
           للتواصل عبر واتساب: <a href="https://wa.me/966581015002" target="_blank">0581015002</a><br>
@@ -854,7 +859,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
       </div>
     </section>
   </main>
- 
+
   <nav class="tabbar noprint" aria-label="التنقل">
     <div class="tabbar-in">
       <button class="tab active" data-view="home" onclick="showView('home')">
@@ -872,7 +877,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
     </div>
   </nav>
 </div>
- 
+
 <div id="installHelp" class="modal" hidden onclick="if(event.target===this)this.hidden=true">
   <div class="modal-c">
     <h3 style="font-size:17px;margin-bottom:8px">تثبيت اللوحة كتطبيق</h3>
@@ -892,15 +897,15 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
     <button class="btn ghost block" style="margin-top:8px" onclick="$('motivModal').hidden=true">إغلاق</button>
   </div>
 </div>
-  <div id="masteryModal" class="modal" hidden onclick="if(event.target===this)this.hidden=true">
+<div id="masteryModal" class="modal" hidden onclick="if(event.target===this)this.hidden=true">
   <div class="modal-c" style="max-height:80vh;overflow-y:auto">
     <h3 style="font-size:17px;margin-bottom:8px">إتقان الدروس: <span id="mqName"></span></h3>
     <div id="mqList"></div>
     <button class="btn ghost block" style="margin-top:8px" onclick="$('masteryModal').hidden=true">إغلاق</button>
   </div>
 </div>
-  <div id="toast" class="toast" role="status"></div>
- 
+<div id="toast" class="toast" role="status"></div>
+
 <script>
 window.addEventListener('error', function(e){
   var d=document.getElementById('errBox');
@@ -920,9 +925,12 @@ window.addEventListener('error', function(e){
 </script>
 <script>
 const $ = id => document.getElementById(id);
-const esc = s => ...;
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+function load(key, fallback){ try{ const v = JSON.parse(localStorage.getItem(key)); return v == null ? fallback : v; }catch(e){ return fallback; } }
+
+/* ================= الملف الشخصي (المادة + جنس المعلم + جنس الطلاب) ================= */
 const PROFILE_KEY = 'mansour_profile_v1';
 let profile = Object.assign({
   teacherName: 'منصور عامر الرحيلي',
@@ -931,6 +939,7 @@ let profile = Object.assign({
   studentGender: 'm',   // الافتراضي للطلاب: m = بنين ، f = بنات
   subject: 'science'    // science | math | arabic
 }, load(PROFILE_KEY, {}));
+if(!['science','math','arabic'].includes(profile.subject)) profile.subject = 'science';
 
 const SUBJ_NAMES = {science:'العلوم', math:'الرياضيات', arabic:'لغتي الجميلة'};
 const subjName = () => SUBJ_NAMES[profile.subject] || 'العلوم';
@@ -940,14 +949,15 @@ const WORDS = {
   f:{student:'الطالبة', son:'ابنتكم', sonN:'الابنة', t:'ت', h:'ها', hero:'يا بطلة', excellent:'متميزة'}
 };
 const gw = s => WORDS[(s && s.gender) || profile.studentGender] || WORDS.m;
-function fx(text, s){            // يستبدل {student} {son} {t} {h} {subj} ...
+function fx(text, s){
   const w = gw(s);
-  let r = String(text).replace(/\{(\w+)\}/g, (_, k) => k === 'subj' ? subjName() : (w[k] ?? ''));
-  if (w === WORDS.f) r = r.replace(/ابنكم/g,'ابنتكم').replace(/يا بطل(?!ة)/g,'يا بطلة'); // للرسائل القديمة المحفوظة
+  let r = String(text).replace(/\{(\w+)\}/g, (_, k) => k === 'subj' ? subjName() : (w[k] != null ? w[k] : ''));
+  if(w === WORDS.f) r = r.replace(/ابنكم/g,'ابنتكم').replace(/يا بطل(?!ة)/g,'يا بطلة');
   return r;
 }
 const teacherWord = () => profile.teacherGender === 'f' ? 'المعلمة' : 'المعلم';
 const teacherLine = () => `${teacherWord()}: ${profile.teacherName} - ${profile.school}`;
+
 /* ================= خلفية النجوم ================= */
 (function stars(){
   const cv = $('stars'), ctx = cv.getContext('2d');
@@ -965,11 +975,11 @@ const teacherLine = () => `${teacherWord()}: ${profile.teacherName} - ${profile.
   draw();
   let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(draw, 250); });
 })();
- 
+
 /* ================= الرقم السري ================= */
 const PW_KEY='mansour_pw_hash_v1', PW_SALT='mansour_pw_salt_v1', REMEMBER_KEY='mansour_remember_v1', SESSION_KEY='mansour_session_v1';
 let lockMode = 'login', failCount = 0, lockedUntil = 0, appBooted = false;
- 
+
 function cyrb53(str, seed=0){
   let h1=0xdeadbeef^seed, h2=0x41c6ce57^seed;
   for(let i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677);}
@@ -988,7 +998,7 @@ async function hashPw(pw, salt){
   return 'w' + cyrb53(data) + cyrb53(data, 7);
 }
 function newSalt(){ return Math.random().toString(36).slice(2) + Date.now().toString(36); }
- 
+
 function initLock(){
   const hash = localStorage.getItem(PW_KEY);
   if(!hash){ setLockMode('setup'); return; }
@@ -1003,12 +1013,12 @@ function setLockMode(mode){
   $('lockMsg').textContent = ''; $('lockMsg').className = 'lock-msg';
   $('pw1').placeholder = mode === 'setup' ? 'أنشئ رقماً سرياً (4 خانات على الأقل)' : 'الرقم السري';
   $('lockBtn').textContent = mode === 'setup' ? 'إنشاء الرقم السري والدخول' : 'دخول';
-  $('lockSub').textContent = mode === 'setup' ? 'أول مرة؟ اختر الرقم السري الذي يحمي لوحتك' : 'مدرسة داوود بن عروة الثقفي';
+  $('lockSub').textContent = mode === 'setup' ? 'أول مرة؟ اختر الرقم السري الذي يحمي لوحتك' : profile.school;
   setTimeout(() => $('pw1').focus(), 50);
 }
 function lockMsg(t, ok){ $('lockMsg').textContent = t; $('lockMsg').className = 'lock-msg' + (ok ? ' ok' : ''); }
 function shakeLock(){ $('lock').classList.remove('shake'); void $('lock').offsetWidth; $('lock').classList.add('shake'); }
- 
+
 async function submitLock(){
   const p1 = $('pw1').value;
   if(lockMode === 'setup'){
@@ -1059,7 +1069,7 @@ async function changePassword(){
   $('curPw').value = ''; $('newPw').value = '';
   showToast('تم تغيير الرقم السري');
 }
- 
+
 /* ================= الصفوف = الكواكب ================= */
 const GRADES = [
   {key:"الأول الابتدائي",  short:"الأول",  planet:"عطارد",  color:"#b9b4ad", r:38,  size:5,   dur:70,  start:200},
@@ -1073,14 +1083,14 @@ const NONE = '__NONE__';
 let currentGrade = localStorage.getItem('mansour_current_grade_science_v5') || GRADES[0].key;
 if(!GRADES.some(g => g.key === currentGrade)) currentGrade = GRADES[0].key;
 const gradeInfo = () => GRADES.find(g => g.key === currentGrade);
- 
+
 function hexRgb(h){ const n = parseInt(h.slice(1),16); return [(n>>16)&255,(n>>8)&255,n&255].join(','); }
 function applyGradeTheme(){
   const g = gradeInfo(), root = document.documentElement.style;
   root.setProperty('--accent', g.color); root.setProperty('--accent-rgb', hexRgb(g.color));
   $('gradeTitle').textContent = 'الصف ' + g.short;
   $('planetName').textContent = 'مدار ' + g.planet;
-  $('curriculumTitle').textContent = 'مقرر العلوم – ' + currentGrade;
+  $('curriculumTitle').textContent = 'مقرر ' + subjName() + ' – ' + currentGrade;
   document.querySelector('meta[name=theme-color]').setAttribute('content', '#05060f');
   document.querySelectorAll('#gradeChips .chip').forEach((c,i) => c.classList.toggle('active', GRADES[i].key === currentGrade));
   document.querySelectorAll('#orbit .orbit-line').forEach((c,i) => {
@@ -1089,7 +1099,7 @@ function applyGradeTheme(){
   });
   document.querySelectorAll('#orbit .active-ring').forEach((c,i) => c.setAttribute('opacity', GRADES[i].key === currentGrade ? '1' : '0'));
 }
- 
+
 function buildOrbit(){
   let svg = `<defs>
     <radialGradient id="sunG" cx="40%" cy="38%"><stop offset="0" stop-color="#fff5cc"/><stop offset=".45" stop-color="#ffb547"/><stop offset="1" stop-color="#e2711d"/></radialGradient>
@@ -1122,7 +1132,7 @@ function buildOrbit(){
   });
   $('gradeChips').innerHTML = GRADES.map((g,i) => `<button class="chip" onclick="changeGradeLevel('${g.key}')"><i style="background:${g.color}"></i>${g.short}</button>`).join('');
 }
- 
+
 /* ================= الجدول والمؤقت ================= */
 const DAYS = ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس"];
 const predefinedClasses = ["لا توجد حصة","انتظار","نشاط / مراجعة"];
@@ -1138,7 +1148,6 @@ const fixedDayTemplate = [
 ];
 const SCHED_KEY = 'mansour_school_schedule_v12';
 let schoolSchedule;
-function load(key, fallback){ try{ const v = JSON.parse(localStorage.getItem(key)); return v == null ? fallback : v; }catch(e){ return fallback; } }
 function loadSchedule(){
   const def = {}; DAYS.forEach(d => def[d] = JSON.parse(JSON.stringify(fixedDayTemplate)));
   schoolSchedule = load(SCHED_KEY, def);
@@ -1208,8 +1217,8 @@ function updateClock(){
   }
   setClock('انتهى الدوام','أحسنت اليوم','','—',0);
 }
- 
-/* ================= البيانات ================= */
+
+/* ================= المناهج ================= */
 const gradeScienceData = {
   "الأول الابتدائي":[
     {chapter:"الوحدة 1: النباتات من حولنا",title:"أجزاء النباتات",desc:"دراسة الجذور، الساق، الأوراق، والزهور ودور كل منها في حياة النبات."},
@@ -1259,7 +1268,9 @@ const gradeScienceData = {
     {chapter:"الوحدة 5: القوى والطاقة",title:"استعمال القوى والحركة وتسارعها",desc:"قوانين الحركة وقوى التسارع والاستعمالات التطبيقية."},
     {chapter:"الوحدة 6: الكهرباء والمغناطيسية",title:"الدوائر الكهربائية والتيار والمغناطيس",desc:"الدوائر الكهربائية، التيار، المغناطيس والمولدات الكهربائية."}]
 };
-  const U = (ch, arr) => arr.map(t => ({chapter:ch, title:t, desc:'أهداف الدرس: ' + t}));
+
+/* عناوين عامة للرياضيات واللغة العربية — عدّلها حسب كتب الوزارة أو أضف الباقي من تبويب "الدروس" */
+const U = (ch, arr) => arr.map(t => ({chapter:ch, title:t, desc:'أهداف الدرس: ' + t}));
 
 const gradeMathData = {
   "الأول الابتدائي":  [...U('الوحدة 1: الأعداد حتى 20',['العد والكتابة','المقارنة والترتيب','الجمع والطرح']), ...U('الوحدة 2: الأشكال والقياس',['الأشكال الهندسية','الطول','الزمن'])],
@@ -1280,13 +1291,16 @@ const gradeArabicData = {
 };
 
 const CURRICULUM = {science: gradeScienceData, math: gradeMathData, arabic: gradeArabicData};
+
+/* رسائل التشجيع: تتغير صيغتها حسب جنس الطالب/الطالبة */
 const defaultMotivations = () => [
- {id:"1",title:"1. تميز ومشاركة",text:"🌟 تميز ومشاركة فعالة 🌟\nعزيزي ولي الأمر، نفخر اليوم بتميز {son} وتألق{h} في حصة {subj} ومشاركت{h} بحماس. بوركت جهودكم!"},
- {id:"2",title:"2. أداء متقن",text:"🔬 أداء متقن 🔬\nعزيزي ولي الأمر، أظهر{t} {student} اليوم مهارة عالية في حل الأسئلة وفهم الدرس. أحسنت صنعاً!"},
- {id:"3",title:"3. واجبات منظمة",text:"📝 تنظيم رائع للواجبات 📝\nنشكر لكم متابعتكم. لقد كان واجب {son} اليوم منظماً ودقيقاً."},
- {id:"4",title:"4. حرص واجتهاد",text:"⭐ اجتهاد وحرص ⭐\nعزيزي ولي الأمر، إن حرص {son} المستمر على التعلم في مادة {subj} محل تقديرنا."},
- {id:"5",title:"5. مشروع متميز",text:"🛠️ نشاط متميز\nقدم{t} {student} اليوم نشاطاً منظماً ينم عن تفكير إبداعي. دمتم {excellent}ين!"}
+  {id:"1",title:"1. تميز ومشاركة",text:"🌟 تميز ومشاركة فعالة 🌟\nعزيزي ولي الأمر، نفخر اليوم بتميز {son} وتألق{h} في حصة {subj} ومشاركت{h} بحماس. بوركت جهودكم!"},
+  {id:"2",title:"2. أداء متقن",text:"🔬 أداء متقن 🔬\nعزيزي ولي الأمر، أظهر{t} {student} اليوم مهارة عالية في حل الأسئلة وفهم الدرس. أحسنت صنعاً!"},
+  {id:"3",title:"3. واجبات منظمة",text:"📝 تنظيم رائع للواجبات 📝\nنشكر لكم متابعتكم. لقد كان واجب {son} اليوم منظماً ودقيقاً."},
+  {id:"4",title:"4. حرص واجتهاد",text:"⭐ اجتهاد وحرص ⭐\nعزيزي ولي الأمر، إن حرص {son} المستمر على التعلم في مادة {subj} محل تقديرنا."},
+  {id:"5",title:"5. نشاط متميز",text:"🛠️ نشاط متميز\nقدم{t} {student} اليوم نشاطاً منظماً ينم عن تفكير إبداعي. بارك الله في{h}!"}
 ];
+
 const K = {
   lessons:  () => `mansour_custom_lessons_${profile.subject}_${currentGrade}_v5`,
   students: () => `mansour_students_${profile.subject}_${currentGrade}_v5`,
@@ -1296,8 +1310,9 @@ const K = {
 };
 let lessons = [], students = [], lessonStatus = {}, lessonMastery = {}, customMotivations = [];
 let activeQueryClass = NONE, selectedStudentIndex = '', currentPage = 1, classList = [];
+let qmIndex = '', mqIndex = '', qkClass = '';
 const ROWS = 12;
- 
+
 function loadGradeData(){
   lessons = load(K.lessons(), null) || JSON.parse(JSON.stringify(CURRICULUM[profile.subject][currentGrade]));
   students = load(K.students(), []);
@@ -1310,7 +1325,7 @@ const saveLessons  = () => localStorage.setItem(K.lessons(), JSON.stringify(less
 const saveStatus   = () => localStorage.setItem(K.status(), JSON.stringify(lessonStatus));
 const saveMastery  = () => localStorage.setItem(K.mastery(), JSON.stringify(lessonMastery));
 const clsOf = s => s.classCustom || currentGrade;
- 
+
 let toastT;
 function showToast(msg){
   const t = $('toast'); t.textContent = msg; t.style.display = 'block';
@@ -1320,7 +1335,7 @@ function waLink(phone, msg){
   const p = String(phone || '').replace(/\D/g,'').replace(/^0+/,'');
   return `https://wa.me/${p ? '966' + p : ''}?text=${encodeURIComponent(msg)}`;
 }
- 
+
 /* ================= التنقل ================= */
 function showView(name){
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + name));
@@ -1338,7 +1353,7 @@ function changeGradeLevel(grade){
   applyGradeTheme(); renderLessons(); render(); syncGrading();
   showToast(`الصف ${gradeInfo().short} – مدار ${gradeInfo().planet}`);
 }
- 
+
 /* ================= الدروس ================= */
 function renderLessons(){
   const opt = (v,t) => `<option value="${v}">${esc(t)}</option>`;
@@ -1348,7 +1363,7 @@ function renderLessons(){
   $('bulkLesson').innerHTML = opt('', 'اختر درس الواجب') + lessons.map((l,i) => opt('lesson-' + i, `[${l.chapter}] ${l.title}`)).join('');
   $('selectMotivation').innerHTML = opt('', 'اختر الرسالة') + customMotivations.map((m,i) => opt('motiv-' + i, m.title)).join('');
   $('lessonDetail').hidden = true;
- 
+
   let html = '', lastCh = null, done = 0;
   lessons.forEach((l,i) => {
     const ex = !!lessonStatus[i]; if(ex) done++;
@@ -1397,7 +1412,7 @@ function deleteLesson(idx){
   const nm = {}; Object.keys(lessonMastery).forEach(s => nm[s] = remap(lessonMastery[s] || {})); lessonMastery = nm;
   saveLessons(); saveStatus(); saveMastery(); renderLessons(); render(); showToast('تم حذف الدرس');
 }
- 
+
 /* ================= الإحصائيات ================= */
 function render(){
   let ach = 0;
@@ -1411,18 +1426,23 @@ function render(){
   $('totalAbsence').textContent = sum('absence');
   $('totalProjects').textContent = sum('projects');
   $('totalMessagesSent').textContent = sum('messages');
-renderStudents(); renderClasses(); renderMasteryTable(); renderExamsTable(); renderAttention(); renderSilent(); renderFair(); renderQuick();
+  renderStudents(); renderClasses(); renderMasteryTable(); renderExamsTable(); renderAttention(); renderSilent(); renderFair(); renderQuick();
   if(selectedStudentIndex !== '' && students[selectedStudentIndex]) fillStudentCard(selectedStudentIndex);
 }
- 
+
 /* ================= الطلاب ================= */
 function addStudent(){
   const name = $('studentName').value.trim(), sClass = $('studentClassCustom').value.trim() || currentGrade, phone = $('studentPhone').value.trim();
   if(!name){ alert('أدخل اسم الطالب'); return; }
   if(phone && !/^\d{10}$/.test(phone)){ alert('رقم الجوال يجب أن يكون 10 أرقام'); return; }
-  students.push({name, classCustom:sClass, phone, absence:0, participation:0, homework:0, projects:0, messages:0, exam1:0, exam2:0});
+  students.push({name, classCustom:sClass, phone, gender: $('studentGender').value || profile.studentGender, absence:0, participation:0, homework:0, projects:0, messages:0, exam1:0, exam2:0});
   saveStudents(); $('studentName').value = ''; $('studentPhone').value = '';
   render(); showToast('تمت إضافة الطالب');
+}
+function toggleGender(i){
+  const cur = students[i].gender || profile.studentGender;
+  students[i].gender = cur === 'f' ? 'm' : 'f';
+  saveStudents(); render();
 }
 function renderStudents(){
   const box = $('studentsList'), q = $('filterStudentNameInput').value.trim().toLowerCase();
@@ -1432,24 +1452,24 @@ function renderStudents(){
     box.innerHTML = '<div class="empty" style="grid-column:1/-1">اختر فصلاً من الأعلى أو ابحث بالاسم لعرض الطلاب.</div>';
     $('pageInfo').textContent = '0'; return;
   } else list = students.filter(s => clsOf(s) === activeQueryClass);
- 
+
   const pages = Math.ceil(list.length / ROWS) || 1;
   if(currentPage > pages) currentPage = pages;
   const from = (currentPage-1)*ROWS, part = list.slice(from, from+ROWS);
   if(!part.length){ box.innerHTML = '<div class="empty" style="grid-column:1/-1">لا يوجد طلاب مطابقون.</div>'; $('pageInfo').textContent = '0'; return; }
- 
+
   const stepper = (cls, label, gi, f, v) => `<div class="metric ${cls}"><div class="m-l">${label}</div><div class="stepper">
     <button aria-label="إنقاص" onclick="stepField(${gi},'${f}',-1)">−</button><b>${v||0}</b><button aria-label="زيادة" onclick="stepField(${gi},'${f}',1)">+</button></div></div>`;
   box.innerHTML = part.map(s => {
-    const gi = students.indexOf(s);
+    const gi = students.indexOf(s), isF = (s.gender || profile.studentGender) === 'f';
     return `<div class="s-card">
       <div class="s-head"><div><strong>${esc(s.name)}</strong> <span class="tag">${esc(clsOf(s))}</span></div>
-        <div class="acts noprint"><button class="btn sm ghost" onclick="quickTransfer(${gi})">نقل</button><button class="btn sm danger" onclick="deleteStudent(${gi})">حذف</button></div></div>
+        <div class="acts noprint"><button class="btn sm ghost" onclick="toggleGender(${gi})">${isF ? '♀ طالبة' : '♂ طالب'}</button><button class="btn sm ghost" onclick="quickTransfer(${gi})">نقل</button><button class="btn sm danger" onclick="deleteStudent(${gi})">حذف</button></div></div>
       <div class="metrics">
         ${stepper('m-abs','الغياب',gi,'absence',s.absence)}
         ${stepper('m-par','المشاركة',gi,'participation',s.participation)}
         ${stepper('m-hw','الواجبات',gi,'homework',s.homework)}
-        ${stepper('m-pr','الانشطة',gi,'projects',s.projects)}
+        ${stepper('m-pr','الأنشطة',gi,'projects',s.projects)}
       </div>
       <button class="btn sm warn noprint" style="width:100%;margin-top:8px" onclick="openMotiv(${gi})">🌟 رسالة تشجيع</button>
       <button class="btn sm good noprint" style="width:100%;margin-top:8px" onclick="openMastery(${gi})">📘 إتقان الدروس</button>
@@ -1513,7 +1533,7 @@ function quickTransfer(i){
   const t = prompt(`اكتب اسم الفصل الجديد للطالب (المتاح: ${classList.join('، ')}):`, clsOf(s));
   if(t && t.trim()){ s.classCustom = t.trim(); saveStudents(); render(); showToast(`تم نقل ${s.name} إلى ${s.classCustom}`); }
 }
- 
+
 /* ================= الإتقان ================= */
 function renderMasteryDropdown(){
   const sel = $('masteryLessonSelect'), v = sel.value;
@@ -1539,7 +1559,7 @@ function toggleMastery(si, li){
   lessonMastery[si][li] = !lessonMastery[si][li];
   saveMastery(); render(); showToast('تم تحديث حالة الإتقان');
 }
- 
+
 /* ================= الاختبارات ================= */
 function avgExams(list){
   let a = 0, b = 0; list.forEach(s => { a += Number(s.exam1) || 0; b += Number(s.exam2) || 0; });
@@ -1553,7 +1573,7 @@ function renderExamsTable(){
   box.hidden = false;
   tb.innerHTML = list.map(s => {
     const gi = students.indexOf(s);
-    const msg = `عزيزي ولي أمر الطالب ${s.name}، نود إفادتكم بدرجات اختبارات مادة العلوم:\n- اختبار الفترة الأولى: ${s.exam1||0}/20\n- اختبار الفترة الثانية: ${s.exam2||0}/20\nمع تمنياتنا له بدوام التوفيق والنجاح.`;
+    const msg = `عزيزي ولي أمر ${gw(s).student} ${s.name}، نود إفادتكم بدرجات اختبارات مادة ${subjName()}:\n- اختبار الفترة الأولى: ${s.exam1||0}/20\n- اختبار الفترة الثانية: ${s.exam2||0}/20\nمع تمنياتنا بدوام التوفيق والنجاح.`;
     return `<tr><td><strong>${esc(s.name)}</strong></td>
       <td><input class="score" type="text" inputmode="numeric" value="${s.exam1||0}" oninput="updateExam(${gi},'exam1',this)"></td>
       <td><input class="score" type="text" inputmode="numeric" value="${s.exam2||0}" oninput="updateExam(${gi},'exam2',this)"></td>
@@ -1566,7 +1586,7 @@ function updateExam(i, f, el){
   students[i][f] = v; saveStudents();
   const cls = $('examClassSelect').value; if(cls) avgExams(students.filter(s => clsOf(s) === cls));
 }
- 
+
 /* ================= ملف الطالب والرسائل ================= */
 function filterStudentDropdown(){
   const k = $('studentSearchInput').value.trim().toLowerCase(), box = $('studentDropdown');
@@ -1600,8 +1620,8 @@ function updateLessonMsg(){
   if(selectedStudentIndex === '') return;
   const s = students[selectedStudentIndex], li = $('selectLesson').value, pv = $('lessonMsgPreview'), btn = $('waLessonBtn');
   if(li === ''){ pv.textContent = 'اختر الدرس لتظهر الرسالة.'; btn.href = '#'; return; }
-  const l = lessons[li];
-  const msg = `عزيزي ولي أمر الطالب / ${s.name}\nنحيطكم علماً بأننا تناولنا اليوم في مادة العلوم درس:\n📘 (${l.chapter}) - ${l.title}\n💡 المفاهيم والتجارب المرتبطة: ${l.desc}\nنرجو منكم متابعة ابنكم وتعزيز استكشافاته العلمية.\nمع تقديرنا، المعلم: ${TEACHER_NAME} - ${SCHOOL_NAME}`;
+  const l = lessons[li], w = gw(s);
+  const msg = `عزيزي ولي أمر ${w.student} / ${s.name}\nنحيطكم علماً بأننا تناولنا اليوم في مادة ${subjName()} درس:\n📘 (${l.chapter}) - ${l.title}\n💡 ${l.desc}\nنرجو منكم متابعة ${w.son} وتعزيز تعلمه.\nمع تقديرنا، ${teacherLine()}`;
   pv.textContent = msg; btn.href = waLink(s.phone, msg);
 }
 function updateMotivationMsg(){
@@ -1609,7 +1629,7 @@ function updateMotivationMsg(){
   const s = students[selectedStudentIndex], v = $('selectMotivation').value, pv = $('motivationMsgPreview'), btn = $('waMotivBtn');
   if(v === ''){ pv.textContent = 'اختر الرسالة لعرض نصها.'; btn.href = '#'; return; }
   const text = customMotivations[v.split('-')[1]].text;
-  const msg = `إلى ولي أمر الطالب / ${s.name}\n\n${text}\n\nمع خالص الشكر، المعلم: ${TEACHER_NAME} - ${SCHOOL_NAME}`;
+  const msg = `إلى ولي أمر ${gw(s).student} / ${s.name}\n\n${fx(text, s)}\n\nمع خالص الشكر، ${teacherLine()}`;
   pv.textContent = msg; btn.href = waLink(s.phone, msg);
 }
 function sendVia(a){
@@ -1618,8 +1638,8 @@ function sendVia(a){
 }
 function sendFullReport(){
   if(selectedStudentIndex === '') return;
-  const s = students[selectedStudentIndex];
-  const msg = `عزيزي ولي أمر الطالب / ${s.name} (${clsOf(s)})\nنحيطكم علماً بمستوى ابنكم وتقييمه في مادة العلوم حتى تاريخه:\n\n- المشاركات: ${s.participation||0}\n- الواجبات: ${s.homework||0}\n- أيام الغياب: ${s.absence||0}\n- الدروس المتقنة: ${masteredCount(selectedStudentIndex)} من ${lessons.length}\n- التجارب: ${s.projects||0}\n- اختبار الفترة الأولى: ${s.exam1||0}/20\n- اختبار الفترة الثانية: ${s.exam2||0}/20\n\nنشكر تعاونكم المستمر.\nمع تقديرنا، المعلم: ${TEACHER_NAME} - ${SCHOOL_NAME}`;
+  const s = students[selectedStudentIndex], w = gw(s);
+  const msg = `عزيزي ولي أمر ${w.student} / ${s.name} (${clsOf(s)})\nنحيطكم علماً بمستوى ${w.son} في مادة ${subjName()} حتى تاريخه:\n\n- المشاركات: ${s.participation||0}\n- الواجبات: ${s.homework||0}\n- أيام الغياب: ${s.absence||0}\n- الدروس المتقنة: ${masteredCount(selectedStudentIndex)} من ${lessons.length}\n- الأنشطة: ${s.projects||0}\n- اختبار الفترة الأولى: ${s.exam1||0}/20\n- اختبار الفترة الثانية: ${s.exam2||0}/20\n\nنشكر تعاونكم المستمر.\n${teacherLine()}`;
   bumpMessages(selectedStudentIndex);
   window.open(waLink(s.phone, msg), '_blank');
 }
@@ -1637,7 +1657,7 @@ function bumpMessages(i){
   $('totalMessagesSent').textContent = students.reduce((a,s) => a + (s.messages||0), 0);
   if(selectedStudentIndex === i) $('sdMessages').textContent = students[i].messages;
 }
- function openMotiv(gi){
+function openMotiv(gi){
   qmIndex = gi;
   $('qmName').textContent = students[gi].name;
   var h = '<option value="">اختر الرسالة</option>';
@@ -1645,23 +1665,23 @@ function bumpMessages(i){
     h += '<option value="' + i + '">' + esc(customMotivations[i].title) + '</option>';
   }
   $('qmSelect').innerHTML = h;
-   $('qmCustom').value = '';
+  $('qmCustom').value = '';
   updateQuickMotiv(); $('motivModal').hidden = false;
 }
 function updateQuickMotiv(){
   var s = students[qmIndex], v = $('qmSelect').value, c = $('qmCustom').value.trim();
   var pv = $('qmPreview'), btn = $('qmSend'), body = '';
-  if(c){ body = c; }
-  else if(v !== ''){ body = customMotivations[v].text; }
+  if(c){ body = fx(c, s); }
+  else if(v !== ''){ body = fx(customMotivations[v].text, s); }
   if(!body){ pv.textContent = 'اختر رسالة أو اكتب رسالتك.'; btn.href = '#'; return; }
-  var msg = 'إلى ولي أمر الطالب / ' + s.name + '\n\n' + body + '\n\nمع خالص الشكر، المعلم: ' + TEACHER_NAME + ' - ' + SCHOOL_NAME;
+  var msg = 'إلى ولي أمر ' + gw(s).student + ' / ' + s.name + '\n\n' + body + '\n\nمع خالص الشكر، ' + teacherLine();
   pv.textContent = msg; btn.href = waLink(s.phone, msg);
 }
 function sendQuickMotiv(a){
   if(a.getAttribute('href') === '#'){ alert('اختر الرسالة أولاً'); return false; }
   bumpMessages(qmIndex); return true;
 }
-  function renderAttention(){
+function renderAttention(){
   var box = $('attnList'); if(!box) return;
   var hwTotal = students.reduce(function(a, s){ return a + (Number(s.homework) || 0); }, 0);
   var rows = [];
@@ -1671,7 +1691,6 @@ function sendQuickMotiv(a){
     if(ab >= 3){ r.push('غياب ' + ab); sc += (ab >= 5 ? 3 : 2); }
     if((Number(s.participation) || 0) === 0){ r.push('بلا مشاركة'); sc += 1; }
     if(hwTotal > 0 && (Number(s.homework) || 0) === 0){ r.push('بلا واجبات'); sc += 1; }
-   
     if(s.exam2 > 0 && s.exam2 < 10){ r.push('درجة ' + s.exam2 + '/20'); sc += 3; }
     if(sc >= 2){
       if((Number(s.messages) || 0) === 0) r.push('لم تصله رسالة');
@@ -1693,13 +1712,12 @@ function sendQuickMotiv(a){
   });
   box.innerHTML = h;
 }
-  
-  function renderSilent(){
+function renderSilent(){
   var box = $('silentList');
   if(!box){ return; }
   var rows = [];
   for(var i = 0; i < students.length; i++){
-    var p = Number(students[i].participation);
+    var p = Number(students[i].participation) || 0;
     if(p <= 1){ rows.push(i); }
   }
   $('silentCount').textContent = rows.length + ' طالب';
@@ -1716,12 +1734,12 @@ function sendQuickMotiv(a){
     var gi = rows[k];
     var s = students[gi];
     h += '<div class="send-row"><span><strong>' + esc(s.name) + '</strong><br>';
-    h += '<span class="hint">مشاركات: ' + Number(s.participation) + '</span></span>';
+    h += '<span class="hint">مشاركات: ' + (Number(s.participation) || 0) + '</span></span>';
     h += '<button class="btn sm good" onclick="stepField(' + gi + ',\'participation\',1)">+ مشاركة</button></div>';
   }
   box.innerHTML = h;
 }
-  function renderFair(){
+function renderFair(){
   var box = $('fairList');
   if(!box){ return; }
   var rows = [];
@@ -1748,17 +1766,9 @@ function sendQuickMotiv(a){
   }
   box.innerHTML = h;
 }
-  var qkClass = '';
-function qkSet(v){
-  qkClass = v;
-  renderQuick();
-}
-function qkAbs(gi, d){
-  stepField(gi, 'absence', d);
-}
-function qkPar(gi){
-  stepField(gi, 'participation', 1);
-}
+function qkSet(v){ qkClass = v; renderQuick(); }
+function qkAbs(gi, d){ stepField(gi, 'absence', d); }
+function qkPar(gi){ stepField(gi, 'participation', 1); }
 function renderQuick(){
   var box = $('quickList');
   var sel = $('quickClass');
@@ -1791,7 +1801,6 @@ function renderQuick(){
   if(h === ''){ h = '<div class="empty">لا يوجد طلاب في هذا الفصل.</div>'; }
   box.innerHTML = h;
 }
- var mqIndex = '';
 function openMastery(gi){
   mqIndex = gi;
   $('mqName').textContent = students[gi].name;
@@ -1822,10 +1831,10 @@ function bulkBase(){
   const v = $('bulkLesson').value, d = $('bulkDetails').value.trim(), n = $('bulkNote').value.trim();
   if(!v) return null;
   const l = lessons[v.split('-')[1]];
-  let m = `أولياء الأمور الأفاضل، نود إحاطتكم بأن واجب مادة العلوم للدرس:\n📘 (${l.chapter}) - ${l.title}\n`;
+  let m = `أولياء الأمور الأفاضل، نود إحاطتكم بأن واجب مادة ${subjName()} للدرس:\n📘 (${l.chapter}) - ${l.title}\n`;
   m += d ? `📝 المطلوب حلّه: ${d}\n` : `📝 المطلوب: حل تدريبات وأسئلة الدرس في الكتاب المدرسي.\n`;
   if(n) m += `📌 ملاحظات: ${n}\n`;
-  return m + `\nنرجو الحرص على حل الواجب وإرساله في الموعد المحدد.\nمع خالص الشكر، المعلم: ${TEACHER_NAME} - ${SCHOOL_NAME}`;
+  return m + `\nنرجو الحرص على حل الواجب وإرساله في الموعد المحدد.\nمع خالص الشكر، ${teacherLine()}`;
 }
 function updateBulkPreview(){ $('bulkPreview').textContent = bulkBase() || 'اختر الدرس وأدخل تفاصيل الواجب لتظهر الرسالة هنا.'; }
 function prepareBulk(){
@@ -1837,12 +1846,12 @@ function prepareBulk(){
   $('bulkList').innerHTML = list.map(s => {
     const gi = students.indexOf(s);
     return `<div class="send-row"><span><strong>${esc(s.name)}</strong> <span class="tag">${esc(clsOf(s))}</span></span>
-      <a class="btn sm wa" target="_blank" href="${waLink(s.phone, 'عزيزي ولي أمر الطالب / ' + s.name + '\n\n' + base)}" onclick="markSent(${gi},this)">إرسال</a></div>`;
+      <a class="btn sm wa" target="_blank" href="${waLink(s.phone, 'عزيزي ولي أمر ' + gw(s).student + ' / ' + s.name + '\n\n' + base)}" onclick="markSent(${gi},this)">إرسال</a></div>`;
   }).join('');
   $('bulkPanel').hidden = false; showToast(`جاهزة روابط ${list.length} ولي أمر`);
 }
 function markSent(i, el){ bumpMessages(i); el.textContent = 'تم'; el.style.background = '#6b7280'; }
- 
+
 /* ================= الطباعة ================= */
 function printSection(id){
   if(id === 'paper' && !activeQuestions.length){ alert('ولّد ورقة الاختبار أولاً'); return; }
@@ -1850,14 +1859,14 @@ function printSection(id){
   $(id).classList.add('printing'); window.print();
 }
 window.addEventListener('afterprint', () => document.querySelectorAll('.printing').forEach(e => e.classList.remove('printing')));
- 
+
 /* ================= Excel / CSV ================= */
 function exportExcel(){
   if(!students.length){ alert('لا توجد بيانات لتصديرها'); return; }
-  const rows = students.map((s,i) => ({"م":i+1,"اسم الطالب":s.name,"الصف":clsOf(s),"رقم الجوال":s.phone||'',"الغياب":s.absence||0,"المشاركة":s.participation||0,"الواجبات":s.homework||0,"التجارب":s.projects||0,"الرسائل":s.messages||0,"اختبار الفترة الأولى":s.exam1||0,"اختبار الفترة الثانية":s.exam2||0}));
+  const rows = students.map((s,i) => ({"م":i+1,"اسم الطالب":s.name,"الصف":clsOf(s),"الجنس":(s.gender||profile.studentGender)==='f' ? 'أنثى' : 'ذكر',"رقم الجوال":s.phone||'',"الغياب":s.absence||0,"المشاركة":s.participation||0,"الواجبات":s.homework||0,"الأنشطة":s.projects||0,"الرسائل":s.messages||0,"اختبار الفترة الأولى":s.exam1||0,"اختبار الفترة الثانية":s.exam2||0}));
   const ws = XLSX.utils.json_to_sheet(rows); ws['!views'] = [{rightToLeft:true}];
-  const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "سجل طلاب العلوم");
-  XLSX.writeFile(wb, `سجل_العلوم_${currentGrade}.xlsx`); showToast('تم تصدير ملف Excel');
+  const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "سجل طلاب " + subjName());
+  XLSX.writeFile(wb, `سجل_${subjName()}_${currentGrade}.xlsx`); showToast('تم تصدير ملف Excel');
 }
 function downloadBlob(content, type, name){
   const url = URL.createObjectURL(new Blob([content], {type})), a = document.createElement('a');
@@ -1865,8 +1874,8 @@ function downloadBlob(content, type, name){
 }
 function exportCSV(){
   if(!students.length){ alert('لا توجد بيانات لتصديرها'); return; }
-  let csv = "\uFEFFاسم الطالب,الصف,رقم الجوال,الغياب,المشاركة,الواجبات,التجارب,اختبار 1,اختبار 2\n";
-  students.forEach(s => { csv += `"${String(s.name).replace(/"/g,'""')}","${String(clsOf(s)).replace(/"/g,'""')}","${s.phone||''}",${s.absence||0},${s.participation||0},${s.homework||0},${s.projects||0},${s.exam1||0},${s.exam2||0}\n`; });
+  let csv = "\uFEFFاسم الطالب,الصف,الجنس,رقم الجوال,الغياب,المشاركة,الواجبات,الأنشطة,اختبار 1,اختبار 2\n";
+  students.forEach(s => { csv += `"${String(s.name).replace(/"/g,'""')}","${String(clsOf(s)).replace(/"/g,'""')}","${(s.gender||profile.studentGender)==='f' ? 'أنثى' : 'ذكر'}","${s.phone||''}",${s.absence||0},${s.participation||0},${s.homework||0},${s.projects||0},${s.exam1||0},${s.exam2||0}\n`; });
   downloadBlob(csv, 'text/csv;charset=utf-8;', `GoogleSheets_${currentGrade}.csv`); showToast('تم التصدير');
 }
 function importExcel(ev){
@@ -1881,11 +1890,13 @@ function importExcel(ev){
       rows.forEach(w => {
         const name = w["اسم الطالب"] || w["اسم الطالبة"] || w["الاسم"] || '';
         if(!String(name).trim()) return;
+        const gRaw = String(w["الجنس"] || '');
         students.push({
           name:String(name).trim(), classCustom:String(w["الصف"] || w["الصف/الشعبة"] || w["Class"] || currentGrade).trim(),
           phone:String(w["رقم الجوال"] || w["الجوال"] || w["Phone"] || '').trim(),
+          gender: gRaw ? (/أنث|f/i.test(gRaw) ? 'f' : 'm') : profile.studentGender,
           absence:Number(w["الغياب"]||0), participation:Number(w["المشاركة"]||w["المشاركات"]||0), homework:Number(w["الواجبات"]||0),
-          projects:Number(w["االانشطة"]||0), messages:Number(w["الرسائل"]||0),
+          projects:Number(w["الأنشطة"]||w["االانشطة"]||w["التجارب"]||0), messages:Number(w["الرسائل"]||0),
           exam1:Number(w["اختبار الفترة الأولى"]||0), exam2:Number(w["اختبار الفترة الثانية"]||0)
         }); n++;
       });
@@ -1895,7 +1906,7 @@ function importExcel(ev){
   };
   r.readAsArrayBuffer(f);
 }
- 
+
 /* ================= النسخ الاحتياطي الكامل ================= */
 const SECRET_KEYS = [PW_KEY, PW_SALT, REMEMBER_KEY];
 function backupAll(){
@@ -1904,7 +1915,7 @@ function backupAll(){
     const k = localStorage.key(i);
     if(k.startsWith('mansour_') && !SECRET_KEYS.includes(k)) data[k] = localStorage.getItem(k);
   }
-  downloadBlob(JSON.stringify({__mansour_backup:2, created:new Date().toISOString(), data}), 'application/json', `نسخة_احتياطية_العلوم_${new Date().toISOString().slice(0,10)}.json`);
+  downloadBlob(JSON.stringify({__mansour_backup:2, created:new Date().toISOString(), data}), 'application/json', `نسخة_احتياطية_${new Date().toISOString().slice(0,10)}.json`);
   localStorage.setItem('mansour_last_backup_date', Date.now().toString());
   $('backupBanner').hidden = true; showToast('تم حفظ النسخة الاحتياطية');
 }
@@ -1938,7 +1949,7 @@ function checkBackupReminder(){
   const hasData = Object.keys(localStorage).some(k => k.startsWith('mansour_students_'));
   if(hasData && (!last || Date.now() - last > 7*86400000)) $('backupBanner').hidden = false;
 }
- 
+
 /* ================= PWA ================= */
 const isStandalone = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
 let deferredPrompt = null;
@@ -1953,12 +1964,12 @@ async function installPWA(){
   $('installHelp').hidden = false;
 }
 window.addEventListener('appinstalled', () => { deferredPrompt = null; $('installTop').hidden = true; $('pwaInstallBtn').hidden = true; });
- 
+
 /* ================= التصحيح الآلي ================= */
- 
+
 const subjectNames = {science:"مادة العلوم",math:"مادة الرياضيات",arabic:"مادة لغتي الجميلة",english:"مادة اللغة الإنجليزية",islamic:"الدراسات الإسلامية"};
- 
-/* نموذج احتياطي (يُستخدم فقط عند عدم توفر مفتاح Gemini أو تعذّر الاتصال) */
+
+/* نموذج احتياطي للعلوم (يُستخدم فقط عند عدم توفر مفتاح Gemini أو تعذّر الاتصال) */
 const nafisQuestions = [
   {domain:"علوم الحياة",q:"ما العملية التي تتخلص بها الخلايا من الفضلات الناتجة عن العمليات الحيوية؟",options:["الإخراج الخلوي","التخمر","الانقسام المتساوي","البناء الضوئي"],correctLetter:"أ"},
   {domain:"الاستقصاء العلمي",q:"ما الأداة المخبرية المناسبة بدقة لقياس حجم سائل معين (كالحليب أو الماء)؟",options:["ميزان الحرارة","مسطرة القياس","المخبار المدرج","الميزان ذو الكفتين"],correctLetter:"ج"},
@@ -1972,10 +1983,21 @@ const nafisQuestions = [
   {domain:"العلوم الفيزيائية",q:"ماذا تسمى المنطقة المحيطة بالمغناطيس ويظهر فيها قوة تأثيره على المغناطيسات الأخرى؟",options:["المجال المغناطيسي","الكهرومغناطيسية","القوة المغناطيسية","خطوط القوة الوهمية"],correctLetter:"أ"}
 ];
 const LETTERS = ['أ','ب','ج','د'];
- 
+
+/* مجالات نافس لكل مادة */
+const NAFIS_DOMAINS = {
+  science:['علوم الحياة','العلوم الفيزيائية','علوم الأرض والفضاء','الاستقصاء العلمي'],
+  math:['الأعداد والعمليات','الجبر والأنماط','الهندسة والقياس','تحليل البيانات'],
+  arabic:['الفهم القرائي','الظواهر اللغوية','الأساليب والتراكيب','الكتابة والتعبير']
+};
+function renderNafisDomains(){
+  $('nafisChecks').innerHTML = (NAFIS_DOMAINS[profile.subject] || NAFIS_DOMAINS.science).map(d =>
+    `<label class="check"><input type="checkbox" class="nafis-cb" value="${esc(d)}" checked>${esc(d)}</label>`).join('');
+}
+
 let currentStudentIndex = 0, currentQuestionStep = 0, studentsList = [], activeQuestions = [], globalMaxScore = 20,
     currentModelName = "نموذج (د)", studentAnswers = {}, allClassResults = {}, advanceTimer = null;
- 
+
 function toggleNafis(){
   const isNafis = $('selectExamType').value === "اختبارات نافس الوطنية";
   $('nafisBox').hidden = !isNafis;
@@ -1983,15 +2005,20 @@ function toggleNafis(){
   if(!isNafis) renderExamLessonChecklist();
 }
 function onGradeChange(){ renderExamLessonChecklist(); switchExamModel(); }
-function syncGrading(){ $('selectGrade').value = currentGrade; toggleNafis(); renderExamLessonChecklist(); switchExamModel(); }
- 
+function syncGrading(){
+  $('selectSubject').value = profile.subject;
+  $('selectSubject').disabled = true;
+  $('selectGrade').value = currentGrade;
+  renderNafisDomains(); toggleNafis(); renderExamLessonChecklist(); switchExamModel();
+}
+
 /* ---- الدروس المتاحة للصف المختار (لبناء أسئلة الذكاء الاصطناعي) ---- */
 function fetchLessonsForGrade(grade){
   try{
-    const custom = JSON.parse(localStorage.getItem('mansour_custom_lessons_science_' + grade + '_v5'));
+    const custom = JSON.parse(localStorage.getItem(`mansour_custom_lessons_${profile.subject}_${grade}_v5`));
     if(Array.isArray(custom) && custom.length) return custom;
   }catch(e){}
-  return gradeScienceData[grade] || [];
+  return (CURRICULUM[profile.subject] && CURRICULUM[profile.subject][grade]) || [];
 }
 function renderExamLessonChecklist(){
   const box = $('examLessonChecks'); if(!box) return;
@@ -1999,7 +2026,7 @@ function renderExamLessonChecklist(){
   box.innerHTML = list.map((l,i) => `<label class="check"><input type="checkbox" class="lesson-cb" value="${i}" checked>${esc(l.title)}</label>`).join('')
     || '<span class="hint">لا توجد دروس مسجلة لهذا الصف بعد، أضِفها من تبويب "الدروس".</span>';
 }
- 
+
 /* ---- إعدادات Gemini ---- */
 function saveGeminiSettings(){
   const key = ($('geminiApiKeyInput').value || '').trim();
@@ -2012,7 +2039,7 @@ function loadGeminiSettingsUI(){
   if($('geminiApiKeyInput')) $('geminiApiKeyInput').value = localStorage.getItem('mansour_gemini_api_key') || '';
   if($('geminiModelInput')) $('geminiModelInput').value = localStorage.getItem('mansour_gemini_model') || '';
 }
- 
+
 /* ---- استدعاء Gemini API ---- */
 async function callGemini(promptText){
   const key = localStorage.getItem('mansour_gemini_api_key');
@@ -2032,10 +2059,10 @@ async function callGemini(promptText){
   const parts = (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
   return parts.map(p => p.text || '').join('');
 }
- 
-/* ---- بناء نص الطلب حسب نوع الاختبار ---- */
+
+/* ---- بناء نص الطلب حسب نوع الاختبار والمادة ---- */
 function buildGeminiPrompt(qCount){
-  const grade = $('selectGrade').value, subject = subjectNames[$('selectSubject').value] || 'العلوم';
+  const grade = $('selectGrade').value, subject = subjectNames[profile.subject] || 'العلوم';
   const isNafis = $('selectExamType').value === "اختبارات نافس الوطنية";
   let scopeText;
   if(isNafis){
@@ -2049,15 +2076,16 @@ function buildGeminiPrompt(qCount){
     scopeText = `اعتمد فقط على محتوى الدروس التالية من مقرر ${subject} للصف ${grade}، ووزّع الأسئلة عليها، واجعل قيمة الحقل "domain" في كل سؤال هي عنوان الدرس الذي استُمد منه السؤال بالضبط:\n` +
       chosen.map(l => `- (${l.chapter || ''}) ${l.title}: ${l.desc}`).join('\n');
   }
+  const extra = profile.subject === 'math' ? '\nتأكد من صحة الحل الحسابي لكل سؤال قبل تحديد الإجابة الصحيحة، واجعل الخيارات الخاطئة معقولة ومبنية على أخطاء شائعة.' : '';
   return `أنت خبير في إعداد اختبارات ${subject} لطلاب المرحلة الابتدائية في المملكة العربية السعودية، للصف: ${grade}.
 المطلوب: توليد ${qCount} سؤالاً اختيارياً (اختيار من متعدد) جديداً ومختلفاً في كل مرة، بصيغة عربية فصحى واضحة ومناسبة لعمر الطلاب.
-${scopeText}
+${scopeText}${extra}
 لكل سؤال 4 خيارات فقط، وإجابة صحيحة واحدة، ولا تكرر نفس السؤال أو نفس الصياغة بين الأسئلة.
 أعد الناتج ككائن JSON (مصفوفة فقط) بدون أي نص أو شرح أو علامات ترميز إضافية، بالشكل التالي بالضبط:
 [{"domain":"...","q":"نص السؤال","options":["الخيار الأول","الخيار الثاني","الخيار الثالث","الخيار الرابع"],"correctIndex":0}]
 حيث correctIndex رقم فهرس الإجابة الصحيحة داخل مصفوفة options (0 أو 1 أو 2 أو 3).`;
 }
- 
+
 /* ---- توليد الأسئلة عبر Gemini، مع تحديث حالة الواجهة ---- */
 function setAiStatus(text, kind){
   const statusEl = $('aiGenStatus'); if(!statusEl) return;
@@ -2099,11 +2127,11 @@ async function generateQuestionsWithAI(qCount){
     return false;
   }
 }
- 
+
 /* ---- نموذج احتياطي عند عدم توفر الذكاء الاصطناعي ---- */
 function buildFallbackQuestions(qCount){
   const isNafis = $('selectExamType').value === "اختبارات نافس الوطنية";
-  if(isNafis){
+  if(isNafis && profile.subject === 'science'){
     const domains = Array.from(document.querySelectorAll('.nafis-cb:checked')).map(c => c.value);
     let pool = nafisQuestions.filter(q => !domains.length || domains.includes(q.domain));
     if(!pool.length) pool = nafisQuestions;
@@ -2114,7 +2142,9 @@ function buildFallbackQuestions(qCount){
   const grade = $('selectGrade').value, list = fetchLessonsForGrade(grade);
   const chosen = Array.from(document.querySelectorAll('.lesson-cb:checked')).map(c => list[+c.value]).filter(Boolean);
   const src = chosen.length ? chosen : list;
-  if(!src.length) return JSON.parse(JSON.stringify(nafisQuestions)).slice(0, qCount);
+  if(!src.length){
+    return profile.subject === 'science' ? JSON.parse(JSON.stringify(nafisQuestions)).slice(0, qCount) : [];
+  }
   const out = [];
   for(let i=0;i<qCount;i++){
     const l = src[i % src.length];
@@ -2122,9 +2152,7 @@ function buildFallbackQuestions(qCount){
   }
   return out;
 }
- 
-function onGradeChangeInit(){ /* legacy placeholder kept intentionally empty */ }
- 
+
 function fileToBase64(file){
   return new Promise((resolve,reject)=>{
     const r = new FileReader();
@@ -2163,9 +2191,9 @@ async function handleExamImageUpload(ev){
   $('imageUploadStatus').textContent = 'جاري قراءة الأسئلة من الصورة وحلّها بالذكاء الاصطناعي…';
   try{
     const b64 = await fileToBase64(f);
-    const grade = $('selectGrade').value, subject = subjectNames[$('selectSubject').value] || 'العلوم';
+    const grade = $('selectGrade').value, subject = subjectNames[profile.subject] || 'العلوم';
     const qCount = Math.max(4, Number($('selectQuestionCount').value) || 10);
-    const prompt = `هذه صورة ورقة اختبار خارجية (اختيار من متعدد) في مادة ${subject} لطلاب الصف ${grade}. اقرأ كل الأسئلة الظاهرة في الصورة (يُفترض أنها ${qCount} سؤالاً تقريباً)، ولكل سؤال انسخ نص السؤال والخيارات الأربعة كما وردت حرفياً، ثم حلّ السؤال بنفسك بدقة وحدد فهرس الإجابة الصحيحة (correctIndex من 0 إلى 3)، وصنّف كل سؤال ضمن مجال مناسب (اسم الدرس أو الموضوع العلمي).
+    const prompt = `هذه صورة ورقة اختبار خارجية (اختيار من متعدد) في مادة ${subject} لطلاب الصف ${grade}. اقرأ كل الأسئلة الظاهرة في الصورة (يُفترض أنها ${qCount} سؤالاً تقريباً)، ولكل سؤال انسخ نص السؤال والخيارات الأربعة كما وردت حرفياً، ثم حلّ السؤال بنفسك بدقة وحدد فهرس الإجابة الصحيحة (correctIndex من 0 إلى 3)، وصنّف كل سؤال ضمن مجال مناسب (اسم الدرس أو الموضوع).
 أعد الناتج ككائن JSON (مصفوفة فقط) بدون أي نص أو شرح أو علامات ترميز إضافية، بالشكل التالي بالضبط:
 [{"domain":"...","q":"نص السؤال","options":["الخيار الأول","الخيار الثاني","الخيار الثالث","الخيار الرابع"],"correctIndex":0}]`;
     const raw = await callGeminiVision(prompt, b64, f.type || 'image/jpeg');
@@ -2193,8 +2221,7 @@ async function handleExamImageUpload(ev){
     ev.target.value = '';
   }
 }
- 
- 
+
 function clearAllExamAndAnalysisData(){
   if(!confirm("هل تريد حذف الاختبار الحالي وجميع نتائج الطلاب والتحليل والبدء من جديد؟")) return;
   ['mansour_last_exam_full_state','dashboardLatestExamResults','examResultsHistory','mansour_last_analysis_report'].forEach(k => localStorage.removeItem(k));
@@ -2206,32 +2233,32 @@ function clearAllExamAndAnalysisData(){
   if($('aiGenStatus')) $('aiGenStatus').textContent = '';
   filterStudentResults(); showToast('تم مسح البيانات السابقة');
 }
- 
+
 /* الطلاب من لوحة التحكم */
 function fetchStudentsForSelectedClass(){
   const grade = $('selectGrade').value, digit = $('selectClassDigit').value;
   let list = [];
   try{
-    const parsed = JSON.parse(localStorage.getItem('mansour_students_science_' + grade + '_v5'));
+    const parsed = JSON.parse(localStorage.getItem(`mansour_students_${profile.subject}_${grade}_v5`));
     if(Array.isArray(parsed)) parsed.forEach(it => {
       const c = String(it.classCustom || '');
-      if(digit === 'all' || c.includes(digit)) list.push({name:it.name, className:c || grade, phone:it.phone || ''});
+      if(digit === 'all' || c.includes(digit)) list.push({name:it.name, className:c || grade, phone:it.phone || '', gender: it.gender || profile.studentGender});
     });
   }catch(e){}
   $('studentsNote').textContent = '';
   if(!list.length){
     const short = grade.replace(" الابتدائي","");
     const cls = digit === 'all' ? short : `${short} - فصل ${digit}`;
-    list = [1,2,3].map(n => ({name:`طالب تجريبي (${n})`, className:cls, phone:''}));
+    list = [1,2,3].map(n => ({name:`طالب تجريبي (${n})`, className:cls, phone:'', gender: profile.studentGender}));
     $('studentsNote').textContent = 'لا توجد بيانات طلاب لهذا الصف/الفصل في لوحة التحكم، فاستُخدمت أسماء تجريبية.';
   }
   const m = new Map(); list.forEach(s => m.set(s.name, s));
   studentsList = Array.from(m.values());
 }
- 
+
 function classLabel(){ const g = $('selectGrade').value.replace(" الابتدائي",""), d = $('selectClassDigit').value; return d === 'all' ? g : `${g} - فصل ${d}`; }
 function paperMeta(keyword){
-  const examType = $('selectExamType').value, grade = $('selectGrade').value, subj = $('selectSubject').value;
+  const examType = $('selectExamType').value, grade = $('selectGrade').value, subj = profile.subject;
   $('printTestInfo').textContent = `الصف: ${grade} | المادة: ${subjectNames[subj]} | نوع الاختبار: ${examType}` + (keyword ? ` | ${keyword}` : '');
   $('printModelBadge').textContent = `رقم النموذج: ${currentModelName} | عدد الأسئلة: ${activeQuestions.length}`;
   $('printClassValue').textContent = classLabel();
@@ -2241,8 +2268,8 @@ function renderPaperQuestions(){
     <div class="opts">${q.options.map((o,k) => `<div class="opt"><i>${LETTERS[k]}</i>${esc(o)}</div>`).join('')}</div></div>`).join('');
   $('paper').hidden = false; $('printExamRow').hidden = false;
 }
- 
-function stateKey(){ return `mansour_exam_state_${$('selectExamType').value}_${$('selectSubject').value}_${$('selectGrade').value}_${$('selectModelLetter').value}`; }
+
+function stateKey(){ return `mansour_exam_state_${$('selectExamType').value}_${profile.subject}_${$('selectGrade').value}_${$('selectModelLetter').value}`; }
 function switchExamModel(){
   currentModelName = $('selectModelLetter').value;
   let saved = null; try{ saved = JSON.parse(localStorage.getItem(stateKey())); }catch(e){}
@@ -2257,32 +2284,34 @@ function switchExamModel(){
   activeQuestions = []; allClassResults = {};
   filterStudentResults();
 }
- 
+
 async function generateTestModel(){
   currentModelName = $('selectModelLetter').value;
   const isNafis = $('selectExamType').value === "اختبارات نافس الوطنية";
   const keywordDefault = isNafis ? `نموذج نافس (${currentModelName})` : `نموذج (${currentModelName})`;
   const keyword = $('examKeywordInput').value.trim() || keywordDefault;
   const qCount = Math.max(4, Number($('selectQuestionCount').value) || 10);
- 
+
   const btn = $('genTestBtn');
   if(btn){ btn.disabled = true; btn.textContent = 'جارٍ توليد الأسئلة…'; }
- 
+
   const ok = await generateQuestionsWithAI(qCount);
   if(!ok) activeQuestions = buildFallbackQuestions(qCount);
- 
+
   if(btn){ btn.disabled = false; btn.textContent = 'توليد ورقة الاختبار'; }
- 
+
+  if(!activeQuestions.length){ showToast('لا توجد أسئلة. أضف دروساً أو فعّل مفتاح Gemini'); return; }
+
   globalMaxScore = activeQuestions.length * 2;
   paperMeta(keyword); renderPaperQuestions();
   saveLatestExamState();
   $('paper').scrollIntoView({behavior:'smooth', block:'start'});
   showToast(ok ? 'تم توليد أسئلة جديدة بالذكاء الاصطناعي' : 'تم توليد ورقة الاختبار (نموذج احتياطي)');
 }
- 
+
 /* الطباعة */
 function printGradesSheet(){ prepareGradesPrintSheet(); printSection('gradesSheet'); }
- 
+
 /* جلسة التصحيح */
 function startTouchGradingSession(){
   if(!activeQuestions.length){ alert('ولّد ورقة الاختبار أولاً من قسم "الورقة".'); return; }
@@ -2292,7 +2321,7 @@ function startTouchGradingSession(){
   startNewStudentSession(); $('touchGradingCard').scrollIntoView({behavior:'smooth', block:'start'});
 }
 function startNewStudentSession(){ currentQuestionStep = 0; studentAnswers = {}; renderCurrentStepView(); }
- 
+
 function renderCurrentStepView(){
   const st = studentsList[currentStudentIndex], total = activeQuestions.length;
   $('studentHeader').innerHTML = `<span><b>${esc(st.name)}</b> <span class="tag">${esc(st.className)}</span></span>
@@ -2340,7 +2369,7 @@ function saveCurrentStudentAndProceed(){
     if(studentAnswers[n] && studentAnswers[n] === q.correctLetter){ correct++; domainStats[dom].correct++; }
     else missed.push({qNum:n, qText:q.q, domain:dom});
   });
-  allClassResults[st.name] = {score:correct*2, maxScore:activeQuestions.length*2, correct, className:st.className, phone:st.phone || '', domainStats, missed};
+  allClassResults[st.name] = {score:correct*2, maxScore:activeQuestions.length*2, correct, className:st.className, phone:st.phone || '', gender: st.gender, domainStats, missed};
   updateLocalStorageAndResults();
   currentStudentIndex++;
   if(currentStudentIndex < studentsList.length){ showToast('تم حفظ درجة ' + st.name); startNewStudentSession(); }
@@ -2350,9 +2379,9 @@ function finishGradingSession(){
   $('touchGradingCard').hidden = true; showToast('اكتملت جلسة التصحيح');
   $('results').scrollIntoView({behavior:'smooth', block:'start'});
 }
- 
+
 function saveLatestExamState(){
-  const st = {gradeKey:$('selectGrade').value, subjectKey:$('selectSubject').value, subjectName:subjectNames[$('selectSubject').value],
+  const st = {gradeKey:$('selectGrade').value, subjectKey:profile.subject, subjectName:subjectNames[profile.subject],
     examType:$('selectExamType').value, classDigit:$('selectClassDigit').value, currentModelName, examKeyword:$('examKeywordInput').value.trim(),
     activeQuestions, globalMaxScore, allClassResults, date:new Date().toLocaleDateString('en-GB')};
   localStorage.setItem(stateKey(), JSON.stringify(st));
@@ -2366,7 +2395,7 @@ function updateLocalStorageAndResults(){
   localStorage.setItem('examResultsHistory', JSON.stringify(records));
   saveLatestExamState(); filterStudentResults(); prepareGradesPrintSheet(); prepareAnalysisContent();
 }
- 
+
 /* النتائج */
 function filterStudentResults(){
   const q = $('searchStudentInput').value.toLowerCase().trim(), out = $('correctionOutput');
@@ -2380,15 +2409,15 @@ function filterStudentResults(){
   const shown = names.filter(n => !q || n.toLowerCase().includes(q));
   if(!shown.length){ out.innerHTML = '<div class="empty">لا توجد نتائج بعد. صحّح طالباً واحداً على الأقل من جلسة التصحيح السريع.</div>'; return; }
   out.innerHTML = shown.map(n => {
-    const d = allClassResults[n], m = d.maxScore || globalMaxScore;
-    const msg = `مدرسة داوود بن عروة الثقفي الابتدائية\nولي الأمر الفاضل، نود إفادتكم بحصول الابن: ${n} (${d.className})\nعلى درجة الاختبار (${currentModelName}): ${d.score} / ${m} (${d.correct} إجابات صحيحة من أصل ${activeQuestions.length}).\nمع تحيات المعلم: منصور عامر الرحيلي`;
+    const d = allClassResults[n], m = d.maxScore || globalMaxScore, w = gw(d);
+    const msg = `${profile.school} الابتدائية\nولي الأمر الفاضل، نود إفادتكم بحصول ${w.sonN}: ${n} (${d.className})\nعلى درجة الاختبار (${currentModelName}): ${d.score} / ${m} (${d.correct} إجابات صحيحة من أصل ${activeQuestions.length}).\nمع تحيات ${teacherLine()}`;
     return `<div class="res"><span><b>${esc(n)}</b> <span class="tag">${esc(d.className)}</span></span>
       <span class="sc" dir="ltr">${d.score} / ${m}</span>
       <a class="btn wa sm noprint" target="_blank" href="${waLink(d.phone, msg)}">إرسال لولي الأمر</a></div>`;
   }).join('');
 }
 function prepareGradesPrintSheet(){
-  $('sheetPrintMeta').textContent = `الصف: ${$('selectGrade').value} | المادة: ${subjectNames[$('selectSubject').value]} | نوع الاختبار: ${$('selectExamType').value} (${currentModelName}) | عدد الطلاب: ${Object.keys(allClassResults).length}`;
+  $('sheetPrintMeta').textContent = `الصف: ${$('selectGrade').value} | المادة: ${subjectNames[profile.subject]} | نوع الاختبار: ${$('selectExamType').value} (${currentModelName}) | عدد الطلاب: ${Object.keys(allClassResults).length}`;
   let i = 1;
   $('sheetPrintTableBody').innerHTML = Object.keys(allClassResults).map(n => {
     const d = allClassResults[n], m = d.maxScore || globalMaxScore, p = m > 0 ? d.score/m*100 : 0;
@@ -2396,7 +2425,7 @@ function prepareGradesPrintSheet(){
       <td style="font-weight:700">${p >= 75 ? 'متقن' : 'يحتاج دعم وتدخل علاجي'}</td></tr>`;
   }).join('');
 }
- 
+
 /* التحليل */
 function toggleAnalysisBox(){
   const b = $('analysisPanel'); b.hidden = !b.hidden;
@@ -2422,23 +2451,65 @@ function prepareAnalysisContent(){
       <td style="color:${ok ? 'var(--good)' : 'var(--bad)'};font-weight:600">${pct.toFixed(1)}%</td>
       <td style="color:${ok ? 'var(--good)' : 'var(--bad)'}">${ok ? 'متقن' : 'يحتاج معالجة'}</td></tr>`;
   }
-  const plans = weak.length ? weak.map((d,i) => { const r = REMEDIAL[d] || REMEDIAL["الاستقصاء العلمي"];
+  const plans = weak.length ? weak.map((d,i) => { const r = REMEDIAL[d] || [`مهارات ${d}`, `تنويع الأنشطة والتدريب المباشر على مهارات ${d} مع تقويم تكويني متكرر.`];
     return `<div class="plan"><b>${i+1}. الهدف غير المتقن:</b> ${esc(r[0])}<br><span class="a">الخطة العلاجية المقترحة:</span> ${esc(r[1])}</div>`; }).join('')
     : '<div class="plan" style="border-color:rgba(94,234,212,.4);background:rgba(94,234,212,.08);color:var(--good)">ممتاز! أتقن طلاب الفصل جميع المجالات ولا توجد فجوات تستدعي خطة علاجية.</div>';
   const html = `<div class="tbl-wrap"><table><thead><tr><th>المجال</th><th>الإجابات الصحيحة</th><th>الإتقان</th><th>النسبة</th><th>التقييم</th></tr></thead><tbody>${rows}</tbody></table></div>
     <h4 style="margin:14px 0 8px;font-size:14px;color:var(--warn)">الخطط العلاجية الميدانية</h4>${plans}`;
   box.innerHTML = html;
-  localStorage.setItem('mansour_last_analysis_report', JSON.stringify({gradeKey:$('selectGrade').value, subjectKey:$('selectSubject').value, content:html, date:new Date().toLocaleDateString('en-GB')}));
+  localStorage.setItem('mansour_last_analysis_report', JSON.stringify({gradeKey:$('selectGrade').value, subjectKey:profile.subject, content:html, date:new Date().toLocaleDateString('en-GB')}));
 }
- 
- 
+
+/* ================= الملف الشخصي: الواجهة والحفظ ================= */
+function loadProfileUI(){
+  $('pfName').value = profile.teacherName; $('pfSchool').value = profile.school;
+  $('pfTeacherGender').value = profile.teacherGender; $('pfStudentGender').value = profile.studentGender;
+  $('pfSubject').value = profile.subject;
+}
+function saveProfile(){
+  profile = {
+    teacherName: $('pfName').value.trim() || profile.teacherName,
+    school: $('pfSchool').value.trim() || profile.school,
+    teacherGender: $('pfTeacherGender').value,
+    studentGender: $('pfStudentGender').value,
+    subject: $('pfSubject').value
+  };
+  localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+  location.reload();
+}
+
+/* استبدال النصوص الثابتة في الصفحة حسب الملف الشخصي (يُطبَّق عند كل تحميل) */
+function localizeStatic(){
+  const sn = subjName(), tw = teacherWord();
+  const rules = [
+    ['منصور عامر الرحيلي', profile.teacherName],
+    ['مدرسة داوود بن عروة الثقفي', profile.school],
+    ['معلم المادة', tw.replace('ال','') + ' المادة'],
+    ['المعلم:', tw + ':'],
+    ['مركز قيادة العلوم', 'مركز قيادة ' + sn],
+    ['مادة العلوم', 'مادة ' + sn],
+    ['مقرر العلوم', 'مقرر ' + sn],
+    ['سجل طلاب العلوم', 'سجل طلاب ' + sn]
+  ];
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let n;
+  while((n = walker.nextNode())){
+    const tn = n.parentNode && n.parentNode.tagName;
+    if(tn === 'SCRIPT' || tn === 'STYLE' || tn === 'TEXTAREA') continue;
+    let t = n.nodeValue;
+    rules.forEach(([a,b]) => { if(t.includes(a)) t = t.split(a).join(b); });
+    if(t !== n.nodeValue) n.nodeValue = t;
+  }
+  document.title = `مركز قيادة ${sn} – ${tw} ${profile.teacherName}`;
+}
+
 /* ================= التشغيل ================= */
 function bootApp(){
   localStorage.setItem('mansour_current_grade_science_v5', currentGrade);
   loadSchedule(); loadGradeData();
   buildOrbit(); applyGradeTheme();
   renderLessons(); render(); syncGrading();
-  loadGeminiSettingsUI();
+  loadGeminiSettingsUI(); loadProfileUI();
   updateClock(); setInterval(updateClock, 1000);
   checkBackupReminder();
   if(isStandalone()){ $('installTop').hidden = true; $('pwaInstallBtn').hidden = true; }
@@ -2446,10 +2517,9 @@ function bootApp(){
 }
 // ألوان الصف حتى قبل الدخول
 (function(){ const g = GRADES.find(x => x.key === currentGrade) || GRADES[0]; document.documentElement.style.setProperty('--accent', g.color); document.documentElement.style.setProperty('--accent-rgb', hexRgb(g.color)); })();
+localizeStatic();
 initLock();
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(() => {}); }
 </script>
 </body>
 </html>
- 
-
