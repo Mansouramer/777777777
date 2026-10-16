@@ -918,9 +918,31 @@ window.addEventListener('error', function(e){
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-const TEACHER_NAME = "منصور عامر الرحيلي";
-const SCHOOL_NAME = "مدرسة داوود بن عروة الثقفي";
- 
+cconst PROFILE_KEY = 'mansour_profile_v1';
+let profile = Object.assign({
+  teacherName: 'منصور عامر الرحيلي',
+  school: 'مدرسة داوود بن عروة الثقفي',
+  teacherGender: 'm',   // m = معلم ، f = معلمة
+  studentGender: 'm',   // الافتراضي للطلاب: m = بنين ، f = بنات
+  subject: 'science'    // science | math | arabic
+}, load(PROFILE_KEY, {}));
+
+const SUBJ_NAMES = {science:'العلوم', math:'الرياضيات', arabic:'لغتي الجميلة'};
+const subjName = () => SUBJ_NAMES[profile.subject] || 'العلوم';
+
+const WORDS = {
+  m:{student:'الطالب',  son:'ابنكم',   sonN:'الابن',  t:'',  h:'ه',  hero:'يا بطل',  excellent:'متميز'},
+  f:{student:'الطالبة', son:'ابنتكم', sonN:'الابنة', t:'ت', h:'ها', hero:'يا بطلة', excellent:'متميزة'}
+};
+const gw = s => WORDS[(s && s.gender) || profile.studentGender] || WORDS.m;
+function fx(text, s){            // يستبدل {student} {son} {t} {h} {subj} ...
+  const w = gw(s);
+  let r = String(text).replace(/\{(\w+)\}/g, (_, k) => k === 'subj' ? subjName() : (w[k] ?? ''));
+  if (w === WORDS.f) r = r.replace(/ابنكم/g,'ابنتكم').replace(/يا بطل(?!ة)/g,'يا بطلة'); // للرسائل القديمة المحفوظة
+  return r;
+}
+const teacherWord = () => profile.teacherGender === 'f' ? 'المعلمة' : 'المعلم';
+const teacherLine = () => `${teacherWord()}: ${profile.teacherName} - ${profile.school}`;
 /* ================= خلفية النجوم ================= */
 (function stars(){
   const cv = $('stars'), ctx = cv.getContext('2d');
