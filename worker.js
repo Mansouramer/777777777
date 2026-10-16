@@ -49,7 +49,7 @@ export default {
       const form = await request.formData();
       const u = String(form.get("user") || "").trim();
       const pw = String(form.get("pw") || "");
-      if (!u  u === "devices"  u.startsWith("devices:")) return page("بيانات خاطئة");
+     if (!u || u === "devices" || u.startsWith("devices:")) return page("بيانات خاطئة");
       const cfg = JSON.parse((await env.KV.get(u)) || "null");
       if (!cfg || cfg.password !== pw) return page("بيانات خاطئة");
       if (!cfg.active) return page("الاشتراك متوقف");
