@@ -920,9 +920,10 @@ window.addEventListener('error', function(e){
 </script>
 <script>
 const $ = id => document.getElementById(id);
-const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc = s => ...;
 const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-cconst PROFILE_KEY = 'mansour_profile_v1';
+
+const PROFILE_KEY = 'mansour_profile_v1';
 let profile = Object.assign({
   teacherName: 'منصور عامر الرحيلي',
   school: 'مدرسة داوود بن عروة الثقفي',
