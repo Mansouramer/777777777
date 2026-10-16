@@ -1267,11 +1267,11 @@ const defaultMotivations = [
   {id:"10",title:"10. اجتهاد وحرص على إتقان العلوم",text:"⭐ اجتهاد وحرص عالٍ على إتقان العلوم\nعزيزي ولي الأمر، إن حرص ابنكم المستمر على الاستكشاف والتعلم في مادة العلوم محل تقديرنا الدائم."}
 ];
 const K = {
-  lessons:  () => 'mansour_custom_lessons_science_' + currentGrade + '_v5',
-  students: () => 'mansour_students_science_' + currentGrade + '_v5',
-  status:   () => 'mansour_lesson_status_science_' + currentGrade + '_v5',
-  mastery:  () => 'mansour_lesson_mastery_science_' + currentGrade + '_v5',
-  motiv:    'mansour_custom_motivations_science_v5'
+  lessons:  () => `mansour_custom_lessons_${profile.subject}_${currentGrade}_v5`,
+  students: () => `mansour_students_${profile.subject}_${currentGrade}_v5`,
+  status:   () => `mansour_lesson_status_${profile.subject}_${currentGrade}_v5`,
+  mastery:  () => `mansour_lesson_mastery_${profile.subject}_${currentGrade}_v5`,
+  get motiv(){ return `mansour_custom_motivations_${profile.subject}_v5`; }
 };
 let lessons = [], students = [], lessonStatus = {}, lessonMastery = {}, customMotivations = [];
 let activeQueryClass = NONE, selectedStudentIndex = '', currentPage = 1, classList = [];
