@@ -1,0 +1,2412 @@
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مركز قيادة العلوم – المعلم منصور عامر الرحيلي</title>
+<meta name="theme-color" content="#05060f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+<style>
+:root{
+  --void:#05060f; --deep:#0b0d22;
+  --panel:rgba(16,18,42,.74); --panel-solid:#11132c;
+  --line:rgba(255,255,255,.09); --line-strong:rgba(255,255,255,.2);
+  --ink:#eceffd; --ink-dim:#a6acce; --ink-faint:#7178a0;
+  --accent:#47b8ff; --accent-rgb:71,184,255; --accent-ink:#04121c;
+  --good:#5eead4; --warn:#ffcf70; --bad:#ff7a88; --sun:#ffb547;
+  --display:'Lalezar','Readex Pro',Tahoma,sans-serif;
+  --body:'Readex Pro','Segoe UI',Tahoma,sans-serif;
+}
+html{background:#05060f;color:#eceffd}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:var(--body);font-size:15px;line-height:1.6;color:var(--ink);
+  background:
+    radial-gradient(900px 520px at 90% -8%,rgba(96,58,190,.34),transparent 70%),
+    radial-gradient(800px 520px at -10% 38%,rgba(var(--accent-rgb),.13),transparent 70%),
+    var(--void);
+  background-attachment:fixed;min-height:100vh;
+  padding-bottom:calc(84px + env(safe-area-inset-bottom,0px));
+}
+body.locked{overflow:hidden}
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.shooting{position:fixed;top:12%;right:-10%;width:110px;height:1.5px;z-index:0;pointer-events:none;
+  background:linear-gradient(270deg,transparent,#fff);opacity:0;transform:rotate(28deg)}
+@media (prefers-reduced-motion:no-preference){
+  .shooting{animation:shoot 16s ease-in 4s infinite}
+  @keyframes shoot{0%{opacity:0;transform:translate(0,0) rotate(28deg)}2%{opacity:.9}
+    9%{opacity:0;transform:translate(-95vw,52vh) rotate(28deg)}100%{opacity:0}}
+}
+#app{position:relative;z-index:1}
+h1,h2,h3,h4,h5,p{margin:0}
+button,input,select,textarea{font-family:inherit;font-size:16px;color:inherit}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+ 
+/* ---------- Lock ---------- */
+.lock{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:24px;
+  background:radial-gradient(700px 500px at 50% 30%,rgba(60,40,140,.5),transparent 70%),rgba(5,6,15,.94);}
+.lock-card{width:100%;max-width:360px;text-align:center}
+.lock-card svg{width:150px;height:150px;margin:0 auto 6px;display:block}
+.lock-card h1{font-family:var(--display);font-size:34px;font-weight:400;letter-spacing:.3px}
+.lock-card .sub{color:var(--ink-dim);font-size:13px;margin:2px 0 22px}
+.lock-card input[type=password]{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line-strong);
+  background:rgba(255,255,255,.06);text-align:center;letter-spacing:6px;margin-bottom:10px}
+.lock-card input::placeholder{letter-spacing:0;color:var(--ink-faint)}
+.lock-msg{min-height:22px;font-size:13px;color:var(--bad);margin:2px 0 8px}
+.lock-msg.ok{color:var(--good)}
+.remember{display:flex;gap:8px;justify-content:center;align-items:center;font-size:13px;color:var(--ink-dim);margin:6px 0 14px}
+.remember input{accent-color:var(--accent);width:16px;height:16px}
+.lock.shake .lock-card{animation:shake .4s}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+ 
+/* ---------- Layout ---------- */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:calc(12px + env(safe-area-inset-top,0px)) 16px 10px;max-width:1040px;margin:0 auto}
+.brand{display:flex;flex-direction:column;line-height:1.3}
+.brand b{font-size:14px;font-weight:600}
+.brand span{font-size:12px;color:var(--ink-dim)}
+.icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--panel);
+  display:grid;place-items:center;cursor:pointer;color:var(--ink)}
+.icon-btn svg{width:20px;height:20px}
+main{max-width:1040px;margin:0 auto;padding:0 14px}
+.view{display:none}
+.view.active{display:block}
+.stack{display:flex;flex-direction:column;gap:14px}
+ 
+.panel{background:var(--panel);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--line);border-radius:18px;padding:16px}
+.panel-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.panel-h h3{font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px}
+.panel-h h3::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+.hint{font-size:12px;color:var(--ink-dim)}
+.sub-panel{background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px}
+.sub-panel h5{font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px}
+ 
+/* ---------- Controls ---------- */
+input[type=text],input[type=tel],input[type=search],input[type=number],select,textarea{
+  width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line-strong);
+  background:rgba(255,255,255,.055);color:var(--ink);min-height:44px}
+textarea{resize:vertical}
+select option,select optgroup{background:#11132c;color:var(--ink)}
+input::placeholder,textarea::placeholder{color:var(--ink-faint)}
+.form{display:grid;gap:8px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 16px;
+  border-radius:10px;border:1px solid transparent;background:var(--accent);color:var(--accent-ink);
+  font-weight:600;cursor:pointer;text-decoration:none;font-size:14px;text-align:center}
+.btn:active{transform:scale(.98)}
+.btn.block{width:100%}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.btn.danger{background:rgba(255,122,136,.14);color:var(--bad);border-color:rgba(255,122,136,.4)}
+.btn.wa{background:#25d366;color:#04200e}
+.btn.good{background:rgba(94,234,212,.15);color:var(--good);border-color:rgba(94,234,212,.4)}
+.btn.warn{background:rgba(255,207,112,.14);color:var(--warn);border-color:rgba(255,207,112,.4)}
+.btn.sm{min-height:34px;padding:5px 10px;font-size:12px;border-radius:8px}
+.btn-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tag{display:inline-block;padding:1px 9px;border-radius:99px;font-size:11px;font-weight:500;
+  background:rgba(var(--accent-rgb),.16);color:var(--accent);border:1px solid rgba(var(--accent-rgb),.35)}
+ 
+/* ---------- Home hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-bottom:14px}
+.hero>*{min-width:0}
+html,body{overflow-x:hidden}
+.hero-text .eyebrow{font-size:13px;color:var(--ink-dim)}
+.hero-text h2{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.15;margin:2px 0}
+.hero-text .planet{color:var(--accent);font-size:15px;font-weight:500}
+.orbit-wrap{position:relative;width:100%;max-width:440px;margin:0 auto}
+.orbit-wrap svg{width:100%;height:auto;display:block;overflow:visible}
+.planet-g{cursor:pointer}
+.planet-g:focus-visible{outline:none}
+.planet-g:focus-visible .hit{stroke:var(--accent);stroke-width:1.5}
+.hit{fill:transparent;stroke:transparent}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:99px;
+  border:1px solid var(--line-strong);background:var(--panel);cursor:pointer;font-size:13px;font-weight:500;color:var(--ink-dim)}
+.chip i{width:10px;height:10px;border-radius:50%;display:block}
+.chip.active{color:var(--ink);border-color:var(--accent);background:rgba(var(--accent-rgb),.16)}
+@media(min-width:860px){
+  .hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}
+  .hero-text h2{font-size:64px}
+  .chips-col{grid-column:1/-1}
+}
+ 
+/* mission clock */
+.clock{display:flex;align-items:center;gap:14px;cursor:pointer}
+.clock-ring{position:relative;width:78px;height:78px;flex:none}
+.clock-ring svg{width:78px;height:78px;transform:rotate(-90deg)}
+.clock-ring .t{position:absolute;inset:0;display:grid;place-items:center;font-weight:600;font-size:14px;font-variant-numeric:tabular-nums;direction:ltr}
+.clock-info{flex:1;min-width:0}
+.clock-info .k{font-size:12px;color:var(--ink-dim)}
+.clock-info .v{font-size:17px;font-weight:600}
+.clock-info .c{font-size:13px;color:var(--accent)}
+.clock .chev{color:var(--ink-faint);font-size:12px}
+.sched{display:none;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line-strong)}
+.sched.open{display:block}
+ 
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:700px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-height:88px}
+.stat .k{font-size:12px;color:var(--ink-dim)}
+.stat .n{font-family:var(--display);font-size:30px;line-height:1.2;color:var(--ink)}
+.stat .bar{height:4px;border-radius:4px;background:rgba(255,255,255,.1);margin-top:6px;overflow:hidden}
+.stat .bar b{display:block;height:100%;background:var(--accent);border-radius:4px;width:0;transition:width .5s}
+ 
+.banner{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  padding:12px 14px;border-radius:14px;background:rgba(255,207,112,.1);border:1px solid rgba(255,207,112,.4);
+  font-size:13px;margin-bottom:14px}
+ 
+/* ---------- Students ---------- */
+.class-list{display:flex;flex-wrap:wrap;gap:8px}
+.class-pill{display:flex;align-items:stretch;border-radius:10px;overflow:hidden;border:1px solid var(--line-strong)}
+.class-pill.active{border-color:var(--accent);background:rgba(var(--accent-rgb),.18)}
+.class-pill .go{background:none;border:none;padding:8px 12px;cursor:pointer;font-size:13px;font-weight:500;color:var(--ink)}
+.class-pill .del{background:rgba(255,122,136,.12);border:none;border-inline-start:1px solid var(--line);
+  color:var(--bad);padding:0 10px;cursor:pointer;font-size:12px}
+.students{display:grid;gap:10px}
+@media(min-width:760px){.students{grid-template-columns:1fr 1fr}}
+.s-card{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.03)}
+.s-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:8px;
+  border-bottom:1px dashed var(--line);margin-bottom:10px}
+.s-head strong{font-size:15px}
+.s-head .acts{display:flex;gap:6px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.metric{padding:6px 8px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.metric .m-l{font-size:11px;margin-bottom:3px}
+.stepper{display:flex;align-items:center;justify-content:space-between;gap:4px}
+.stepper button{width:34px;height:34px;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:16px;
+  color:#05060f;line-height:1}
+.stepper b{font-size:17px;font-variant-numeric:tabular-nums;min-width:24px;text-align:center}
+.m-abs .m-l,.m-abs b{color:var(--bad)}.m-abs button{background:var(--bad)}
+.m-par .m-l,.m-par b{color:var(--warn)}.m-par button{background:var(--warn)}
+.m-hw .m-l,.m-hw b{color:var(--good)}.m-hw button{background:var(--good)}
+.m-pr .m-l,.m-pr b{color:var(--accent)}.m-pr button{background:var(--accent)}
+.phone-in{text-align:center;direction:ltr;padding:6px;min-height:34px!important}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
+.empty{padding:22px 12px;text-align:center;color:var(--ink-dim);font-size:13px;
+  border:1px dashed var(--line-strong);border-radius:12px}
+ 
+/* ---------- Lessons timeline ---------- */
+.chapter-h{font-size:12px;color:var(--accent);font-weight:600;margin:14px 0 6px}
+.lesson{position:relative;padding:10px 26px 10px 10px;border-inline-start:none;border-right:2px solid var(--line);margin-right:8px}
+.lesson::before{content:"";position:absolute;right:-8px;top:14px;width:14px;height:14px;border-radius:50%;
+  background:var(--void);border:2px solid var(--warn)}
+.lesson.done{border-right-color:rgba(var(--accent-rgb),.5)}
+.lesson.done::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 12px var(--accent)}
+.lesson strong{display:block;font-size:14px}
+.lesson p{font-size:12px;color:var(--ink-dim);margin:2px 0 8px}
+.lesson .acts{display:flex;gap:6px;flex-wrap:wrap}
+.detail-box{background:rgba(var(--accent-rgb),.09);border-right:3px solid var(--accent);border-radius:8px;
+  padding:10px 12px;font-size:13px;margin-top:8px;white-space:pre-wrap}
+.preview{background:rgba(var(--accent-rgb),.08);border-right:3px solid var(--accent);border-radius:8px;
+  padding:10px 12px;font-size:12px;white-space:pre-wrap;word-break:break-word;margin:8px 0;color:var(--ink-dim)}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 6px;text-align:center;border-bottom:1px solid var(--line)}
+th{color:var(--ink-dim);font-weight:500;font-size:12px;white-space:nowrap}
+td:first-child,th:first-child{text-align:right}
+.mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.mini-stats div{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12px;color:var(--ink-dim)}
+.mini-stats strong{display:block;font-size:20px;font-family:var(--display);font-weight:400;color:var(--ink)}
+.score{width:56px!important;min-height:36px!important;padding:4px!important;text-align:center}
+.st-ok{color:var(--good);font-weight:600}.st-re{color:var(--bad);font-weight:600}
+ 
+.dd{position:relative}
+.dd-list{position:absolute;top:100%;right:0;left:0;z-index:20;max-height:220px;overflow-y:auto;background:#151836;
+  border:1px solid var(--accent);border-radius:0 0 10px 10px;display:none;box-shadow:0 10px 24px rgba(0,0,0,.5)}
+.dd-item{padding:10px 12px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px;display:flex;justify-content:space-between;gap:8px}
+.dd-item:hover{background:rgba(var(--accent-rgb),.15)}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.kv div{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:10px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);font-size:12px;color:var(--ink-dim)}
+.kv strong{font-size:17px;color:var(--ink)}
+.send-list{display:grid;gap:8px;max-height:260px;overflow-y:auto;margin-top:8px}
+.send-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-radius:10px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);font-size:13px}
+ 
+/* ---------- Tab bar ---------- */
+.tabbar{position:fixed;bottom:0;right:0;left:0;z-index:30;display:flex;justify-content:center;
+  padding:0 10px calc(8px + env(safe-area-inset-bottom,0px));pointer-events:none}
+.tabbar-in{pointer-events:auto;display:flex;width:100%;max-width:520px;padding:6px;border-radius:22px;
+  background:rgba(12,14,34,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--line-strong);box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px;border:none;background:none;
+  border-radius:16px;color:var(--ink-faint);cursor:pointer;font-size:11px;font-weight:500}
+.tab svg{width:22px;height:22px}
+.tab.active{color:var(--accent);background:rgba(var(--accent-rgb),.14)}
+ 
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;
+  background:#1b1e44;border:1px solid var(--accent);color:var(--ink);padding:10px 18px;border-radius:99px;font-size:13px;
+  display:none;max-width:90%;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.footer-note{text-align:center;color:var(--ink-faint);font-size:11px;line-height:1.8;margin:22px 0 8px}
+.footer-note a{color:var(--ink-dim)}
+ 
+/* ---------- Print ---------- */
+@media print{
+  body{background:#fff!important;color:#000!important;padding:0}
+  body *{visibility:hidden!important}
+  .printing,.printing *{visibility:visible!important;color:#000!important;background:transparent!important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:none!important}
+  .printing{position:absolute!important;left:0;top:0;width:100%;border:none!important;padding:8px!important}
+  .printing table,.printing th,.printing td{border:1.5px solid #000!important}
+  .printing th{background:#ddd!important}
+  .printing .opt i{border:1.8px solid #000!important;color:#000!important;font-weight:800!important;background:#fff!important}
+  .printing .opt{border:1px solid #000!important;background:#fff!important}
+  .printing .qrow{border:1px solid #000!important}
+  .noprint,button,select,input,textarea,.btn{display:none!important}
+}
+ 
+/* ---------- التصحيح الآلي ---------- */
+.grid{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.f{display:flex;flex-direction:column;gap:5px}
+.f label{font-size:12px;color:var(--ink-dim);font-weight:500}
+input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(--line-strong);background:rgba(255,255,255,.055);color:var(--ink);min-height:44px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row>.btn{flex:1;min-width:150px}
+.sub{background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px}
+.sub h5{font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.check{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:13px;cursor:pointer}
+.check input{accent-color:var(--accent);width:16px;height:16px}
+.status{font-size:13px;margin-top:8px;color:var(--good);font-weight:500}
+.steps{position:sticky;top:0;z-index:20;display:flex;gap:8px;overflow-x:auto;padding:8px 2px;scrollbar-width:none;background:linear-gradient(#05060f 60%,transparent)}
+.steps::-webkit-scrollbar{display:none}
+.steps a{flex:none;padding:7px 14px;border-radius:99px;border:1px solid var(--line-strong);background:var(--panel);color:var(--ink-dim);font-size:13px;font-weight:500;text-decoration:none}
+.steps a b{color:var(--accent);margin-inline-end:4px}
+#view-grade .panel{scroll-margin-top:60px}
+.paper{background:#fbfaf5;color:#1a1d33;border-radius:10px;padding:14px;margin-top:12px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.paper .head{text-align:center;border-bottom:2px solid #1e3a8a;padding-bottom:6px;margin-bottom:8px}
+.paper .head h3{font-size:13px;color:#1e3a8a;font-weight:700}
+.paper .head h4{font-size:11px;color:#334155;margin:2px 0;font-weight:500}
+.paper .head p{font-size:10.5px;margin:2px 0;font-weight:600}
+.paper .stu{display:inline-block;margin-top:4px;border:1px solid #94a3b8;border-radius:4px;padding:3px 8px;font-size:10.5px}
+.paper table,.paper th,.paper td{color:#1a1d33;border:1px solid #cbd5e1}
+.paper th{background:#fef08a;color:#1e3a8a}
+.qrow{margin-bottom:5px;padding:5px 7px;border:1px solid #cbd5e1;border-radius:5px;font-size:11px;line-height:1.45;break-inside:avoid;page-break-inside:avoid}
+.qrow .dom{color:#9a3412;font-size:10px;font-weight:700}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:4px}
+@media(max-width:560px){.opts{grid-template-columns:1fr 1fr}}
+.opt{display:flex;align-items:center;gap:4px;font-size:10.5px;font-weight:500;background:#f1f5f9;padding:3px 6px;border-radius:4px;border:1px solid #e2e8f0}
+.opt i{width:16px;height:16px;border:1.5px solid #1e3a8a;border-radius:50%;display:inline-grid;place-items:center;font-size:9px;font-weight:700;color:#1e3a8a;font-style:normal;flex:none}
+.g-card{margin-top:12px;border:1px solid rgba(var(--accent-rgb),.5);border-radius:16px;padding:14px;background:rgba(var(--accent-rgb),.06)}
+.g-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px;margin-bottom:8px}
+.prog{height:5px;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden;margin-bottom:12px}
+.prog b{display:block;height:100%;background:var(--accent);border-radius:5px;transition:width .25s}
+.q-box{border:1px solid var(--line);border-radius:14px;padding:14px;background:rgba(255,255,255,.04)}
+.q-box .dm{font-size:12px;color:var(--warn);font-weight:600}
+.q-box h4{font-size:16px;font-weight:500;line-height:1.7;margin-top:4px}
+.ans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.ans button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:78px;padding:10px 8px;border-radius:14px;cursor:pointer;border:1.5px solid var(--line-strong);background:rgba(255,255,255,.05);color:var(--ink);transition:.15s}
+.ans button strong{font-family:var(--display);font-weight:400;font-size:30px;line-height:1}
+.ans button span{font-size:11px;color:var(--ink-dim);line-height:1.3;text-align:center}
+.ans button.ok{background:rgba(94,234,212,.2);border-color:var(--good)}
+.ans button.ok strong{color:var(--good)}
+.ans button.no{background:rgba(255,122,136,.2);border-color:var(--bad)}
+.ans button.no strong{color:var(--bad)}
+.nav{display:flex;gap:8px;margin-top:12px}
+.nav .btn{flex:1}
+.res{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;margin-bottom:8px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:13px}
+.res b{font-size:14px}
+.sc{font-family:var(--display);font-size:20px;color:var(--accent)}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.summary div{padding:8px 10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:11px;color:var(--ink-dim)}
+.summary strong{display:block;font-family:var(--display);font-weight:400;font-size:22px;color:var(--ink)}
+.bar{height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;min-width:60px}
+.bar b{display:block;height:100%;border-radius:6px}
+.plan{padding:10px 12px;border-radius:12px;border:1px solid rgba(255,207,112,.4);background:rgba(255,207,112,.08);margin-bottom:8px;font-size:13px}
+.plan .a{color:var(--good);font-weight:600}
+.sheet{display:none}
+.sheet.paper{margin-top:0}
+.tabbar-in{max-width:560px}
+.tab{font-size:10.5px;padding:8px 0}
+.tab svg{width:21px;height:21px}
+@media print{ @page{size:A4 portrait;margin:6mm} .printing{display:block!important} }
+.modal{position:fixed;inset:0;z-index:80;background:rgba(3,4,12,.75);display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-c{width:100%;max-width:380px;background:#11132c;border:1px solid var(--line-strong);border-radius:18px;padding:18px}
+</style>
+</head>
+<body class="locked">
+<noscript><p style="color:#fff;padding:20px;text-align:center">تحتاج هذه الصفحة إلى تفعيل JavaScript، افتحها من متصفح الجوال (كروم أو سفاري).</p></noscript>
+<canvas id="stars"></canvas>
+<div class="shooting" aria-hidden="true"></div>
+ 
+<!-- ================= شاشة القفل ================= -->
+<div class="lock" id="lock">
+  <div class="lock-card">
+    <svg viewBox="0 0 150 150" aria-hidden="true">
+      <defs><radialGradient id="lsun" cx="40%" cy="35%"><stop offset="0" stop-color="#fff2c2"/><stop offset=".5" stop-color="#ffb547"/><stop offset="1" stop-color="#e2711d"/></radialGradient></defs>
+      <circle cx="75" cy="75" r="62" fill="none" stroke="rgba(255,255,255,.14)"/>
+      <circle cx="75" cy="75" r="40" fill="none" stroke="rgba(255,255,255,.1)"/>
+      <circle cx="75" cy="75" r="14" fill="url(#lsun)"/>
+      <g><circle cx="137" cy="75" r="6" fill="#47b8ff"/>
+        <animateTransform attributeName="transform" type="rotate" from="0 75 75" to="360 75 75" dur="14s" repeatCount="indefinite"/></g>
+      <g><circle cx="115" cy="75" r="4" fill="#ff6b4a"/>
+        <animateTransform attributeName="transform" type="rotate" from="140 75 75" to="500 75 75" dur="8s" repeatCount="indefinite"/></g>
+    </svg>
+    <h1>مركز قيادة العلوم</h1>
+    <p class="sub" id="lockSub">مدرسة داوود بن عروة الثقفي</p>
+    <form id="lockForm" autocomplete="off">
+      <input type="password" id="pw1" placeholder="الرقم السري" autocomplete="current-password">
+      <input type="password" id="pw2" placeholder="أعد كتابة الرقم السري" hidden>
+      <div class="lock-msg" id="lockMsg" role="alert"></div>
+      <label class="remember"><input type="checkbox" id="rememberDevice"> تذكّر هذا الجهاز</label>
+      <button class="btn block" type="button" id="lockBtn">دخول</button>
+    </form>
+  </div>
+</div>
+ 
+<!-- ================= التطبيق ================= -->
+<div id="app" hidden>
+  <header class="topbar">
+    <div class="brand">
+      <b>مدرسة داوود بن عروة الثقفي</b>
+      <span>المعلم: منصور عامر الرحيلي</span>
+    </div>
+    <div style="display:flex;gap:8px">
+    <button class="icon-btn" id="installTop" onclick="installPWA()" aria-label="تثبيت التطبيق" title="تثبيت التطبيق">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 20h14"/></svg>
+    </button>
+    <button class="icon-btn" onclick="lockNow()" aria-label="قفل اللوحة" title="قفل اللوحة">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+    </button>
+    </div>
+  </header>
+ 
+  <main>
+    <!-- ===== المدار (الرئيسية) ===== -->
+    <section id="view-home" class="view active">
+      <div id="backupBanner" class="banner noprint" hidden>
+        <span>مرّ أكثر من أسبوع على آخر نسخة احتياطية. احفظ نسخة الآن حتى لا تضيع بياناتك.</span>
+        <button class="btn sm warn" onclick="backupAll()">حفظ نسخة</button>
+      </div>
+ 
+      <div class="hero">
+        <div class="hero-text">
+          <div class="eyebrow">مادة العلوم – المرحلة الابتدائية</div>
+          <h2 id="gradeTitle">الصف الأول</h2>
+          <div class="planet" id="planetName">مدار عطارد</div>
+          <p class="hint" style="margin-top:8px;max-width:340px">كل كوكب يمثّل صفاً دراسياً. المس كوكباً لتنتقل إلى بيانات ذلك الصف.</p>
+          <div class="panel clock-panel noprint" style="margin-top:14px">
+            <div class="clock" onclick="toggleSched()">
+              <div class="clock-ring">
+                <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="6"/>
+                  <circle id="clockArc" cx="40" cy="40" r="34" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="213.6"/></svg>
+                <div class="t" id="clockTime">--:--</div>
+              </div>
+              <div class="clock-info">
+                <div class="k" id="clockKicker">الحصة الحالية</div>
+                <div class="v" id="clockTitle">جارٍ التحديث…</div>
+                <div class="c" id="clockClass"></div>
+              </div>
+              <span class="chev" id="schedChev">الجدول ▾</span>
+            </div>
+            <div class="sched" id="sched">
+              <div class="hint" style="margin-bottom:8px">أوقات الحصص موحّدة في جميع الأيام، ويمكنك تغيير الصف لكل حصة.</div>
+              <select id="scheduleDaySelect" onchange="renderScheduleTable()" style="margin-bottom:8px">
+                <option>الأحد</option><option>الإثنين</option><option>الثلاثاء</option><option>الأربعاء</option><option>الخميس</option>
+              </select>
+              <div class="tbl-wrap"><table>
+                <thead><tr><th>الحصة</th><th>البداية</th><th>المدة</th><th>الصف</th></tr></thead>
+                <tbody id="scheduleTbody"></tbody></table></div>
+            </div>
+          </div>
+        </div>
+        <div class="orbit-wrap"><svg id="orbit" viewBox="0 0 360 360" role="group" aria-label="النظام الشمسي: اختر الصف"></svg></div>
+        <div class="chips-col"><div class="chips" id="gradeChips"></div></div>
+      </div>
+ 
+      <div class="stats noprint">
+        <div class="stat"><div class="k">الطلاب</div><div class="n" id="totalStudents">0</div></div>
+        <div class="stat"><div class="k">إتقان الدروس</div><div class="n" id="totalSkills">0%</div><div class="bar"><b id="barSkills"></b></div></div>
+        <div class="stat"><div class="k">الدروس المنفذة</div><div class="n" id="totalExecutedLessons">0 / 0</div><div class="bar"><b id="barLessons"></b></div></div>
+        <div class="stat"><div class="k">المشاركات</div><div class="n" id="totalParticipation">0</div></div>
+        <div class="stat"><div class="k">الواجبات المنجزة</div><div class="n" id="totalHomework">0</div></div>
+        <div class="stat"><div class="k">أيام الغياب</div><div class="n" id="totalAbsence">0</div></div>
+        <div class="stat"><div class="k">االانشطة</div><div class="n" id="totalProjects">0</div></div>
+        <div class="stat"><div class="k">رسائل الواتساب</div><div class="n" id="totalMessagesSent">0</div></div>
+      </div>}
+      <div class="panel noprint" style="margin-top:14px;border-color:rgba(94,234,212,.4)">
+  <div class="panel-h"><h3>الحصة السريعة</h3></div>
+  <select id="quickClass" onchange="qkSet(this.value)"></select>
+  <div id="quickList" style="margin-top:10px"></div>
+</div>
+ <div class="panel noprint" style="margin-top:14px;border-color:rgba(255,207,112,.4)">
+  <div class="panel-h"><h3>يحتاجون انتباهك اليوم</h3><span class="hint" id="attnCount"></span></div>
+  <div id="attnList"></div>
+</div>
+      <div class="panel noprint" style="margin-top:14px">
+  <div class="panel-h"><h3>الطلاب الصامتون</h3><span class="hint" id="silentCount"></span></div>
+  <div id="silentList"></div>
+</div>
+      <div class="panel noprint" style="margin-top:14px">
+  <div class="panel-h"><h3>عدالة التشجيع</h3><span class="hint" id="fairCount"></span></div>
+  <div id="fairList"></div>
+</div>
+      <div class="panel noprint" style="margin-top:14px;border-color:rgba(94,234,212,.4)">
+        <div class="panel-h"><h3>التصحيح الآلي والاختبارات</h3></div>
+        <button class="btn good block" onclick="showView('grade')">فتح التصحيح الآلي</button>
+      </div>
+    </section>
+ 
+    <!-- ===== الطلاب ===== -->
+    <section id="view-students" class="view">
+      <div class="stack">
+        <div class="panel noprint">
+          <div class="panel-h"><h3>إضافة طالب</h3></div>
+          <div class="form">
+            <input type="text" id="studentName" placeholder="اسم الطالب">
+            <input type="text" id="studentClassCustom" placeholder="الصف والفصل (مثال: رابع ابتدائي أول)">
+            <input type="tel" id="studentPhone" maxlength="10" inputmode="numeric" placeholder="جوال ولي الأمر (10 أرقام)">
+            <button class="btn block" onclick="addStudent()">إضافة الطالب</button>
+          </div>
+        </div>
+ 
+        <div class="panel" id="studentsPanel">
+          <div class="panel-h">
+            <h3>الفصول والطلاب</h3>
+            <button class="btn sm ghost noprint" onclick="printSection('studentsPanel')">طباعة</button>
+          </div>
+          <div class="noprint">
+            <div class="hint" style="margin-bottom:8px">اضغط على الفصل لعرض طلابه، أو ابحث بالاسم.</div>
+            <div class="class-list" id="classList"></div>
+            <input type="search" id="filterStudentNameInput" placeholder="ابحث عن طالب بالاسم في كل الفصول…" oninput="onSearchStudents()" style="margin-top:10px">
+          </div>
+          <div class="students" id="studentsList" style="margin-top:12px"></div>
+          <div class="pager noprint">
+            <button class="btn sm ghost" id="prevBtn" onclick="changePage(-1)">السابق</button>
+            <span class="hint" id="pageInfo">0</span>
+            <button class="btn sm ghost" id="nextBtn" onclick="changePage(1)">التالي</button>
+          </div>
+        </div>
+ 
+        <div class="panel noprint">
+          <div class="panel-h"><h3>تصدير واستيراد الطلاب</h3></div>
+          <div class="btn-grid">
+            <button class="btn good" onclick="exportExcel()">تصدير Excel</button>
+            <button class="btn warn" onclick="$('importExcelFile').click()">استيراد Excel</button>
+            <button class="btn ghost" onclick="exportCSV()">ملف Google Sheets</button>
+          </div>
+          <input type="file" id="importExcelFile" accept=".xlsx,.xls" hidden onchange="importExcel(event)">
+        </div>
+      </div>
+    </section>
+ 
+    <!-- ===== الدروس ===== -->
+    <section id="view-lessons" class="view">
+      <div class="stack">
+        <div class="panel noprint">
+          <div class="panel-h"><h3 id="curriculumTitle">مقرر العلوم</h3></div>
+          <select id="curriculumSelect" onchange="onCurriculumChange(this.value)">
+            <option value="">اختر درساً للاطلاع على تفاصيله</option>
+          </select>
+          <div id="lessonDetail" class="detail-box" hidden></div>
+          <div id="lessonsTimeline" style="margin-top:8px"></div>
+ 
+          <div class="sub-panel">
+            <h5>إضافة درس</h5>
+            <div class="form">
+              <input type="text" id="newLessonTitle" placeholder="عنوان الدرس">
+              <input type="text" id="newLessonDesc" placeholder="المفاهيم والتجارب (اختياري)">
+              <button class="btn block" onclick="addNewLesson()">إضافة الدرس</button>
+            </div>
+            <div class="form" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--line-strong)">
+              <textarea id="bulkLessonsInput" rows="3" placeholder="درس في كل سطر:&#10;اسم الوحدة | عنوان الدرس | الوصف"></textarea>
+              <button class="btn ghost block" onclick="addBatchLessons()">إضافة مجموعة دروس</button>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="panel" id="masteryPanel">
+          <div class="panel-h">
+            <h3>تتبع إتقان الدروس</h3>
+            <button class="btn sm ghost noprint" onclick="printSection('masteryPanel')">طباعة</button>
+          </div>
+          <div class="form noprint">
+            <select id="masteryLessonSelect" onchange="renderMasteryTable()"><option value="">اختر الدرس</option></select>
+            <select id="masteryClassSelect" onchange="renderMasteryTable()"><option value="">كل الفصول</option></select>
+          </div>
+          <div id="masterySummary" class="mini-stats" style="margin-top:10px" hidden>
+            <div>متقنون<strong id="countMastered" style="color:var(--good)">0</strong></div>
+            <div>يحتاجون مراجعة<strong id="countReview" style="color:var(--bad)">0</strong></div>
+          </div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>الطالب</th><th>الفصل</th><th>الحالة</th><th class="noprint">تغيير</th></tr></thead>
+            <tbody id="masteryTbody"></tbody></table></div>
+        </div>
+ 
+        <div class="panel noprint">
+          <div class="panel-h"><h3>إرسال الواجب لأولياء الأمور</h3></div>
+          <div class="form">
+            <select id="bulkTargetClass"><option value="ALL">كل الفصول</option></select>
+            <select id="bulkLesson" onchange="updateBulkPreview()"><option value="">اختر درس الواجب</option></select>
+            <input type="text" id="bulkDetails" placeholder="المطلوب (مثال: حل ص 45)" oninput="updateBulkPreview()">
+            <input type="text" id="bulkNote" placeholder="ملاحظات إضافية (اختياري)" oninput="updateBulkPreview()">
+          </div>
+          <div id="bulkPreview" class="preview">اختر الدرس وأدخل تفاصيل الواجب لتظهر الرسالة هنا.</div>
+          <div id="bulkPanel" hidden><div class="send-list" id="bulkList"></div></div>
+          <button class="btn wa block" style="margin-top:8px" onclick="prepareBulk()">تجهيز روابط الإرسال</button>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- ===== التصحيح الآلي ===== -->
+    <section id="view-grade" class="view">
+      <nav class="steps noprint" aria-label="الخطوات">
+  <a href="#setup"><b>١</b>الإعداد</a><a href="#sheet"><b>٢</b>الورقة</a><a href="#grading"><b>٣</b>التصحيح</a>
+  <a href="#results"><b>٤</b>النتائج</a><a href="#analysisPanel"><b>٥</b>التحليل</a>
+</nav>
+      <div class="stack" style="margin-top:6px">
+ 
+  <section class="panel noprint" id="setup">
+    <div class="panel-h"><h3>إعدادات الاختبار</h3></div>
+    <div class="grid">
+      <div class="f"><label>نوع الاختبار</label>
+        <select id="selectExamType" onchange="toggleNafis(); switchExamModel();">
+          <option value="الاختبار الفتري الأول">الاختبار الفتري الأول</option>
+          <option value="الاختبار الفتري الثاني">الاختبار الفتري الثاني</option>
+          <option value="الاختبار القبلي التشخيصي">الاختبار القبلي (تشخيصي)</option>
+          <option value="الاختبار البعدي النهائي">الاختبار البعدي (نهائي)</option>
+          <option value="اختبارات نافس الوطنية">اختبارات نافس الوطنية</option>
+        </select></div>
+      <div class="f"><label>المادة</label>
+        <select id="selectSubject" onchange="switchExamModel()">
+          <option value="science">العلوم</option><option value="math">الرياضيات</option><option value="arabic">لغتي الجميلة</option>
+          <option value="english">اللغة الإنجليزية</option><option value="islamic">الدراسات الإسلامية</option>
+        </select></div>
+      <div class="f"><label>الصف الدراسي</label>
+        <select id="selectGrade" onchange="onGradeChange()">
+          <option value="الأول الابتدائي">الأول الابتدائي</option><option value="الثاني الابتدائي">الثاني الابتدائي</option>
+          <option value="الثالث الابتدائي">الثالث الابتدائي</option><option value="الرابع الابتدائي">الرابع الابتدائي</option>
+          <option value="الخامس الابتدائي">الخامس الابتدائي</option><option value="السادس الابتدائي">السادس الابتدائي</option>
+        </select></div>
+      <div class="f"><label>الفصل</label>
+        <select id="selectClassDigit" onchange="switchExamModel()">
+          <option value="all">كل طلاب الصف</option>
+          <option value="1">فصل 1</option><option value="2">فصل 2</option><option value="3">فصل 3</option>
+          <option value="4">فصل 4</option><option value="5">فصل 5</option><option value="6">فصل 6</option>
+        </select></div>
+      <div class="f"><label>رقم النموذج (يُحفظ تلقائياً)</label>
+        <select id="selectModelLetter" onchange="switchExamModel()">
+          <option value="نموذج (أ)">نموذج (أ)</option><option value="نموذج (ب)">نموذج (ب)</option>
+          <option value="نموذج (ج)">نموذج (ج)</option><option value="نموذج (د)" selected>نموذج (د)</option>
+        </select></div>
+      <div class="f"><label>عدد الأسئلة</label>
+        <select id="selectQuestionCount">
+          <option value="5">5 أسئلة</option><option value="10" selected>10 أسئلة</option>
+        </select></div>
+    </div>
+ 
+    <div id="nafisBox" class="sub" hidden>
+      <h5>مجالات مادة العلوم في اختبارات نافس</h5>
+      <div class="checks">
+        <label class="check"><input type="checkbox" class="nafis-cb" value="علوم الحياة" checked>علوم الحياة</label>
+        <label class="check"><input type="checkbox" class="nafis-cb" value="العلوم الفيزيائية" checked>العلوم الفيزيائية</label>
+        <label class="check"><input type="checkbox" class="nafis-cb" value="علوم الأرض والفضاء" checked>علوم الأرض والفضاء</label>
+        <label class="check"><input type="checkbox" class="nafis-cb" value="الاستقصاء العلمي" checked>الاستقصاء العلمي</label>
+      </div>
+    </div>
+    <div id="lessonBox" class="sub" hidden>
+      <h5>الدروس المستهدفة بالاختبار</h5>
+      <p class="hint" style="margin-bottom:8px">سيولّد الذكاء الاصطناعي الأسئلة من محتوى الدروس التي تختارها هنا فقط.</p>
+      <div class="checks" id="examLessonChecks"></div>
+    </div>
+    <div class="sub">
+      <h5>الكلمة الدلالية أو عنوان النموذج</h5>
+      <div class="f"><input type="text" id="examKeywordInput" placeholder="مثال: اختبار نافس علوم – نموذج د"></div>
+    </div>
+    <div class="sub" style="border-color:rgba(var(--accent-rgb),.4)">
+      <h5>توليد الأسئلة بالذكاء الاصطناعي (Gemini)</h5>
+      <p class="hint" style="margin-bottom:8px">عند الضغط على "توليد ورقة الاختبار"، يتم إرسال طلب لنموذج Gemini لتوليد أسئلة جديدة في كل مرة: حسب الدروس المختارة أعلاه للاختبارات الفصلية، أو حسب مجالات نافس المحددة لاختبارات نافس. أدخل مفتاح Gemini API من صفحة "المزيد" لتفعيل ذلك، وإلا سيُستخدم نموذج احتياطي مبسّط.</p>
+      <div class="status" id="aiGenStatus" style="color:var(--ink-dim)"></div>
+    </div>
+    <div class="sub">
+      <h5>صورة مرجعية للورقة (اختياري)</h5>
+      <p class="hint" style="margin-bottom:8px">رفع الصورة اختياري ولا تُقرأ تلقائياً، بل يُستخدم فقط لتذكيرك بالورقة الأصلية إن وُجدت.</p>
+      <input type="file" id="examImageUploadInput" accept="image/*" onchange="handleExamImageUpload(event)">
+      <div class="status" id="imageUploadStatus"></div>
+    </div>
+  </section>
+ 
+  <section class="panel" id="sheet">
+    <div class="panel-h noprint"><h3>ورقة الاختبار (A4)</h3></div>
+    <div class="row noprint">
+      <button class="btn" id="genTestBtn" onclick="generateTestModel()">توليد ورقة الاختبار</button>
+      <button class="btn danger" onclick="clearAllExamAndAnalysisData()">حذف الاختبار والنتائج</button>
+    </div>
+    <div id="paper" class="paper" hidden>
+      <div class="head">
+        <h3>المملكة العربية السعودية – وزارة التعليم</h3>
+        <h4>مدرسة داوود بن عروة الثقفي الابتدائية</h4>
+        <p>معلم المادة: منصور عامر الرحيلي</p>
+        <p id="printTestInfo" style="color:#1e3a8a"></p>
+        <p id="printModelBadge" style="color:#0f766e"></p>
+        <div class="stu"><b>اسم الطالب:</b> ............................................ &nbsp; <b>الصف/الفصل:</b> <span id="printClassValue">..........</span></div>
+      </div>
+      <div id="generatedQuestionsList"></div>
+    </div>
+    <div class="noprint" style="margin-top:10px" id="printExamRow" hidden>
+      <button class="btn ghost block" onclick="printSection('paper')">طباعة الاختبار على صفحة A4</button>
+    </div>
+  </section>
+ 
+  <section class="panel noprint" id="grading">
+    <div class="panel-h"><h3>التصحيح السريع</h3></div>
+    <p class="hint" style="margin-bottom:10px">اضغط الحرف الذي اختاره الطالب على ورقته، ويظهر لك فوراً هل هو صحيح.</p>
+    <button class="btn good block" onclick="startTouchGradingSession()">بدء جلسة التصحيح</button>
+    <div id="studentsNote" class="hint" style="margin-top:8px"></div>
+    <div id="touchGradingCard" class="g-card" hidden>
+      <div id="studentHeader" class="g-head"></div>
+      <div class="prog"><b id="progBar" style="width:0"></b></div>
+      <div id="singleQuestionContainer"></div>
+      <div class="nav">
+        <button class="btn ghost" onclick="prevQuestionStep()">السابق</button>
+        <button class="btn" onclick="nextQuestionStepOrFinish()">التالي / حفظ</button>
+      </div>
+      <button class="btn warn sm" style="margin-top:10px" onclick="skipStudent()">تخطي الطالب (غائب)</button>
+    </div>
+  </section>
+ 
+  <section class="panel" id="results">
+    <div class="panel-h noprint"><h3>سجل الدرجات</h3></div>
+    <div class="noprint">
+      <div class="f"><input type="text" id="searchStudentInput" placeholder="ابحث عن اسم طالب…" oninput="filterStudentResults()"></div>
+    </div>
+    <div id="summaryBox" class="summary" style="margin-top:12px" hidden>
+      <div>عدد الطلاب<strong id="sumCount">0</strong></div>
+      <div>المتوسط<strong id="sumAvg">0</strong></div>
+      <div>المتقنون<strong id="sumMastered">0</strong></div>
+    </div>
+    <div id="correctionOutput" style="margin-top:12px"></div>
+    <div class="row noprint" style="margin-top:8px">
+      <button class="btn ghost" onclick="printGradesSheet()">طباعة كشف الدرجات</button>
+      <button class="btn warn" onclick="toggleAnalysisBox()">تقرير التحليل والخطط العلاجية</button>
+    </div>
+  </section>
+ 
+  <section id="gradesSheet" class="paper sheet">
+    <div class="head">
+      <h3>المملكة العربية السعودية – وزارة التعليم</h3>
+      <h4>مدرسة داوود بن عروة الثقفي الابتدائية</h4>
+      <p id="sheetPrintMeta"></p>
+    </div>
+    <table border="1">
+      <thead><tr><th>م</th><th>اسم الطالب</th><th>الفصل</th><th>الدرجة</th><th>الدرجة الكبرى</th><th>مستوى الإتقان</th></tr></thead>
+      <tbody id="sheetPrintTableBody"></tbody>
+    </table>
+    <div style="margin-top:22px;display:flex;justify-content:space-between;font-size:12px;font-weight:700">
+      <div>ختم المدرسة: ....................</div><div>معلم المادة: منصور عامر الرحيلي</div>
+    </div>
+  </section>
+ 
+  <section class="panel" id="analysisPanel" hidden>
+    <div class="head" style="text-align:center;margin-bottom:8px">
+      <h3 style="font-size:14px">تقرير تحليل نواتج التعلم والخطط العلاجية</h3>
+      <p class="hint">مدرسة داوود بن عروة الثقفي الابتدائية – معلم المادة: منصور عامر الرحيلي</p>
+    </div>
+    <div id="analysisContentText"></div>
+    <div class="noprint" style="margin-top:12px"><button class="btn ghost block" onclick="printSection('analysisPanel')">طباعة التقرير</button></div>
+  </section>
+ 
+</div>
+    </section>
+ 
+    <!-- ===== التقارير ===== -->
+    <section id="view-reports" class="view">
+      <div class="stack">
+        <div class="panel" id="examsPanel">
+          <div class="panel-h">
+            <h3>اختبارات الفترتين (من 20)</h3>
+            <button class="btn sm ghost noprint" onclick="printSection('examsPanel')">طباعة</button>
+          </div>
+          <select id="examClassSelect" class="noprint" onchange="renderExamsTable()"><option value="">اختر الفصل</option></select>
+          <div id="examsAnalysis" class="mini-stats" style="margin-top:10px" hidden>
+            <div>متوسط الفترة 1<strong id="avgExam1">0</strong></div>
+            <div>متوسط الفترة 2<strong id="avgExam2">0</strong></div>
+          </div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>الطالب</th><th>الفترة 1</th><th>الفترة 2</th><th class="noprint">إرسال</th></tr></thead>
+            <tbody id="examsTbody"></tbody></table></div>
+        </div>
+ 
+        <div class="panel" id="studentFilePanel">
+          <div class="panel-h">
+            <h3>ملف الطالب</h3>
+            <button class="btn sm ghost noprint" onclick="printSection('studentFilePanel')">طباعة</button>
+          </div>
+          <div class="dd noprint">
+            <input type="text" id="studentSearchInput" placeholder="اكتب اسم الطالب…" oninput="filterStudentDropdown()" onfocus="filterStudentDropdown()" autocomplete="off">
+            <div class="dd-list" id="studentDropdown"></div>
+          </div>
+          <div id="studentCard" hidden>
+            <h4 style="margin:12px 0 4px;font-size:15px">سجل الطالب: <span id="selName"></span> <span class="tag" id="selClass"></span></h4>
+            <div class="kv">
+              <div>المشاركات<strong id="sdParticipation">0</strong></div>
+              <div>الواجبات<strong id="sdHomework">0</strong></div>
+              <div>الغياب<strong id="sdAbsence">0</strong></div>
+              <div>الدروس المتقنة<strong id="sdSkills">0</strong></div>
+              <div>الانشطة<strong id="sdProjects">0</strong></div>
+              <div>الرسائل<strong id="sdMessages">0</strong></div>
+            </div>
+ 
+            <div class="sub-panel noprint">
+              <h5>نقل الطالب وسجله إلى فصل آخر</h5>
+              <div class="form">
+                <select id="transferTarget"><option value="">اختر الفصل المستهدف</option></select>
+                <button class="btn block" style="background:var(--accent)" onclick="transferSelected()">نقل الطالب</button>
+              </div>
+            </div>
+ 
+            <div class="btn-grid noprint" style="margin-top:12px">
+              <button class="btn ghost" onclick="printSection('studentFilePanel')">طباعة التقرير</button>
+              <button class="btn wa" onclick="sendFullReport()">التقرير عبر واتساب</button>
+            </div>
+ 
+            <div class="sub-panel noprint">
+              <h5>إشعار ولي الأمر بالدرس</h5>
+              <div class="hint">الجوال: <span id="sdPhone" style="direction:ltr;display:inline-block">لا يوجد</span></div>
+              <select id="selectLesson" onchange="updateLessonMsg()" style="margin-top:8px"><option value="">اختر الدرس</option></select>
+              <div id="lessonMsgPreview" class="preview">اختر الدرس لتظهر الرسالة.</div>
+              <a id="waLessonBtn" href="#" target="_blank" class="btn wa block" onclick="return sendVia(this)">إرسال لولي الأمر</a>
+            </div>
+ 
+            <div class="sub-panel noprint">
+              <h5>رسالة تشجيع وشكر</h5>
+              <select id="selectMotivation" onchange="updateMotivationMsg()"><option value="">اختر الرسالة</option></select>
+              <div id="motivationMsgPreview" class="preview">اختر الرسالة لعرض نصها.</div>
+              <a id="waMotivBtn" href="#" target="_blank" class="btn wa block" onclick="return sendVia(this)">إرسال التشجيع</a>
+              <div class="form" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--line-strong)">
+                <input type="text" id="newMotivationTitle" placeholder="عنوان رسالة جديدة">
+                <input type="text" id="newMotivationText" placeholder="نص الرسالة">
+                <button class="btn ghost block" onclick="addNewMotivation()">حفظ الرسالة</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- ===== المزيد ===== -->
+    <section id="view-more" class="view">
+      <div class="stack">
+        <div class="panel noprint">
+          <div class="panel-h"><h3>النسخ الاحتياطي</h3></div>
+          <p class="hint" style="margin-bottom:10px">بياناتك محفوظة في متصفح هذا الجهاز فقط. احفظ نسخة كاملة (كل الصفوف) لتنقلها إلى جهاز آخر أو تحميها من الضياع.</p>
+          <div class="btn-grid">
+            <button class="btn" onclick="backupAll()">حفظ نسخة كاملة</button>
+            <button class="btn warn" onclick="$('restoreFile').click()">استرجاع نسخة</button>
+          </div>
+          <input type="file" id="restoreFile" accept=".json" hidden onchange="restoreBackup(event)">
+        </div>
+ 
+        <div class="panel noprint">
+          <div class="panel-h"><h3>الذكاء الاصطناعي (Gemini) لتوليد أسئلة الاختبارات</h3></div>
+          <p class="hint" style="margin-bottom:10px">أدخل مفتاح Gemini API الخاص بك ليقوم التصحيح الآلي بتوليد أسئلة جديدة تلقائياً: حسب محتوى الدرس المختار في الاختبارات الفصلية، أو حسب مجالات نافس الأربعة في اختبارات نافس، بدلاً من الاعتماد على نموذج ثابت من 10 أسئلة محفوظة.</p>
+          <div class="form">
+            <input type="password" id="geminiApiKeyInput" placeholder="مفتاح Gemini API" autocomplete="off">
+            <input type="text" id="geminiModelInput" placeholder="اسم النموذج (اختياري، افتراضي: gemini-2.5-flash)">
+            <button class="btn block" onclick="saveGeminiSettings()">حفظ إعدادات الذكاء الاصطناعي</button>
+          </div>
+          <p class="hint" style="margin-top:8px">يمكنك الحصول على مفتاح من <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a>. يُحفظ المفتاح داخل متصفح هذا الجهاز فقط، ولا يصل إلى أي جهة سوى Google عند توليد الأسئلة.</p>
+        </div>
+ 
+        <div class="panel noprint">
+          <div class="panel-h"><h3>الرقم السري</h3></div>
+          <div class="form">
+            <input type="password" id="curPw" placeholder="الرقم السري الحالي" autocomplete="off">
+            <input type="password" id="newPw" placeholder="الرقم السري الجديد (4 خانات على الأقل)" autocomplete="off">
+            <button class="btn ghost block" onclick="changePassword()">تغيير الرقم السري</button>
+            <button class="btn danger block" onclick="lockNow()">قفل اللوحة الآن</button>
+          </div>
+        </div>
+ 
+        <div class="panel noprint">
+          <div class="panel-h"><h3>التطبيق والدعم</h3></div>
+          <div class="form">
+            <button class="btn block" id="pwaInstallBtn" onclick="installPWA()">تثبيت اللوحة على الشاشة الرئيسية</button>
+            <a class="btn wa block" href="https://wa.me/966581015002" target="_blank">تواصل مع الدعم الفني</a>
+          </div>
+        </div>
+ 
+        <div class="footer-note noprint">
+          ﴿ هذا الجهد استغرق وقتاً وعناية، ولا أحلّ نقله تجارياً أو نسخه دون إذن ﴾<br>
+          للتواصل عبر واتساب: <a href="https://wa.me/966581015002" target="_blank">0581015002</a><br>
+          نهاية الاشتراك: 2027/07/01
+        </div>
+      </div>
+    </section>
+  </main>
+ 
+  <nav class="tabbar noprint" aria-label="التنقل">
+    <div class="tabbar-in">
+      <button class="tab active" data-view="home" onclick="showView('home')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(-25 12 12)"/></svg>المدار</button>
+      <button class="tab" data-view="students" onclick="showView('students')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.5 0 4.5 2 4.5 4.5"/></svg>الطلاب</button>
+      <button class="tab" data-view="lessons" onclick="showView('lessons')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16M9 8h7"/></svg>الدروس</button>
+      <button class="tab" data-view="grade" onclick="showView('grade')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>التصحيح</button>
+      <button class="tab" data-view="reports" onclick="showView('reports')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>التقارير</button>
+      <button class="tab" data-view="more" onclick="showView('more')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>المزيد</button>
+    </div>
+  </nav>
+</div>
+ 
+<div id="installHelp" class="modal" hidden onclick="if(event.target===this)this.hidden=true">
+  <div class="modal-c">
+    <h3 style="font-size:17px;margin-bottom:8px">تثبيت اللوحة كتطبيق</h3>
+    <p class="hint" style="margin-bottom:10px">لم يعرض المتصفح نافذة التثبيت تلقائياً. ثبّتها يدوياً:</p>
+    <p style="font-size:14px;margin-bottom:8px"><b>أندرويد (كروم):</b> اضغط النقاط الثلاث ⋮ ثم "تثبيت التطبيق" أو "إضافة إلى الشاشة الرئيسية".</p>
+    <p style="font-size:14px;margin-bottom:14px"><b>آيفون (سفاري):</b> اضغط زر المشاركة ثم "إضافة إلى الشاشة الرئيسية".</p>
+    <button class="btn block" onclick="$('installHelp').hidden=true">حسناً</button>
+  </div>
+</div>
+<div id="motivModal" class="modal" hidden onclick="if(event.target===this)this.hidden=true">
+  <div class="modal-c">
+    <h3 style="font-size:17px;margin-bottom:8px">رسالة تشجيع: <span id="qmName"></span></h3>
+    <select id="qmSelect" onchange="updateQuickMotiv()"></select>
+    <textarea id="qmCustom" rows="3" placeholder="أو اكتب رسالتك الخاصة هنا" oninput="updateQuickMotiv()" style="margin-top:8px"></textarea>
+    <div id="qmPreview" class="preview">اختر الرسالة لعرض نصها.</div>
+    <a id="qmSend" href="#" target="_blank" class="btn wa block" onclick="return sendQuickMotiv(this)">إرسال التشجيع</a>
+    <button class="btn ghost block" style="margin-top:8px" onclick="$('motivModal').hidden=true">إغلاق</button>
+  </div>
+</div>
+  <div id="masteryModal" class="modal" hidden onclick="if(event.target===this)this.hidden=true">
+  <div class="modal-c" style="max-height:80vh;overflow-y:auto">
+    <h3 style="font-size:17px;margin-bottom:8px">إتقان الدروس: <span id="mqName"></span></h3>
+    <div id="mqList"></div>
+    <button class="btn ghost block" style="margin-top:8px" onclick="$('masteryModal').hidden=true">إغلاق</button>
+  </div>
+</div>
+  <div id="toast" class="toast" role="status"></div>
+ 
+<script>
+window.addEventListener('error', function(e){
+  var d=document.getElementById('errBox');
+  if(!d){ d=document.createElement('div'); d.id='errBox'; d.style.cssText='position:fixed;top:0;right:0;left:0;z-index:9999;background:#7f1d1d;color:#fff;font:12px/1.5 sans-serif;padding:8px 10px;direction:ltr;word-break:break-all'; document.body.appendChild(d); }
+  d.textContent='Error: '+(e.message||'')+' @'+(e.lineno||'')+':'+(e.colno||'');
+});
+</script>
+<script>
+/* تخزين احتياطي في الذاكرة إذا حجب المتصفح localStorage (مثل المعاينات المدمجة) */
+(function(){
+  function mk(){ const d={}; return {getItem:k=>Object.prototype.hasOwnProperty.call(d,k)?d[k]:null,setItem:(k,v)=>{d[k]=String(v)},removeItem:k=>{delete d[k]},key:i=>Object.keys(d)[i]||null,get length(){return Object.keys(d).length}}; }
+  ['localStorage','sessionStorage'].forEach(n=>{
+    let ok=true; try{ window[n].setItem('__t','1'); window[n].removeItem('__t'); }catch(e){ ok=false; }
+    if(!ok){ try{ Object.defineProperty(window,n,{value:mk(),configurable:true}); }catch(e){} }
+  });
+})();
+</script>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const TEACHER_NAME = "منصور عامر الرحيلي";
+const SCHOOL_NAME = "مدرسة داوود بن عروة الثقفي";
+ 
+/* ================= خلفية النجوم ================= */
+(function stars(){
+  const cv = $('stars'), ctx = cv.getContext('2d');
+  function draw(){
+    const w = cv.width = innerWidth, h = cv.height = innerHeight;
+    ctx.clearRect(0,0,w,h);
+    const n = Math.round(w*h/9000);
+    for(let i=0;i<n;i++){
+      const r = Math.random()<.08 ? 1.5 : Math.random()*.9+.3;
+      ctx.globalAlpha = Math.random()*.7+.2;
+      ctx.fillStyle = Math.random()<.15 ? '#bcd6ff' : '#ffffff';
+      ctx.beginPath(); ctx.arc(Math.random()*w, Math.random()*h, r, 0, 6.283); ctx.fill();
+    }
+  }
+  draw();
+  let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(draw, 250); });
+})();
+ 
+/* ================= الرقم السري ================= */
+const PW_KEY='mansour_pw_hash_v1', PW_SALT='mansour_pw_salt_v1', REMEMBER_KEY='mansour_remember_v1', SESSION_KEY='mansour_session_v1';
+let lockMode = 'login', failCount = 0, lockedUntil = 0, appBooted = false;
+ 
+function cyrb53(str, seed=0){
+  let h1=0xdeadbeef^seed, h2=0x41c6ce57^seed;
+  for(let i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677);}
+  h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);
+  h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);
+  return (4294967296*(2097151&h2)+(h1>>>0)).toString(16);
+}
+async function hashPw(pw, salt){
+  const data = salt + '::' + pw;
+  try{
+    if(window.crypto && crypto.subtle){
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
+      return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    }
+  }catch(e){}
+  return 'w' + cyrb53(data) + cyrb53(data, 7);
+}
+function newSalt(){ return Math.random().toString(36).slice(2) + Date.now().toString(36); }
+ 
+function initLock(){
+  const hash = localStorage.getItem(PW_KEY);
+  if(!hash){ setLockMode('setup'); return; }
+  if(localStorage.getItem(REMEMBER_KEY) === hash || sessionStorage.getItem(SESSION_KEY) === hash){ unlock(); return; }
+  setLockMode('login');
+}
+function setLockMode(mode){
+  lockMode = mode;
+  $('lock').hidden = false; document.body.classList.add('locked'); $('app').hidden = true;
+  $('pw2').hidden = mode !== 'setup';
+  $('pw1').value = ''; $('pw2').value = '';
+  $('lockMsg').textContent = ''; $('lockMsg').className = 'lock-msg';
+  $('pw1').placeholder = mode === 'setup' ? 'أنشئ رقماً سرياً (4 خانات على الأقل)' : 'الرقم السري';
+  $('lockBtn').textContent = mode === 'setup' ? 'إنشاء الرقم السري والدخول' : 'دخول';
+  $('lockSub').textContent = mode === 'setup' ? 'أول مرة؟ اختر الرقم السري الذي يحمي لوحتك' : 'مدرسة داوود بن عروة الثقفي';
+  setTimeout(() => $('pw1').focus(), 50);
+}
+function lockMsg(t, ok){ $('lockMsg').textContent = t; $('lockMsg').className = 'lock-msg' + (ok ? ' ok' : ''); }
+function shakeLock(){ $('lock').classList.remove('shake'); void $('lock').offsetWidth; $('lock').classList.add('shake'); }
+ 
+async function submitLock(){
+  const p1 = $('pw1').value;
+  if(lockMode === 'setup'){
+    if(p1.length < 4){ lockMsg('الرقم السري يجب أن لا يقل عن 4 خانات'); shakeLock(); return; }
+    if(p1 !== $('pw2').value){ lockMsg('الرقمان غير متطابقين، أعد الكتابة'); shakeLock(); return; }
+    const salt = newSalt(), h = await hashPw(p1, salt);
+    localStorage.setItem(PW_SALT, salt); localStorage.setItem(PW_KEY, h);
+    finishUnlock(h);
+    return;
+  }
+  const now = Date.now();
+  if(now < lockedUntil){ lockMsg(`محاولات كثيرة. انتظر ${Math.ceil((lockedUntil-now)/1000)} ثانية`); return; }
+  const h = await hashPw(p1, localStorage.getItem(PW_SALT) || '');
+  if(h === localStorage.getItem(PW_KEY)){ failCount = 0; finishUnlock(h); }
+  else{
+    failCount++;
+    if(failCount >= 5){ lockedUntil = Date.now() + 30000; failCount = 0; lockMsg('محاولات كثيرة. انتظر 30 ثانية'); }
+    else lockMsg('الرقم السري غير صحيح');
+    $('pw1').value = ''; shakeLock();
+  }
+}
+$('lockForm').addEventListener('submit', e => { e.preventDefault(); submitLock(); });
+$('lockBtn').addEventListener('click', e => { e.preventDefault(); submitLock(); });
+['pw1','pw2'].forEach(id => $(id).addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); submitLock(); } }));
+function finishUnlock(h){
+  sessionStorage.setItem(SESSION_KEY, h);
+  if($('rememberDevice').checked) localStorage.setItem(REMEMBER_KEY, h);
+  unlock();
+}
+function unlock(){
+  $('lock').hidden = true; document.body.classList.remove('locked'); $('app').hidden = false;
+  if(!appBooted){ appBooted = true; bootApp(); }
+}
+function lockNow(){
+  sessionStorage.removeItem(SESSION_KEY); localStorage.removeItem(REMEMBER_KEY);
+  $('rememberDevice').checked = false;
+  setLockMode('login'); scrollTo(0,0);
+}
+async function changePassword(){
+  const cur = $('curPw').value, nw = $('newPw').value;
+  const h = await hashPw(cur, localStorage.getItem(PW_SALT) || '');
+  if(h !== localStorage.getItem(PW_KEY)){ alert('الرقم السري الحالي غير صحيح'); return; }
+  if(nw.length < 4){ alert('الرقم السري الجديد يجب أن لا يقل عن 4 خانات'); return; }
+  const salt = newSalt(), nh = await hashPw(nw, salt);
+  localStorage.setItem(PW_SALT, salt); localStorage.setItem(PW_KEY, nh);
+  sessionStorage.setItem(SESSION_KEY, nh);
+  if(localStorage.getItem(REMEMBER_KEY)) localStorage.setItem(REMEMBER_KEY, nh);
+  $('curPw').value = ''; $('newPw').value = '';
+  showToast('تم تغيير الرقم السري');
+}
+ 
+/* ================= الصفوف = الكواكب ================= */
+const GRADES = [
+  {key:"الأول الابتدائي",  short:"الأول",  planet:"عطارد",  color:"#b9b4ad", r:38,  size:5,   dur:70,  start:200},
+  {key:"الثاني الابتدائي", short:"الثاني", planet:"الزهرة", color:"#ffcf70", r:62,  size:7,   dur:100, start:40},
+  {key:"الثالث الابتدائي", short:"الثالث", planet:"الأرض",  color:"#47b8ff", r:86,  size:7.5, dur:140, start:300},
+  {key:"الرابع الابتدائي", short:"الرابع", planet:"المريخ", color:"#ff6b4a", r:110, size:6,   dur:180, start:120},
+  {key:"الخامس الابتدائي", short:"الخامس", planet:"المشتري",color:"#e2a06b", r:134, size:11,  dur:230, start:250},
+  {key:"السادس الابتدائي", short:"السادس", planet:"زحل",    color:"#b9a0ff", r:158, size:9,   dur:290, start:70}
+];
+const NONE = '__NONE__';
+let currentGrade = localStorage.getItem('mansour_current_grade_science_v5') || GRADES[0].key;
+if(!GRADES.some(g => g.key === currentGrade)) currentGrade = GRADES[0].key;
+const gradeInfo = () => GRADES.find(g => g.key === currentGrade);
+ 
+function hexRgb(h){ const n = parseInt(h.slice(1),16); return [(n>>16)&255,(n>>8)&255,n&255].join(','); }
+function applyGradeTheme(){
+  const g = gradeInfo(), root = document.documentElement.style;
+  root.setProperty('--accent', g.color); root.setProperty('--accent-rgb', hexRgb(g.color));
+  $('gradeTitle').textContent = 'الصف ' + g.short;
+  $('planetName').textContent = 'مدار ' + g.planet;
+  $('curriculumTitle').textContent = 'مقرر العلوم – ' + currentGrade;
+  document.querySelector('meta[name=theme-color]').setAttribute('content', '#05060f');
+  document.querySelectorAll('#gradeChips .chip').forEach((c,i) => c.classList.toggle('active', GRADES[i].key === currentGrade));
+  document.querySelectorAll('#orbit .orbit-line').forEach((c,i) => {
+    c.setAttribute('stroke', GRADES[i].key === currentGrade ? g.color : 'rgba(255,255,255,.12)');
+    c.setAttribute('stroke-opacity', GRADES[i].key === currentGrade ? '.7' : '1');
+  });
+  document.querySelectorAll('#orbit .active-ring').forEach((c,i) => c.setAttribute('opacity', GRADES[i].key === currentGrade ? '1' : '0'));
+}
+ 
+function buildOrbit(){
+  let svg = `<defs>
+    <radialGradient id="sunG" cx="40%" cy="38%"><stop offset="0" stop-color="#fff5cc"/><stop offset=".45" stop-color="#ffb547"/><stop offset="1" stop-color="#e2711d"/></radialGradient>
+    <radialGradient id="shade" cx="35%" cy="32%" r="80%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="9"/></filter>
+  </defs>
+  <circle cx="180" cy="180" r="34" fill="#ffb547" opacity=".35" filter="url(#glow)"/>
+  <circle cx="180" cy="180" r="17" fill="url(#sunG)"/>`;
+  GRADES.forEach(g => { svg += `<circle class="orbit-line" cx="180" cy="180" r="${g.r}" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1"/>`; });
+  GRADES.forEach((g,i) => {
+    const cx = 180 + g.r, s = g.size;
+    const anim = reduceMotion ? '' : `<animateTransform attributeName="transform" type="rotate" from="${g.start} 180 180" to="${g.start+360} 180 180" dur="${g.dur}s" repeatCount="indefinite"/>`;
+    const init = reduceMotion ? ` transform="rotate(${g.start} 180 180)"` : '';
+    const ring = g.planet === 'زحل' ? `<ellipse cx="${cx}" cy="180" rx="${s*1.9}" ry="${s*.55}" fill="none" stroke="${g.color}" stroke-width="1.6" opacity=".85" transform="rotate(-22 ${cx} 180)"/>` : '';
+    const pulse = reduceMotion ? '' : `<animate attributeName="r" values="${s+4};${s+7};${s+4}" dur="2.4s" repeatCount="indefinite"/>`;
+    svg += `<g${init}>
+      <g class="planet-g" data-i="${i}" tabindex="0" role="button" aria-label="الصف ${g.short} – ${g.planet}">
+        <circle class="hit" cx="${cx}" cy="180" r="15"/>
+        <circle class="active-ring" cx="${cx}" cy="180" r="${s+5}" fill="none" stroke="${g.color}" stroke-width="1.5" opacity="0">${pulse}</circle>
+        <circle cx="${cx}" cy="180" r="${s}" fill="${g.color}"/>
+        <circle cx="${cx}" cy="180" r="${s}" fill="url(#shade)"/>
+        ${ring}
+      </g>${anim}</g>`;
+  });
+  $('orbit').innerHTML = svg;
+  $('orbit').querySelectorAll('.planet-g').forEach(el => {
+    const go = () => changeGradeLevel(GRADES[+el.dataset.i].key);
+    el.addEventListener('click', go);
+    el.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
+  });
+  $('gradeChips').innerHTML = GRADES.map((g,i) => `<button class="chip" onclick="changeGradeLevel('${g.key}')"><i style="background:${g.color}"></i>${g.short}</button>`).join('');
+}
+ 
+/* ================= الجدول والمؤقت ================= */
+const DAYS = ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس"];
+const predefinedClasses = ["لا توجد حصة","انتظار","نشاط / مراجعة"];
+["الأول","الثاني","الثالث","الرابع","الخامس","السادس"].forEach(g => { for(let i=1;i<=6;i++) predefinedClasses.push(`${g} /${i}`); });
+const fixedDayTemplate = [
+  {period:"الحصة الأولى",  startTime:"07:00", duration:45, className:"الأول /1"},
+  {period:"الحصة الثانية", startTime:"07:50", duration:45, className:"الثاني /1"},
+  {period:"الحصة الثالثة", startTime:"08:40", duration:45, className:"الثالث /1"},
+  {period:"الحصة الرابعة", startTime:"09:35", duration:45, className:"الرابع /1"},
+  {period:"الحصة الخامسة", startTime:"10:25", duration:45, className:"الخامس /1"},
+  {period:"الحصة السادسة", startTime:"11:15", duration:45, className:"السادس /1"},
+  {period:"الحصة السابعة", startTime:"12:05", duration:40, className:"نشاط / مراجعة"}
+];
+const SCHED_KEY = 'mansour_school_schedule_v12';
+let schoolSchedule;
+function load(key, fallback){ try{ const v = JSON.parse(localStorage.getItem(key)); return v == null ? fallback : v; }catch(e){ return fallback; } }
+function loadSchedule(){
+  const def = {}; DAYS.forEach(d => def[d] = JSON.parse(JSON.stringify(fixedDayTemplate)));
+  schoolSchedule = load(SCHED_KEY, def);
+}
+function timeOptions(sel){
+  let o=''; for(let h=6;h<=14;h++) for(let m=0;m<60;m+=5){ const t = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`; o += `<option value="${t}"${t===sel?' selected':''}>${t}</option>`; } return o;
+}
+function durOptions(sel){ return [45,40,35,30].map(d => `<option value="${d}"${+d===+sel?' selected':''}>${d} د</option>`).join(''); }
+function classOptions(sel){
+  let o='', found=false;
+  predefinedClasses.forEach(c => { if(c===sel) found=true; o += `<option value="${esc(c)}"${c===sel?' selected':''}>${esc(c)}</option>`; });
+  if(!found && sel) o += `<option value="${esc(sel)}" selected>${esc(sel)}</option>`;
+  return o;
+}
+function todayName(){ const d = new Date().getDay(); return d>=0 && d<=4 ? DAYS[d] : null; }
+function toggleSched(){
+  const s = $('sched'); s.classList.toggle('open');
+  $('schedChev').textContent = s.classList.contains('open') ? 'إخفاء ▴' : 'الجدول ▾';
+  if(s.classList.contains('open')){ $('scheduleDaySelect').value = todayName() || DAYS[0]; renderScheduleTable(); }
+}
+function renderScheduleTable(){
+  const day = $('scheduleDaySelect').value;
+  const sel = 'style="width:100%;min-height:36px;padding:4px;font-size:12px;text-align:center"';
+  $('scheduleTbody').innerHTML = (schoolSchedule[day] || []).map((p,i) => `<tr>
+    <td><strong style="font-size:12px">${esc(p.period)}</strong></td>
+    <td><select ${sel} onchange="updateScheduleItem('${day}',${i},'startTime',this.value)">${timeOptions(p.startTime)}</select></td>
+    <td><select ${sel} onchange="updateScheduleItem('${day}',${i},'duration',this.value)">${durOptions(p.duration)}</select></td>
+    <td><select ${sel} onchange="updateScheduleItem('${day}',${i},'className',this.value)">${classOptions(p.className)}</select></td></tr>`).join('');
+}
+function updateScheduleItem(day, idx, field, val){
+  if(field === 'startTime' || field === 'duration'){
+    DAYS.forEach(d => { if(schoolSchedule[d] && schoolSchedule[d][idx]) schoolSchedule[d][idx][field] = field==='duration' ? Number(val) : val; });
+  } else if(schoolSchedule[day] && schoolSchedule[day][idx]) schoolSchedule[day][idx][field] = val;
+  localStorage.setItem(SCHED_KEY, JSON.stringify(schoolSchedule));
+  updateClock(); renderScheduleTable();
+  showToast('تم تحديث الجدول');
+}
+let lastBeep = -1;
+function playBell(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)(), o = ctx.createOscillator(), g = ctx.createGain();
+    o.type='sine'; o.frequency.setValueAtTime(880, ctx.currentTime);
+    g.gain.setValueAtTime(.3, ctx.currentTime); g.gain.exponentialRampToValueAtTime(.0001, ctx.currentTime+1.2);
+    o.connect(g); g.connect(ctx.destination); o.start(); o.stop(ctx.currentTime+1.2);
+  }catch(e){}
+}
+function setClock(kicker, title, cls, time, frac){
+  $('clockKicker').textContent = kicker; $('clockTitle').textContent = title; $('clockClass').textContent = cls;
+  $('clockTime').textContent = time; $('clockArc').setAttribute('stroke-dashoffset', (213.6 * (1 - Math.max(0, Math.min(1, frac)))).toFixed(1));
+}
+function updateClock(){
+  const now = new Date(), dayName = todayName();
+  if(!dayName){ setClock('إجازة','عطلة نهاية الأسبوع','نلتقي الأحد بإذن الله','—',0); return; }
+  const periods = schoolSchedule[dayName] || [];
+  const cur = now.getHours()*60 + now.getMinutes(), secs = now.getSeconds();
+  for(const p of periods){
+    if(!p.startTime || p.className === 'لا توجد حصة') continue;
+    const [h,m] = p.startTime.split(':').map(Number), start = h*60+m, dur = Number(p.duration)||45, end = start+dur;
+    if(cur >= start && cur < end){
+      const rem = end*60 - (cur*60+secs);
+      setClock('الحصة الحالية', p.period, p.className, `${String(Math.floor(rem/60)).padStart(2,'0')}:${String(rem%60).padStart(2,'0')}`, 1 - rem/(dur*60));
+      if(Math.floor(rem/60) === dur-1 && rem%60 >= 55 && lastBeep !== start){ playBell(); lastBeep = start; }
+      return;
+    } else if(cur < start){
+      setClock('الحصة القادمة', p.period, p.className, `${start-cur} د`, 0); return;
+    }
+  }
+  setClock('انتهى الدوام','أحسنت اليوم','','—',0);
+}
+ 
+/* ================= البيانات ================= */
+const gradeScienceData = {
+  "الأول الابتدائي":[
+    {chapter:"الوحدة 1: النباتات من حولنا",title:"أجزاء النباتات",desc:"دراسة الجذور، الساق، الأوراق، والزهور ودور كل منها في حياة النبات."},
+    {chapter:"الوحدة 1: النباتات من حولنا",title:"النباتات تنتج نباتات جديدة",desc:"التعرف على البذور وكيفية نموها لتصبح نباتات جديدة."},
+    {chapter:"الوحدة 2: الحيوانات من حولنا",title:"أماكن عيش الحيوانات",desc:"استكشاف الموائل الطبيعية المختلفة للحيوانات (الغابة، الصحراء، الماء)."},
+    {chapter:"الوحدة 2: الحيوانات من حولنا",title:"الحيوانات تنمو وتتغير",desc:"دراسة دورات حياة الحيوانات وكيف تتغير صغار الحيوانات عن آبائها."},
+    {chapter:"الوحدة 3: أرضنا ومواردها",title:"ما الأرض؟ وماذا يوجد عليها؟",desc:"التعرف على اليابسة والماء والصخور المكونة لسطح الأرض."},
+    {chapter:"الوحدة 3: أرضنا ومواردها",title:"الماء والهواء",desc:"أهمية الماء والهواء لحياة الكائنات الحية وطرق المحافظة عليها."},
+    {chapter:"الوحدة 4: الطقس والفصول",title:"حالات الطقس المختلفة",desc:"ملاحظة الطقس اليومي (مشمس، ممطر، عاصف، بارد) وأثره على ملابسنا."},
+    {chapter:"الوحدة 4: الطقس والفصول",title:"الفصول الأربعة",desc:"التعرف على التغيرات المناخية خلال السنة (الربيع، الصيف، الخريف، الشتاء)."}],
+  "الثاني الابتدائي":[
+    {chapter:"الوحدة 1: النباتات والحيوانات",title:"مخلوقات حية ومخلوقات غير حية",desc:"التفرقة بين الكائنات الحية التي تنمو وتتغذى والأشياء غير الحية."},
+    {chapter:"الوحدة 1: النباتات والحيوانات",title:"حاجات المخلوقات الحية",desc:"دراسة الماء، الهواء، الغذاء، والمكان كاحتياجات أساسية للبقاء."},
+    {chapter:"الوحدة 2: موائل الكائنات الحية",title:"السلسلة الغذائية",desc:"كيف تحصل الحيوانات على طاقاتها من النباتات والحيوانات الأخرى."},
+    {chapter:"الوحدة 2: موائل الكائنات الحية",title:"الصحاري والغابات",desc:"مقارنة الخصائص البيئية للبيئات الحارة والباردة والغابات المطيرة."},
+    {chapter:"الوحدة 3: المادة من حولنا",title:"ما المادة؟",desc:"استكشاف خصائص الأجسام والصلابة واللون والكتلة والحجم."},
+    {chapter:"الوحدة 3: المادة من حولنا",title:"حالات المادة",desc:"التمييز بين الحالات الصلبة والسائلة والغازية للمادة وتجارب تغيير حالتها."},
+    {chapter:"الوحدة 4: الطاقة والقوى",title:"الصوت والضوء",desc:"كيف ينتقل الصوت وكيف يتكون الضوء وتجارب الظلال والاهتزازات."},
+    {chapter:"الوحدة 4: الطاقة والقوى",title:"الحركة والقوى",desc:"استكشاف كيف تؤثر قوى الدفع والسحب في تغيير موضع الأجسام وسرعتها."}],
+  "الثالث الابتدائي":[
+    {chapter:"الوحدة 1: الوراثة والبيئة",title:"التكاثر ودورة حياة النباتات والحيوانات",desc:"مراحل نمو المخلوقات الحية والتشابه والاختلاف بين الآباء والأبناء."},
+    {chapter:"الوحدة 1: الوراثة والبيئة",title:"التكيف والبقاء في البيئات",desc:"كيف تتكيف الحيوانات والنباتات مع ظروف البرد الشديد أو الجفاف."},
+    {chapter:"الوحدة 2: الأرض ومواردها",title:"الصخور والمعادن والتربة",desc:"أنواع التربة ومكوناتها واستخدامات الصخور والمعادن في حياتنا اليومية."},
+    {chapter:"الوحدة 3: المخلوقات الحية تنمو وتتغير",title:"أجهزة جسم الإنسان",desc:"التعرف على الجهاز الهيكلي، العضلي، والهضمي والدورة الدموية ووظائفها الأساسية."},
+    {chapter:"الوحدة 3: المخلوقات الحية تنمو وتتغير",title:"الصحة الغذائية والرياضية",desc:"أهمية الغذاء المتوازن وممارسة الرياضة للحفاظ على صحة الأجسام وقوتها."},
+    {chapter:"الوحدة 4: الطاقة والكهرباء والمغناطيسية",title:"الدوائر الكهربائية البسيطة",desc:"كيف يضيء المصباح الكهربائي وتوصيل الدوائر الكهربائية بأمان."},
+    {chapter:"الوحدة 4: الطاقة والكهرباء والمغناطيسية",title:"المغناطيس وقوته",desc:"استكشاف أقطاب المغناطيس وتنافرها وتجاذبها والمواد التي تنجذب إليه."}],
+  "الرابع الابتدائي":[
+    {chapter:"الوحدة 1: ممالك المخلوقات الحية",title:"الخلايا وتصنيف المخلوقات الحية",desc:"دراسة الخلايا وأساسيات تصنيف المخلوقات الحية في ممالكها."},
+    {chapter:"الوحدة 2: المملكة الحيوانية",title:"الحيوانات اللافقارية والفقارية وأجهزتها",desc:"التعرف على خصائص الحيوانات اللافقارية والفقارية وأهم أجهزة أجسامها."},
+    {chapter:"الوحدة 3: الأنظمة البيئية",title:"استكشاف والعلاقات والتغيرات في الأنظمة البيئية",desc:"دراسة مقدمة النظم البيئية، شبكات العلاقات الغذائية والتغيرات البيئية."},
+    {chapter:"الوحدة 4: الأمراض والعدوى",title:"الأمراض المعدية وطرق انتقالها",desc:"مفاهيم الأمراض وكيفية الوقاية منها وانتقال العدوى."},
+    {chapter:"الوحدة 5: التغذية والصحة",title:"الغذاء المتوازن والمحافظة على الصحة",desc:"دراسة الاحتياجات الغذائية السليمة والعناية بالصحّة العامة."},
+    {chapter:"الوحدة 6: المادة والقوى والطاقة",title:"المادة وخصائصها والقوى والحركة",desc:"القياس، حالات المادة، المخاليط، القوى والحركة، والطاقة (الحرارة)."}],
+  "الخامس الابتدائي":[
+    {chapter:"الوحدة 1: ممالك المخلوقات الحية",title:"تصنيف المخلوقات الحية والنباتات",desc:"التصنيف العلمي ومكونات وخصائص النباتات."},
+    {chapter:"الوحدة 2: الآباء والأبناء",title:"التكاثر ودورات الحياة",desc:"مفاهيم التكاثر الحيوي ومراحل دورات حياة الكائنات."},
+    {chapter:"الوحدة 3: الأنظمة البيئية",title:"التفاعلات والدورات والتغيرات البيئية",desc:"العلاقات في الأنظمة البيئية، التكيف والبقاء، ودورات العناصر في الطبيعة."},
+    {chapter:"الوحدة 4: أرضنا المتغيرة",title:"معالم سطح الأرض وعملياتها ومواردها",desc:"التضاريس، العمليات المؤثرة على سطح الأرض، ومصادر الطاقة، الهواء والماء."},
+    {chapter:"الوحدة 5: المادة",title:"أنواع المادة والتغيرات الفيزيائية والكيميائية",desc:"العناصر، الفلزات واللافلزات، والتغيرات الفيزيائية والكيميائية وحالات المادة."},
+    {chapter:"الوحدة 6: الطاقة والقوى",title:"الشغل والآلات البسيطة والصوت والضوء",desc:"الطاقة، الآلات البسيطة، خصائص الصوت والضوء وتطبيقاتها."}],
+  "السادس الابتدائي":[
+    {chapter:"الوحدة 1: الخلايا والوراثة",title:"الخلية النباتية والحيوانية وانقسامها والوراثة",desc:"نظرية الخلية، مقارنة الخلايا، الانقسام الخلوي، والوراثة والصفات."},
+    {chapter:"الوحدة 2: عمليات الحياة",title:"عمليات الحياة في النباتات، المخلوقات الدقيقة، والإنسان والحيوان",desc:"التنفس والهضم والدوران والإخراج والحركة والإحساس."},
+    {chapter:"الوحدة 3: الأنظمة البيئية ومواردها",title:"السلاسل الغذائية ومقارنة الأنظمة والتربة",desc:"هرم الطاقة، السلاسل والشبكات، حماية موارد الأرض والتربة."},
+    {chapter:"الوحدة 4: المادة والخصائص الكيميائية",title:"الأحماض والقواعد والتغيرات الكيميائية",desc:"مفاهيم الأحماض والقواعد وتفاعلاتها والتغيرات الكيميائية."},
+    {chapter:"الوحدة 5: القوى والطاقة",title:"استعمال القوى والحركة وتسارعها",desc:"قوانين الحركة وقوى التسارع والاستعمالات التطبيقية."},
+    {chapter:"الوحدة 6: الكهرباء والمغناطيسية",title:"الدوائر الكهربائية والتيار والمغناطيس",desc:"الدوائر الكهربائية، التيار، المغناطيس والمولدات الكهربائية."}]
+};
+const defaultMotivations = [
+  {id:"1",title:"1. عالم المستقبل المتميز",text:"🌟 عالم المستقبل المتميز 🌟\nعزيزي ولي الأمر، نفخر اليوم بتميز ابنكم وتألقه في حصة العلوم ومشاركته في التجارب العملية بحماس ونشاط. بوركت جهودكم!"},
+  {id:"2",title:"2. تفوق ملحوظ في الملاحظة والاستنتاج",text:"🔬 تفوق ملحوظ في الملاحظة العلمية 🔬\nعزيزي ولي الأمر، أظهر ابنكم اليوم مهارات دقيقة في الملاحظة والتجريب واستنباط النتائج. أحسنت صنعاً!"},
+  {id:"3",title:"3. دقة وإتقان في المفاهيم العلمية",text:"🌱 دقة وإتقان في المفاهيم والعلوم 🌱\nعزيزي ولي الأمر، تميز ابنكم اليوم باستيعابه العميق للحقائق العلمية وتوظيفها بذكاء. بارك الله في جهوده!"},
+  {id:"4",title:"4. مشاركة نشطة وفعالة في حصة العلوم",text:"✋ مشاركة نشطة وتفاعل علمي متميز ✋\nعزيزي ولي الأمر، تميز ابنكم اليوم بحرصه العالي ومشاركته النشطة وإجاباته العلمية الموفقة داخل الصف."},
+  {id:"5",title:"5. حصيلة استكشافية وتجارب ممتازة",text:"🧠 حصيلة استكشافية وتجارب ممتازة 🧠\nعزيزي ولي الأمر، أبدع ابنكم اليوم في تنفيذ التجارب الاستهلالية والاستكشافية بمهارة عالية. مبروك له!"},
+  {id:"6",title:"6. تنظيم رائع للدفتر وواجبات مرتبة",text:"📝 تنظيم رائع للواجبات والأنشطة 📝\nعزيزي ولي الأمر، نشكر لكم متابعتكم المنزلية الواعية. لقد كان واجب ابنكم اليوم منظماً، دقيقاً، ومرتباً للغاية."},
+  {id:"7",title:"7. حل ممتاز للتدريبات والتقويم",text:"✍️ حل ممتاز للتقويم والتدريبات\nعزيزي ولي الأمر، تميز أداء ابنكم اليوم بحل أسئلة التقويم والتدريبات العلمية بدقة عالية. دمت متميزاً يا بطل!"},
+  {id:"8",title:"8. اهتمام رائع بالبيئة ومخلوقات الله",text:"🌍 اهتمام رائع بالبيئة والمحيط\nعزيزي ولي الأمر، أظهر ابنكم اليوم شغفاً واهتماماً لافتاً بدراسة الكائنات الحية وعناصر البيئة من حوله."},
+  {id:"9",title:"9. مشروع علمي متميز ومبتكر",text:"🛠️ مشروع علمي متميز ومبتكر ومتقن\nعزيزي ولي الأمر، قدم ابنكم اليوم مشروعاً علمياً رائعاً ومنظماً ينم عن تفكير إبداعي ومهارة عالية."},
+  {id:"10",title:"10. اجتهاد وحرص على إتقان العلوم",text:"⭐ اجتهاد وحرص عالٍ على إتقان العلوم\nعزيزي ولي الأمر، إن حرص ابنكم المستمر على الاستكشاف والتعلم في مادة العلوم محل تقديرنا الدائم."}
+];
+const K = {
+  lessons:  () => 'mansour_custom_lessons_science_' + currentGrade + '_v5',
+  students: () => 'mansour_students_science_' + currentGrade + '_v5',
+  status:   () => 'mansour_lesson_status_science_' + currentGrade + '_v5',
+  mastery:  () => 'mansour_lesson_mastery_science_' + currentGrade + '_v5',
+  motiv:    'mansour_custom_motivations_science_v5'
+};
+let lessons = [], students = [], lessonStatus = {}, lessonMastery = {}, customMotivations = [];
+let activeQueryClass = NONE, selectedStudentIndex = '', currentPage = 1, classList = [];
+const ROWS = 12;
+ 
+function loadGradeData(){
+  lessons = load(K.lessons(), null) || JSON.parse(JSON.stringify(gradeScienceData[currentGrade]));
+  students = load(K.students(), []);
+  lessonStatus = load(K.status(), {});
+  lessonMastery = load(K.mastery(), {});
+  customMotivations = load(K.motiv, null) || defaultMotivations;
+}
+const saveStudents = () => localStorage.setItem(K.students(), JSON.stringify(students));
+const saveLessons  = () => localStorage.setItem(K.lessons(), JSON.stringify(lessons));
+const saveStatus   = () => localStorage.setItem(K.status(), JSON.stringify(lessonStatus));
+const saveMastery  = () => localStorage.setItem(K.mastery(), JSON.stringify(lessonMastery));
+const clsOf = s => s.classCustom || currentGrade;
+ 
+let toastT;
+function showToast(msg){
+  const t = $('toast'); t.textContent = msg; t.style.display = 'block';
+  clearTimeout(toastT); toastT = setTimeout(() => t.style.display = 'none', 2200);
+}
+function waLink(phone, msg){
+  const p = String(phone || '').replace(/\D/g,'').replace(/^0+/,'');
+  return `https://wa.me/${p ? '966' + p : ''}?text=${encodeURIComponent(msg)}`;
+}
+ 
+/* ================= التنقل ================= */
+function showView(name){
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + name));
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.view === name));
+  scrollTo({top:0});
+  try{ sessionStorage.setItem('mansour_tab', name); }catch(e){}
+}
+function changeGradeLevel(grade){
+  if(grade === currentGrade) return;
+  currentGrade = grade;
+  localStorage.setItem('mansour_current_grade_science_v5', grade);
+  loadGradeData();
+  activeQueryClass = NONE; selectedStudentIndex = ''; currentPage = 1;
+  $('filterStudentNameInput').value = ''; $('bulkPanel').hidden = true; $('studentCard').hidden = true; $('studentSearchInput').value = '';
+  applyGradeTheme(); renderLessons(); render(); syncGrading();
+  showToast(`الصف ${gradeInfo().short} – مدار ${gradeInfo().planet}`);
+}
+ 
+/* ================= الدروس ================= */
+function renderLessons(){
+  const opt = (v,t) => `<option value="${v}">${esc(t)}</option>`;
+  const lessonOpts = lessons.map((l,i) => opt(i, `[${l.chapter}] ${l.title}`)).join('');
+  $('curriculumSelect').innerHTML = opt('', 'اختر درساً للاطلاع على تفاصيله') + lessonOpts;
+  $('selectLesson').innerHTML = opt('', 'اختر الدرس') + lessonOpts;
+  $('bulkLesson').innerHTML = opt('', 'اختر درس الواجب') + lessons.map((l,i) => opt('lesson-' + i, `[${l.chapter}] ${l.title}`)).join('');
+  $('selectMotivation').innerHTML = opt('', 'اختر الرسالة') + customMotivations.map((m,i) => opt('motiv-' + i, m.title)).join('');
+  $('lessonDetail').hidden = true;
+ 
+  let html = '', lastCh = null, done = 0;
+  lessons.forEach((l,i) => {
+    const ex = !!lessonStatus[i]; if(ex) done++;
+    if(l.chapter !== lastCh){ lastCh = l.chapter; html += `<div class="chapter-h">${esc(l.chapter || 'دروس إضافية')}</div>`; }
+    html += `<div class="lesson ${ex ? 'done' : ''}"><strong>${esc(l.title)}</strong><p>${esc(l.desc)}</p>
+      <div class="acts"><button class="btn sm ${ex ? 'good' : 'warn'}" onclick="toggleLessonStatus(${i})">${ex ? 'منفَّذ' : 'قيد الانتظار'}</button>
+      <button class="btn sm danger" onclick="deleteLesson(${i})">حذف</button></div></div>`;
+  });
+  $('lessonsTimeline').innerHTML = html || '<div class="empty">لا توجد دروس. أضف درساً من الأسفل.</div>';
+  $('totalExecutedLessons').textContent = `${done} / ${lessons.length}`;
+  $('barLessons').style.width = (lessons.length ? done/lessons.length*100 : 0) + '%';
+  renderMasteryDropdown();
+}
+function onCurriculumChange(i){
+  const b = $('lessonDetail');
+  if(i === ''){ b.hidden = true; return; }
+  const l = lessons[i]; b.hidden = false;
+  b.innerHTML = `<strong>${esc(l.chapter)}</strong>\n${esc(l.title)}\n\n${esc(l.desc)}`;
+}
+function toggleLessonStatus(i){ lessonStatus[i] = !lessonStatus[i]; saveStatus(); renderLessons(); showToast('تم تحديث حالة الدرس'); }
+function addNewLesson(){
+  const title = $('newLessonTitle').value.trim(), desc = $('newLessonDesc').value.trim();
+  if(!title){ alert('اكتب عنوان الدرس'); return; }
+  lessons.push({chapter:'', title, desc: desc || 'لا توجد تفاصيل إضافية'}); saveLessons();
+  $('newLessonTitle').value = ''; $('newLessonDesc').value = '';
+  renderLessons(); showToast('تمت إضافة الدرس');
+}
+function addBatchLessons(){
+  const t = $('bulkLessonsInput').value.trim();
+  if(!t){ alert('أدخل بيانات الدروس'); return; }
+  let n = 0;
+  t.split('\n').forEach(line => {
+    if(!line.trim()) return;
+    const p = line.split('|');
+    if(p.length >= 2) lessons.push({chapter:p[0].trim(), title:p[1].trim(), desc:p[2] ? p[2].trim() : 'لا توجد تفاصيل إضافية'});
+    else lessons.push({chapter:'', title:p[0].trim(), desc:'لا توجد تفاصيل إضافية'});
+    n++;
+  });
+  saveLessons(); $('bulkLessonsInput').value = ''; renderLessons(); showToast(`تمت إضافة ${n} دروس`);
+}
+function deleteLesson(idx){
+  if(!confirm('حذف هذا الدرس من المقرر؟')) return;
+  lessons.splice(idx,1);
+  const remap = obj => { const o = {}; Object.keys(obj).forEach(k => { k = +k; if(k < idx) o[k] = obj[k]; else if(k > idx) o[k-1] = obj[k]; }); return o; };
+  lessonStatus = remap(lessonStatus);
+  const nm = {}; Object.keys(lessonMastery).forEach(s => nm[s] = remap(lessonMastery[s] || {})); lessonMastery = nm;
+  saveLessons(); saveStatus(); saveMastery(); renderLessons(); render(); showToast('تم حذف الدرس');
+}
+ 
+/* ================= الإحصائيات ================= */
+function render(){
+  let ach = 0;
+  students.forEach((s,si) => lessons.forEach((l,li) => { if(lessonMastery[si] && lessonMastery[si][li]) ach++; }));
+  const total = students.length * lessons.length, pct = total ? Math.round(ach/total*100) : 0;
+  const sum = f => students.reduce((a,s) => a + (Number(s[f]) || 0), 0);
+  $('totalStudents').textContent = students.length;
+  $('totalSkills').textContent = pct + '%'; $('barSkills').style.width = pct + '%';
+  $('totalParticipation').textContent = sum('participation');
+  $('totalHomework').textContent = sum('homework');
+  $('totalAbsence').textContent = sum('absence');
+  $('totalProjects').textContent = sum('projects');
+  $('totalMessagesSent').textContent = sum('messages');
+renderStudents(); renderClasses(); renderMasteryTable(); renderExamsTable(); renderAttention(); renderSilent(); renderFair(); renderQuick();
+  if(selectedStudentIndex !== '' && students[selectedStudentIndex]) fillStudentCard(selectedStudentIndex);
+}
+ 
+/* ================= الطلاب ================= */
+function addStudent(){
+  const name = $('studentName').value.trim(), sClass = $('studentClassCustom').value.trim() || currentGrade, phone = $('studentPhone').value.trim();
+  if(!name){ alert('أدخل اسم الطالب'); return; }
+  if(phone && !/^\d{10}$/.test(phone)){ alert('رقم الجوال يجب أن يكون 10 أرقام'); return; }
+  students.push({name, classCustom:sClass, phone, absence:0, participation:0, homework:0, projects:0, messages:0, exam1:0, exam2:0});
+  saveStudents(); $('studentName').value = ''; $('studentPhone').value = '';
+  render(); showToast('تمت إضافة الطالب');
+}
+function renderStudents(){
+  const box = $('studentsList'), q = $('filterStudentNameInput').value.trim().toLowerCase();
+  let list;
+  if(q) list = students.filter(s => s.name.toLowerCase().includes(q));
+  else if(activeQueryClass === NONE){
+    box.innerHTML = '<div class="empty" style="grid-column:1/-1">اختر فصلاً من الأعلى أو ابحث بالاسم لعرض الطلاب.</div>';
+    $('pageInfo').textContent = '0'; return;
+  } else list = students.filter(s => clsOf(s) === activeQueryClass);
+ 
+  const pages = Math.ceil(list.length / ROWS) || 1;
+  if(currentPage > pages) currentPage = pages;
+  const from = (currentPage-1)*ROWS, part = list.slice(from, from+ROWS);
+  if(!part.length){ box.innerHTML = '<div class="empty" style="grid-column:1/-1">لا يوجد طلاب مطابقون.</div>'; $('pageInfo').textContent = '0'; return; }
+ 
+  const stepper = (cls, label, gi, f, v) => `<div class="metric ${cls}"><div class="m-l">${label}</div><div class="stepper">
+    <button aria-label="إنقاص" onclick="stepField(${gi},'${f}',-1)">−</button><b>${v||0}</b><button aria-label="زيادة" onclick="stepField(${gi},'${f}',1)">+</button></div></div>`;
+  box.innerHTML = part.map(s => {
+    const gi = students.indexOf(s);
+    return `<div class="s-card">
+      <div class="s-head"><div><strong>${esc(s.name)}</strong> <span class="tag">${esc(clsOf(s))}</span></div>
+        <div class="acts noprint"><button class="btn sm ghost" onclick="quickTransfer(${gi})">نقل</button><button class="btn sm danger" onclick="deleteStudent(${gi})">حذف</button></div></div>
+      <div class="metrics">
+        ${stepper('m-abs','الغياب',gi,'absence',s.absence)}
+        ${stepper('m-par','المشاركة',gi,'participation',s.participation)}
+        ${stepper('m-hw','الواجبات',gi,'homework',s.homework)}
+        ${stepper('m-pr','الانشطة',gi,'projects',s.projects)}
+      </div>
+      <button class="btn sm warn noprint" style="width:100%;margin-top:8px" onclick="openMotiv(${gi})">🌟 رسالة تشجيع</button>
+      <button class="btn sm good noprint" style="width:100%;margin-top:8px" onclick="openMastery(${gi})">📘 إتقان الدروس</button>
+      <input type="tel" class="phone-in noprint" maxlength="10" inputmode="numeric" value="${esc(s.phone||'')}" placeholder="جوال ولي الأمر 05xxxxxxxx" style="margin-top:8px" oninput="updatePhone(${gi},this.value)">
+    </div>`;
+  }).join('');
+  $('pageInfo').textContent = `${from+1}–${Math.min(from+ROWS, list.length)} من ${list.length}`;
+}
+function stepField(i, f, d){ students[i][f] = Math.max(0, (Number(students[i][f]) || 0) + d); saveStudents(); render(); }
+function updatePhone(i, v){ students[i].phone = v.trim(); saveStudents(); }
+function changePage(d){ currentPage = Math.max(1, currentPage + d); renderStudents(); }
+function onSearchStudents(){
+  currentPage = 1;
+  if($('filterStudentNameInput').value.trim()){ activeQueryClass = NONE; renderClasses(); }
+  renderStudents();
+}
+function reindexAfterRemoval(removeSet){
+  const map = {}; let n = 0;
+  students.forEach((s,i) => { if(!removeSet.has(i)) map[i] = n++; });
+  const nm = {}; Object.keys(lessonMastery).forEach(k => { if(map[k] !== undefined) nm[map[k]] = lessonMastery[k]; });
+  lessonMastery = nm;
+}
+function deleteStudent(i){
+  if(!confirm('حذف هذا الطالب؟')) return;
+  reindexAfterRemoval(new Set([i]));
+  students.splice(i,1);
+  if(selectedStudentIndex === i){ selectedStudentIndex = ''; $('studentCard').hidden = true; }
+  else if(selectedStudentIndex > i) selectedStudentIndex--;
+  saveStudents(); saveMastery(); render(); showToast('تم حذف الطالب');
+}
+function renderClasses(){
+  const set = new Set(); students.forEach(s => set.add(clsOf(s)));
+  classList = Array.from(set);
+  $('classList').innerHTML = classList.map((c,i) => `<div class="class-pill ${activeQueryClass === c ? 'active' : ''}">
+    <button class="go" onclick="filterByClass(${i})">${esc(c)} (${students.filter(s => clsOf(s) === c).length})</button>
+    <button class="del" aria-label="حذف الفصل" onclick="deleteClass(${i})">حذف</button></div>`).join('') || '<span class="hint">لا توجد فصول بعد. أضف أول طالب.</span>';
+  const opts = (first) => first + classList.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  const keep = (id, html) => { const el = $(id), v = el.value; el.innerHTML = html; if(classList.includes(v) || v === 'ALL') el.value = v; };
+  keep('examClassSelect', opts('<option value="">اختر الفصل</option>'));
+  keep('masteryClassSelect', opts('<option value="">كل الفصول</option>'));
+  keep('bulkTargetClass', opts('<option value="ALL">كل الفصول</option>'));
+  keep('transferTarget', opts('<option value="">اختر الفصل المستهدف</option>'));
+}
+function filterByClass(i){
+  const c = classList[i];
+  if(activeQueryClass === c) activeQueryClass = NONE; else { activeQueryClass = c; $('filterStudentNameInput').value = ''; }
+  currentPage = 1; renderClasses(); renderStudents();
+}
+function deleteClass(i){
+  const c = classList[i];
+  if(!confirm(`حذف جميع طلاب الفصل (${c})؟`)) return;
+  const rm = new Set(); students.forEach((s,si) => { if(clsOf(s) === c) rm.add(si); });
+  reindexAfterRemoval(rm);
+  students = students.filter((s,si) => !rm.has(si));
+  selectedStudentIndex = ''; $('studentCard').hidden = true;
+  if(activeQueryClass === c) activeQueryClass = NONE;
+  saveStudents(); saveMastery(); render(); showToast('تم حذف الفصل');
+}
+function quickTransfer(i){
+  const s = students[i];
+  const t = prompt(`اكتب اسم الفصل الجديد للطالب (المتاح: ${classList.join('، ')}):`, clsOf(s));
+  if(t && t.trim()){ s.classCustom = t.trim(); saveStudents(); render(); showToast(`تم نقل ${s.name} إلى ${s.classCustom}`); }
+}
+ 
+/* ================= الإتقان ================= */
+function renderMasteryDropdown(){
+  const sel = $('masteryLessonSelect'), v = sel.value;
+  sel.innerHTML = '<option value="">اختر الدرس</option>' + lessons.map((l,i) => `<option value="${i}">${esc('[' + l.chapter + '] ' + l.title)}</option>`).join('');
+  if(lessons[v]) sel.value = v;
+}
+function renderMasteryTable(){
+  const li = $('masteryLessonSelect').value, cls = $('masteryClassSelect').value, tb = $('masteryTbody'), sum = $('masterySummary');
+  if(li === ''){ tb.innerHTML = '<tr><td colspan="4" class="hint" style="padding:16px">اختر الدرس من القائمة.</td></tr>'; sum.hidden = true; return; }
+  const list = cls ? students.filter(s => clsOf(s) === cls) : students;
+  if(!list.length){ tb.innerHTML = '<tr><td colspan="4" class="hint" style="padding:16px">لا يوجد طلاب.</td></tr>'; sum.hidden = true; return; }
+  sum.hidden = false; let m = 0;
+  tb.innerHTML = list.map(s => {
+    const gi = students.indexOf(s), ok = !!(lessonMastery[gi] && lessonMastery[gi][li]); if(ok) m++;
+    return `<tr><td><strong>${esc(s.name)}</strong></td><td><span class="tag">${esc(clsOf(s))}</span></td>
+      <td class="${ok ? 'st-ok' : 'st-re'}">${ok ? 'متقن' : 'مراجعة'}</td>
+      <td class="noprint"><button class="btn sm ${ok ? 'warn' : 'good'}" onclick="toggleMastery(${gi},${li})">${ok ? 'إلى مراجعة' : 'إلى متقن'}</button></td></tr>`;
+  }).join('');
+  $('countMastered').textContent = m; $('countReview').textContent = list.length - m;
+}
+function toggleMastery(si, li){
+  if(!lessonMastery[si]) lessonMastery[si] = {};
+  lessonMastery[si][li] = !lessonMastery[si][li];
+  saveMastery(); render(); showToast('تم تحديث حالة الإتقان');
+}
+ 
+/* ================= الاختبارات ================= */
+function avgExams(list){
+  let a = 0, b = 0; list.forEach(s => { a += Number(s.exam1) || 0; b += Number(s.exam2) || 0; });
+  $('avgExam1').textContent = (a/list.length).toFixed(1) + ' / 20'; $('avgExam2').textContent = (b/list.length).toFixed(1) + ' / 20';
+}
+function renderExamsTable(){
+  const cls = $('examClassSelect').value, tb = $('examsTbody'), box = $('examsAnalysis');
+  if(!cls){ tb.innerHTML = '<tr><td colspan="4" class="hint" style="padding:16px">اختر الفصل من القائمة.</td></tr>'; box.hidden = true; return; }
+  const list = students.filter(s => clsOf(s) === cls);
+  if(!list.length){ tb.innerHTML = '<tr><td colspan="4" class="hint" style="padding:16px">لا يوجد طلاب في هذا الفصل.</td></tr>'; box.hidden = true; return; }
+  box.hidden = false;
+  tb.innerHTML = list.map(s => {
+    const gi = students.indexOf(s);
+    const msg = `عزيزي ولي أمر الطالب ${s.name}، نود إفادتكم بدرجات اختبارات مادة العلوم:\n- اختبار الفترة الأولى: ${s.exam1||0}/20\n- اختبار الفترة الثانية: ${s.exam2||0}/20\nمع تمنياتنا له بدوام التوفيق والنجاح.`;
+    return `<tr><td><strong>${esc(s.name)}</strong></td>
+      <td><input class="score" type="text" inputmode="numeric" value="${s.exam1||0}" oninput="updateExam(${gi},'exam1',this)"></td>
+      <td><input class="score" type="text" inputmode="numeric" value="${s.exam2||0}" oninput="updateExam(${gi},'exam2',this)"></td>
+      <td class="noprint"><a class="btn sm wa" href="${waLink(s.phone, msg)}" target="_blank" onclick="bumpMessages(${gi})">إرسال</a></td></tr>`;
+  }).join('');
+  avgExams(list);
+}
+function updateExam(i, f, el){
+  let v = Number(String(el.value).replace(/[^\d.]/g,'')) || 0; if(v > 20){ v = 20; el.value = 20; }
+  students[i][f] = v; saveStudents();
+  const cls = $('examClassSelect').value; if(cls) avgExams(students.filter(s => clsOf(s) === cls));
+}
+ 
+/* ================= ملف الطالب والرسائل ================= */
+function filterStudentDropdown(){
+  const k = $('studentSearchInput').value.trim().toLowerCase(), box = $('studentDropdown');
+  if(!k){ box.style.display = 'none'; return; }
+  const m = students.filter(s => s.name.toLowerCase().includes(k));
+  if(!m.length){ box.style.display = 'none'; return; }
+  box.style.display = 'block';
+  box.innerHTML = m.slice(0,30).map(s => `<div class="dd-item" data-i="${students.indexOf(s)}"><strong>${esc(s.name)}</strong><span class="tag">${esc(clsOf(s))}</span></div>`).join('');
+  box.querySelectorAll('.dd-item').forEach(el => el.onclick = () => {
+    const i = +el.dataset.i; selectStudent(i); box.style.display = 'none'; $('studentSearchInput').value = students[i].name;
+  });
+}
+document.addEventListener('click', e => { if(!e.target.closest('.dd')) $('studentDropdown').style.display = 'none'; });
+function selectStudent(i){ selectedStudentIndex = i; $('studentCard').hidden = false; fillStudentCard(i); updateLessonMsg(); updateMotivationMsg(); }
+function masteredCount(i){ let n = 0; lessons.forEach((l,li) => { if(lessonMastery[i] && lessonMastery[i][li]) n++; }); return n; }
+function fillStudentCard(i){
+  const s = students[i]; if(!s) return;
+  $('selName').textContent = s.name; $('selClass').textContent = clsOf(s);
+  $('sdParticipation').textContent = s.participation || 0; $('sdHomework').textContent = s.homework || 0;
+  $('sdAbsence').textContent = s.absence || 0; $('sdSkills').textContent = masteredCount(i);
+  $('sdProjects').textContent = s.projects || 0; $('sdMessages').textContent = s.messages || 0;
+  $('sdPhone').textContent = s.phone || 'لا يوجد';
+}
+function transferSelected(){
+  if(selectedStudentIndex === '') return;
+  const t = $('transferTarget').value; if(!t){ alert('اختر الفصل المستهدف'); return; }
+  students[selectedStudentIndex].classCustom = t; saveStudents(); render();
+  showToast(`تم نقل الطالب إلى ${t}`);
+}
+function updateLessonMsg(){
+  if(selectedStudentIndex === '') return;
+  const s = students[selectedStudentIndex], li = $('selectLesson').value, pv = $('lessonMsgPreview'), btn = $('waLessonBtn');
+  if(li === ''){ pv.textContent = 'اختر الدرس لتظهر الرسالة.'; btn.href = '#'; return; }
+  const l = lessons[li];
+  const msg = `عزيزي ولي أمر الطالب / ${s.name}\nنحيطكم علماً بأننا تناولنا اليوم في مادة العلوم درس:\n📘 (${l.chapter}) - ${l.title}\n💡 المفاهيم والتجارب المرتبطة: ${l.desc}\nنرجو منكم متابعة ابنكم وتعزيز استكشافاته العلمية.\nمع تقديرنا، المعلم: ${TEACHER_NAME} - ${SCHOOL_NAME}`;
+  pv.textContent = msg; btn.href = waLink(s.phone, msg);
+}
+function updateMotivationMsg(){
+  if(selectedStudentIndex === '') return;
+  const s = students[selectedStudentIndex], v = $('selectMotivation').value, pv = $('motivationMsgPreview'), btn = $('waMotivBtn');
+  if(v === ''){ pv.textContent = 'اختر الرسالة لعرض نصها.'; btn.href = '#'; return; }
+  const text = customMotivations[v.split('-')[1]].text;
+  const msg = `إلى ولي أمر الطالب / ${s.name}\n\n${text}\n\nمع خالص الشكر، المعلم: ${TEACHER_NAME} - ${SCHOOL_NAME}`;
+  pv.textContent = msg; btn.href = waLink(s.phone, msg);
+}
+function sendVia(a){
+  if(a.getAttribute('href') === '#'){ alert('اختر الرسالة أولاً'); return false; }
+  bumpMessages(selectedStudentIndex); return true;
+}
+function sendFullReport(){
+  if(selectedStudentIndex === '') return;
+  const s = students[selectedStudentIndex];
+  const msg = `عزيزي ولي أمر الطالب / ${s.name} (${clsOf(s)})\nنحيطكم علماً بمستوى ابنكم وتقييمه في مادة العلوم حتى تاريخه:\n\n- المشاركات: ${s.participation||0}\n- الواجبات: ${s.homework||0}\n- أيام الغياب: ${s.absence||0}\n- الدروس المتقنة: ${masteredCount(selectedStudentIndex)} من ${lessons.length}\n- التجارب: ${s.projects||0}\n- اختبار الفترة الأولى: ${s.exam1||0}/20\n- اختبار الفترة الثانية: ${s.exam2||0}/20\n\nنشكر تعاونكم المستمر.\nمع تقديرنا، المعلم: ${TEACHER_NAME} - ${SCHOOL_NAME}`;
+  bumpMessages(selectedStudentIndex);
+  window.open(waLink(s.phone, msg), '_blank');
+}
+function addNewMotivation(){
+  const t = $('newMotivationTitle').value.trim(), x = $('newMotivationText').value.trim();
+  if(!t || !x){ alert('اكتب عنوان الرسالة ونصها'); return; }
+  customMotivations.push({id:Date.now().toString(), title:t, text:x});
+  localStorage.setItem(K.motiv, JSON.stringify(customMotivations));
+  $('newMotivationTitle').value = ''; $('newMotivationText').value = '';
+  renderLessons(); showToast('تم حفظ الرسالة');
+}
+function bumpMessages(i){
+  if(i === '' || !students[i]) return;
+  students[i].messages = (students[i].messages || 0) + 1; saveStudents();
+  $('totalMessagesSent').textContent = students.reduce((a,s) => a + (s.messages||0), 0);
+  if(selectedStudentIndex === i) $('sdMessages').textContent = students[i].messages;
+}
+ function openMotiv(gi){
+  qmIndex = gi;
+  $('qmName').textContent = students[gi].name;
+  var h = '<option value="">اختر الرسالة</option>';
+  for(var i = 0; i < customMotivations.length; i++){
+    h += '<option value="' + i + '">' + esc(customMotivations[i].title) + '</option>';
+  }
+  $('qmSelect').innerHTML = h;
+   $('qmCustom').value = '';
+  updateQuickMotiv(); $('motivModal').hidden = false;
+}
+function updateQuickMotiv(){
+  var s = students[qmIndex], v = $('qmSelect').value, c = $('qmCustom').value.trim();
+  var pv = $('qmPreview'), btn = $('qmSend'), body = '';
+  if(c){ body = c; }
+  else if(v !== ''){ body = customMotivations[v].text; }
+  if(!body){ pv.textContent = 'اختر رسالة أو اكتب رسالتك.'; btn.href = '#'; return; }
+  var msg = 'إلى ولي أمر الطالب / ' + s.name + '\n\n' + body + '\n\nمع خالص الشكر، المعلم: ' + TEACHER_NAME + ' - ' + SCHOOL_NAME;
+  pv.textContent = msg; btn.href = waLink(s.phone, msg);
+}
+function sendQuickMotiv(a){
+  if(a.getAttribute('href') === '#'){ alert('اختر الرسالة أولاً'); return false; }
+  bumpMessages(qmIndex); return true;
+}
+  function renderAttention(){
+  var box = $('attnList'); if(!box) return;
+  var hwTotal = students.reduce(function(a, s){ return a + (Number(s.homework) || 0); }, 0);
+  var rows = [];
+  students.forEach(function(s, gi){
+    var r = [], sc = 0;
+    var ab = Number(s.absence) || 0;
+    if(ab >= 3){ r.push('غياب ' + ab); sc += (ab >= 5 ? 3 : 2); }
+    if((Number(s.participation) || 0) === 0){ r.push('بلا مشاركة'); sc += 1; }
+    if(hwTotal > 0 && (Number(s.homework) || 0) === 0){ r.push('بلا واجبات'); sc += 1; }
+   
+    if(s.exam2 > 0 && s.exam2 < 10){ r.push('درجة ' + s.exam2 + '/20'); sc += 3; }
+    if(sc >= 2){
+      if((Number(s.messages) || 0) === 0) r.push('لم تصله رسالة');
+      rows.push({gi: gi, s: s, r: r, sc: sc});
+    }
+  });
+  rows.sort(function(a, b){ return b.sc - a.sc; });
+  $('attnCount').textContent = rows.length ? (rows.length + ' طالب') : '';
+  if(!rows.length){
+    box.innerHTML = '<div class="empty">لا يوجد طلاب يحتاجون متابعة الآن. أحسنت!</div>';
+    return;
+  }
+  var h = '';
+  rows.slice(0, 8).forEach(function(x){
+    h += '<div class="send-row" style="margin-bottom:6px"><span><strong>' + esc(x.s.name) +
+      '</strong> <span class="tag">' + esc(clsOf(x.s)) + '</span><br><span class="hint">' +
+      esc(x.r.join(' · ')) + '</span></span>' +
+      '<button class="btn sm warn" onclick="openMotiv(' + x.gi + ')">رسالة</button></div>';
+  });
+  box.innerHTML = h;
+}
+  
+  function renderSilent(){
+  var box = $('silentList');
+  if(!box){ return; }
+  var rows = [];
+  for(var i = 0; i < students.length; i++){
+    var p = Number(students[i].participation);
+    if(p <= 1){ rows.push(i); }
+  }
+  $('silentCount').textContent = rows.length + ' طالب';
+  if(students.length === 0){
+    box.innerHTML = '<div class="empty">لا يوجد طلاب.</div>';
+    return;
+  }
+  if(rows.length === 0){
+    box.innerHTML = '<div class="empty">كل الطلاب شاركوا. أحسنت!</div>';
+    return;
+  }
+  var h = '';
+  for(var k = 0; k < rows.length && k < 8; k++){
+    var gi = rows[k];
+    var s = students[gi];
+    h += '<div class="send-row"><span><strong>' + esc(s.name) + '</strong><br>';
+    h += '<span class="hint">مشاركات: ' + Number(s.participation) + '</span></span>';
+    h += '<button class="btn sm good" onclick="stepField(' + gi + ',\'participation\',1)">+ مشاركة</button></div>';
+  }
+  box.innerHTML = h;
+}
+  function renderFair(){
+  var box = $('fairList');
+  if(!box){ return; }
+  var rows = [];
+  for(var i = 0; i < students.length; i++){
+    var m = Number(students[i].messages);
+    if(!(m > 0)){ rows.push(i); }
+  }
+  $('fairCount').textContent = rows.length + ' من ' + students.length;
+  if(students.length === 0){
+    box.innerHTML = '<div class="empty">لا يوجد طلاب.</div>';
+    return;
+  }
+  if(rows.length === 0){
+    box.innerHTML = '<div class="empty">وصلت رسالة لكل طالب. أحسنت!</div>';
+    return;
+  }
+  var h = '';
+  for(var k = 0; k < rows.length && k < 8; k++){
+    var gi = rows[k];
+    var s = students[gi];
+    h += '<div class="send-row"><span><strong>' + esc(s.name) + '</strong><br>';
+    h += '<span class="hint">لم تصله رسالة بعد</span></span>';
+    h += '<button class="btn sm warn" onclick="openMotiv(' + gi + ')">تشجيع</button></div>';
+  }
+  box.innerHTML = h;
+}
+  var qkClass = '';
+function qkSet(v){
+  qkClass = v;
+  renderQuick();
+}
+function qkAbs(gi, d){
+  stepField(gi, 'absence', d);
+}
+function qkPar(gi){
+  stepField(gi, 'participation', 1);
+}
+function renderQuick(){
+  var box = $('quickList');
+  var sel = $('quickClass');
+  if(!box || !sel){ return; }
+  var o = '<option value="">اختر الفصل</option>';
+  for(var c = 0; c < classList.length; c++){
+    o += '<option value="' + esc(classList[c]) + '">' + esc(classList[c]) + '</option>';
+  }
+  sel.innerHTML = o;
+  sel.value = qkClass;
+  if(sel.value === ''){
+    box.innerHTML = '<div class="empty">اختر الفصل لبدء الحصة.</div>';
+    return;
+  }
+  var h = '';
+  for(var i = 0; i < students.length; i++){
+    var s = students[i];
+    if(clsOf(s) !== qkClass){ continue; }
+    var ab = Number(s.absence);
+    var pa = Number(s.participation);
+    if(!(ab > 0)){ ab = 0; }
+    if(!(pa > 0)){ pa = 0; }
+    h += '<div class="send-row" style="flex-wrap:wrap"><strong>' + esc(s.name) + '</strong>';
+    h += '<span style="display:flex;gap:6px">';
+    h += '<button class="btn sm danger" onclick="qkAbs(' + i + ',1)">غائب ' + ab + '</button>';
+    h += '<button class="btn sm ghost" onclick="qkAbs(' + i + ',-1)">−</button>';
+    h += '<button class="btn sm good" onclick="qkPar(' + i + ')">مشاركة ' + pa + '</button>';
+    h += '</span></div>';
+  }
+  if(h === ''){ h = '<div class="empty">لا يوجد طلاب في هذا الفصل.</div>'; }
+  box.innerHTML = h;
+}
+ var mqIndex = '';
+function openMastery(gi){
+  mqIndex = gi;
+  $('mqName').textContent = students[gi].name;
+  drawMastery();
+  $('masteryModal').hidden = false;
+}
+function drawMastery(){
+  var h = '';
+  for(var li = 0; li < lessons.length; li++){
+    var ok = !!(lessonMastery[mqIndex] && lessonMastery[mqIndex][li]);
+    h += '<div class="send-row" style="margin-bottom:6px"><span>' + esc(lessons[li].title) + '</span>' +
+      '<button class="btn sm ' + (ok ? 'good' : 'warn') + '" onclick="toggleMq(' + li + ')">' +
+      (ok ? 'متقن' : 'مراجعة') + '</button></div>';
+  }
+  $('mqList').innerHTML = h || '<div class="empty">لا توجد دروس.</div>';
+}
+function toggleMq(li){
+  if(!lessonMastery[mqIndex]) lessonMastery[mqIndex] = {};
+  lessonMastery[mqIndex][li] = !lessonMastery[mqIndex][li];
+  saveMastery(); drawMastery(); renderMasteryTable();
+  var a = 0;
+  students.forEach(function(s, si){ lessons.forEach(function(l, k){ if(lessonMastery[si] && lessonMastery[si][k]) a++; }); });
+  var t = students.length * lessons.length;
+  $('totalSkills').textContent = (t ? Math.round(a / t * 100) : 0) + '%';
+}
+/* ================= الواجب الجماعي ================= */
+function bulkBase(){
+  const v = $('bulkLesson').value, d = $('bulkDetails').value.trim(), n = $('bulkNote').value.trim();
+  if(!v) return null;
+  const l = lessons[v.split('-')[1]];
+  let m = `أولياء الأمور الأفاضل، نود إحاطتكم بأن واجب مادة العلوم للدرس:\n📘 (${l.chapter}) - ${l.title}\n`;
+  m += d ? `📝 المطلوب حلّه: ${d}\n` : `📝 المطلوب: حل تدريبات وأسئلة الدرس في الكتاب المدرسي.\n`;
+  if(n) m += `📌 ملاحظات: ${n}\n`;
+  return m + `\nنرجو الحرص على حل الواجب وإرساله في الموعد المحدد.\nمع خالص الشكر، المعلم: ${TEACHER_NAME} - ${SCHOOL_NAME}`;
+}
+function updateBulkPreview(){ $('bulkPreview').textContent = bulkBase() || 'اختر الدرس وأدخل تفاصيل الواجب لتظهر الرسالة هنا.'; }
+function prepareBulk(){
+  const base = bulkBase(); if(!base){ alert('اختر درس الواجب أولاً'); return; }
+  const cls = $('bulkTargetClass').value;
+  let list = cls === 'ALL' ? students : students.filter(s => clsOf(s) === cls);
+  list = list.filter(s => s.phone && s.phone.trim());
+  if(!list.length){ alert('لا توجد أرقام جوال مسجلة للطلاب المستهدفين'); return; }
+  $('bulkList').innerHTML = list.map(s => {
+    const gi = students.indexOf(s);
+    return `<div class="send-row"><span><strong>${esc(s.name)}</strong> <span class="tag">${esc(clsOf(s))}</span></span>
+      <a class="btn sm wa" target="_blank" href="${waLink(s.phone, 'عزيزي ولي أمر الطالب / ' + s.name + '\n\n' + base)}" onclick="markSent(${gi},this)">إرسال</a></div>`;
+  }).join('');
+  $('bulkPanel').hidden = false; showToast(`جاهزة روابط ${list.length} ولي أمر`);
+}
+function markSent(i, el){ bumpMessages(i); el.textContent = 'تم'; el.style.background = '#6b7280'; }
+ 
+/* ================= الطباعة ================= */
+function printSection(id){
+  if(id === 'paper' && !activeQuestions.length){ alert('ولّد ورقة الاختبار أولاً'); return; }
+  document.querySelectorAll('.printing').forEach(e => e.classList.remove('printing'));
+  $(id).classList.add('printing'); window.print();
+}
+window.addEventListener('afterprint', () => document.querySelectorAll('.printing').forEach(e => e.classList.remove('printing')));
+ 
+/* ================= Excel / CSV ================= */
+function exportExcel(){
+  if(!students.length){ alert('لا توجد بيانات لتصديرها'); return; }
+  const rows = students.map((s,i) => ({"م":i+1,"اسم الطالب":s.name,"الصف":clsOf(s),"رقم الجوال":s.phone||'',"الغياب":s.absence||0,"المشاركة":s.participation||0,"الواجبات":s.homework||0,"التجارب":s.projects||0,"الرسائل":s.messages||0,"اختبار الفترة الأولى":s.exam1||0,"اختبار الفترة الثانية":s.exam2||0}));
+  const ws = XLSX.utils.json_to_sheet(rows); ws['!views'] = [{rightToLeft:true}];
+  const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "سجل طلاب العلوم");
+  XLSX.writeFile(wb, `سجل_العلوم_${currentGrade}.xlsx`); showToast('تم تصدير ملف Excel');
+}
+function downloadBlob(content, type, name){
+  const url = URL.createObjectURL(new Blob([content], {type})), a = document.createElement('a');
+  a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+function exportCSV(){
+  if(!students.length){ alert('لا توجد بيانات لتصديرها'); return; }
+  let csv = "\uFEFFاسم الطالب,الصف,رقم الجوال,الغياب,المشاركة,الواجبات,التجارب,اختبار 1,اختبار 2\n";
+  students.forEach(s => { csv += `"${String(s.name).replace(/"/g,'""')}","${String(clsOf(s)).replace(/"/g,'""')}","${s.phone||''}",${s.absence||0},${s.participation||0},${s.homework||0},${s.projects||0},${s.exam1||0},${s.exam2||0}\n`; });
+  downloadBlob(csv, 'text/csv;charset=utf-8;', `GoogleSheets_${currentGrade}.csv`); showToast('تم التصدير');
+}
+function importExcel(ev){
+  const f = ev.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = e => {
+    try{
+      const wb = XLSX.read(new Uint8Array(e.target.result), {type:'array'});
+      const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+      if(!rows.length){ alert('ملف Excel فارغ أو غير مطابق'); return; }
+      let n = 0;
+      rows.forEach(w => {
+        const name = w["اسم الطالب"] || w["اسم الطالبة"] || w["الاسم"] || '';
+        if(!String(name).trim()) return;
+        students.push({
+          name:String(name).trim(), classCustom:String(w["الصف"] || w["الصف/الشعبة"] || w["Class"] || currentGrade).trim(),
+          phone:String(w["رقم الجوال"] || w["الجوال"] || w["Phone"] || '').trim(),
+          absence:Number(w["الغياب"]||0), participation:Number(w["المشاركة"]||w["المشاركات"]||0), homework:Number(w["الواجبات"]||0),
+          projects:Number(w["االانشطة"]||0), messages:Number(w["الرسائل"]||0),
+          exam1:Number(w["اختبار الفترة الأولى"]||0), exam2:Number(w["اختبار الفترة الثانية"]||0)
+        }); n++;
+      });
+      saveStudents(); render(); showToast(`تم استيراد ${n} طالب`);
+    }catch(err){ console.error(err); alert('تعذّرت قراءة ملف Excel'); }
+    finally{ ev.target.value = ''; }
+  };
+  r.readAsArrayBuffer(f);
+}
+ 
+/* ================= النسخ الاحتياطي الكامل ================= */
+const SECRET_KEYS = [PW_KEY, PW_SALT, REMEMBER_KEY];
+function backupAll(){
+  const data = {};
+  for(let i=0;i<localStorage.length;i++){
+    const k = localStorage.key(i);
+    if(k.startsWith('mansour_') && !SECRET_KEYS.includes(k)) data[k] = localStorage.getItem(k);
+  }
+  downloadBlob(JSON.stringify({__mansour_backup:2, created:new Date().toISOString(), data}), 'application/json', `نسخة_احتياطية_العلوم_${new Date().toISOString().slice(0,10)}.json`);
+  localStorage.setItem('mansour_last_backup_date', Date.now().toString());
+  $('backupBanner').hidden = true; showToast('تم حفظ النسخة الاحتياطية');
+}
+function restoreBackup(ev){
+  const f = ev.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = e => {
+    try{
+      const j = JSON.parse(e.target.result);
+      if(!confirm('سيتم استبدال البيانات الحالية بمحتوى النسخة. هل تريد المتابعة؟')) return;
+      if(j && j.__mansour_backup && j.data){
+        Object.keys(j.data).forEach(k => { if(k.startsWith('mansour_') && !SECRET_KEYS.includes(k)) localStorage.setItem(k, j.data[k]); });
+      } else if(Array.isArray(j)){
+        localStorage.setItem(K.students(), JSON.stringify(j));
+      } else if(j && typeof j === 'object'){
+        if(j.students) localStorage.setItem(K.students(), JSON.stringify(j.students));
+        if(j.lessons) localStorage.setItem(K.lessons(), JSON.stringify(j.lessons));
+        if(j.lessonStatus) localStorage.setItem(K.status(), JSON.stringify(j.lessonStatus));
+        if(j.lessonMastery) localStorage.setItem(K.mastery(), JSON.stringify(j.lessonMastery));
+        if(j.customMotivations) localStorage.setItem(K.motiv, JSON.stringify(j.customMotivations));
+        if(j.schoolSchedule) localStorage.setItem(SCHED_KEY, JSON.stringify(j.schoolSchedule));
+      } else { alert('ملف النسخة غير صالح'); return; }
+      alert('تم استرجاع البيانات بنجاح'); location.reload();
+    }catch(err){ alert('تعذّرت قراءة ملف النسخة'); }
+    finally{ ev.target.value = ''; }
+  };
+  r.readAsText(f);
+}
+function checkBackupReminder(){
+  const last = Number(localStorage.getItem('mansour_last_backup_date') || 0);
+  const hasData = Object.keys(localStorage).some(k => k.startsWith('mansour_students_'));
+  if(hasData && (!last || Date.now() - last > 7*86400000)) $('backupBanner').hidden = false;
+}
+ 
+/* ================= PWA ================= */
+const isStandalone = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; });
+async function installPWA(){
+  if(isStandalone()){ showToast('التطبيق مثبّت بالفعل'); return; }
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    try{ const c = await deferredPrompt.userChoice; if(c.outcome === 'accepted') showToast('تم تثبيت اللوحة'); }catch(e){}
+    deferredPrompt = null; return;
+  }
+  $('installHelp').hidden = false;
+}
+window.addEventListener('appinstalled', () => { deferredPrompt = null; $('installTop').hidden = true; $('pwaInstallBtn').hidden = true; });
+ 
+/* ================= التصحيح الآلي ================= */
+ 
+const subjectNames = {science:"مادة العلوم",math:"مادة الرياضيات",arabic:"مادة لغتي الجميلة",english:"مادة اللغة الإنجليزية",islamic:"الدراسات الإسلامية"};
+ 
+/* نموذج احتياطي (يُستخدم فقط عند عدم توفر مفتاح Gemini أو تعذّر الاتصال) */
+const nafisQuestions = [
+  {domain:"علوم الحياة",q:"ما العملية التي تتخلص بها الخلايا من الفضلات الناتجة عن العمليات الحيوية؟",options:["الإخراج الخلوي","التخمر","الانقسام المتساوي","البناء الضوئي"],correctLetter:"أ"},
+  {domain:"الاستقصاء العلمي",q:"ما الأداة المخبرية المناسبة بدقة لقياس حجم سائل معين (كالحليب أو الماء)؟",options:["ميزان الحرارة","مسطرة القياس","المخبار المدرج","الميزان ذو الكفتين"],correctLetter:"ج"},
+  {domain:"العلوم الفيزيائية",q:"يُعد الذهب من أفضل العناصر قابليةً للثني والطرق توصيلاً للكهرباء. ما اسم المجموعة التي ينتمي إليها؟",options:["الغازات النبيلة","الفلزات","أشباه الفلزات","اللافلزات"],correctLetter:"ب"},
+  {domain:"علوم الحياة",q:"ما المنطقة الحيوية الواسعة التي تتميز بقلة أمطارها وتنوع حياتها النباتية والحيوانية المتحملة للجفاف؟",options:["المنطقة القطبية","الصحراء","الغابة المطيرة","التندرا الباردة"],correctLetter:"ب"},
+  {domain:"علوم الأرض والفضاء",q:"أي الأجرام السماوية التالية يقع في مركز المجموعة الشمسية تماماً؟",options:["كوكب الأرض","الشمس","كوكب المريخ","القمر"],correctLetter:"ب"},
+  {domain:"العلوم الفيزيائية",q:"ما الحالة التي تكون فيها جزيئات المادة متراصة وقوية جداً وذات شكل ثابت؟",options:["حالة البلازما","الحالة السائلة","الحالة الصلبة","الحالة الغازية"],correctLetter:"ج"},
+  {domain:"الاستقصاء العلمي",q:"يريد طالب تحديد زمن تحلل أنواع مختلفة من الفواكه في التربة، فوضع قطعاً متساوية من الجزر والخيار والتفاح في أكياس بها نفس التربة. أي مما يلي يُعد 'المتغير المستقل' في هذه التجربة؟",options:["كتلة قطع الفواكه والخضروات","نوع الفواكه والخضروات (الجزر، الخيار، التفاح)","كمية التربة الرطبة في الأكياس","الزمن الكلي للتحلل"],correctLetter:"ب"},
+  {domain:"العلوم الفيزيائية",q:"ما هي القوة غير المنظورة التي تسحب الأجسام نحو مركز كوكب الأرض؟",options:["قوة الجاذبية الأرضية","القوة الكهربائية","قوة المغناطيس","قوة الاحتكاك"],correctLetter:"أ"},
+  {domain:"علوم الحياة",q:"يعيش طائران في موطن واحد، ويأكلان نفس الغذاء، إلا أن أحدهما ينشط في النهار والآخر في الليل. ماذا يسمى ذلك؟",options:["اختلاف الحيز البيئي للطائرين","اختلاف المنطقة الحيوية","توجد علاقة تكافل","توجد علاقة تنافس مدمرة"],correctLetter:"أ"},
+  {domain:"العلوم الفيزيائية",q:"ماذا تسمى المنطقة المحيطة بالمغناطيس ويظهر فيها قوة تأثيره على المغناطيسات الأخرى؟",options:["المجال المغناطيسي","الكهرومغناطيسية","القوة المغناطيسية","خطوط القوة الوهمية"],correctLetter:"أ"}
+];
+const LETTERS = ['أ','ب','ج','د'];
+ 
+let currentStudentIndex = 0, currentQuestionStep = 0, studentsList = [], activeQuestions = [], globalMaxScore = 20,
+    currentModelName = "نموذج (د)", studentAnswers = {}, allClassResults = {}, advanceTimer = null;
+ 
+function toggleNafis(){
+  const isNafis = $('selectExamType').value === "اختبارات نافس الوطنية";
+  $('nafisBox').hidden = !isNafis;
+  $('lessonBox').hidden = isNafis;
+  if(!isNafis) renderExamLessonChecklist();
+}
+function onGradeChange(){ renderExamLessonChecklist(); switchExamModel(); }
+function syncGrading(){ $('selectGrade').value = currentGrade; toggleNafis(); renderExamLessonChecklist(); switchExamModel(); }
+ 
+/* ---- الدروس المتاحة للصف المختار (لبناء أسئلة الذكاء الاصطناعي) ---- */
+function fetchLessonsForGrade(grade){
+  try{
+    const custom = JSON.parse(localStorage.getItem('mansour_custom_lessons_science_' + grade + '_v5'));
+    if(Array.isArray(custom) && custom.length) return custom;
+  }catch(e){}
+  return gradeScienceData[grade] || [];
+}
+function renderExamLessonChecklist(){
+  const box = $('examLessonChecks'); if(!box) return;
+  const grade = $('selectGrade').value, list = fetchLessonsForGrade(grade);
+  box.innerHTML = list.map((l,i) => `<label class="check"><input type="checkbox" class="lesson-cb" value="${i}" checked>${esc(l.title)}</label>`).join('')
+    || '<span class="hint">لا توجد دروس مسجلة لهذا الصف بعد، أضِفها من تبويب "الدروس".</span>';
+}
+ 
+/* ---- إعدادات Gemini ---- */
+function saveGeminiSettings(){
+  const key = ($('geminiApiKeyInput').value || '').trim();
+  const model = ($('geminiModelInput').value || '').trim();
+  if(key) localStorage.setItem('mansour_gemini_api_key', key);
+  if(model) localStorage.setItem('mansour_gemini_model', model); else localStorage.removeItem('mansour_gemini_model');
+  showToast('تم حفظ إعدادات الذكاء الاصطناعي');
+}
+function loadGeminiSettingsUI(){
+  if($('geminiApiKeyInput')) $('geminiApiKeyInput').value = localStorage.getItem('mansour_gemini_api_key') || '';
+  if($('geminiModelInput')) $('geminiModelInput').value = localStorage.getItem('mansour_gemini_model') || '';
+}
+ 
+/* ---- استدعاء Gemini API ---- */
+async function callGemini(promptText){
+  const key = localStorage.getItem('mansour_gemini_api_key');
+  if(!key) throw new Error('NO_KEY');
+  const model = (localStorage.getItem('mansour_gemini_model') || 'gemini-2.5-flash').trim();
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`;
+  const res = await fetch(url, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      contents:[{parts:[{text:promptText}]}],
+      generationConfig:{ temperature:0.85, responseMimeType:'application/json' }
+    })
+  });
+  if(!res.ok){ const t = await res.text().catch(()=>''); throw new Error('HTTP_' + res.status + '_' + t.slice(0,300)); }
+  const data = await res.json();
+  const parts = (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+  return parts.map(p => p.text || '').join('');
+}
+ 
+/* ---- بناء نص الطلب حسب نوع الاختبار ---- */
+function buildGeminiPrompt(qCount){
+  const grade = $('selectGrade').value, subject = subjectNames[$('selectSubject').value] || 'العلوم';
+  const isNafis = $('selectExamType').value === "اختبارات نافس الوطنية";
+  let scopeText;
+  if(isNafis){
+    const domains = Array.from(document.querySelectorAll('.nafis-cb:checked')).map(c => c.value);
+    if(!domains.length) throw new Error('NO_DOMAIN');
+    scopeText = `وزّع الأسئلة بالتساوي قدر الإمكان على المجالات التالية فقط، ولا تخرج عنها: ${domains.join('، ')}.\nاجعل قيمة الحقل "domain" في كل سؤال هي اسم المجال بالضبط كما ورد أعلاه.`;
+  } else {
+    const list = fetchLessonsForGrade(grade);
+    const chosen = Array.from(document.querySelectorAll('.lesson-cb:checked')).map(c => list[+c.value]).filter(Boolean);
+    if(!chosen.length) throw new Error('NO_LESSON');
+    scopeText = `اعتمد فقط على محتوى الدروس التالية من مقرر ${subject} للصف ${grade}، ووزّع الأسئلة عليها، واجعل قيمة الحقل "domain" في كل سؤال هي عنوان الدرس الذي استُمد منه السؤال بالضبط:\n` +
+      chosen.map(l => `- (${l.chapter || ''}) ${l.title}: ${l.desc}`).join('\n');
+  }
+  return `أنت خبير في إعداد اختبارات ${subject} لطلاب المرحلة الابتدائية في المملكة العربية السعودية، للصف: ${grade}.
+المطلوب: توليد ${qCount} سؤالاً اختيارياً (اختيار من متعدد) جديداً ومختلفاً في كل مرة، بصيغة عربية فصحى واضحة ومناسبة لعمر الطلاب.
+${scopeText}
+لكل سؤال 4 خيارات فقط، وإجابة صحيحة واحدة، ولا تكرر نفس السؤال أو نفس الصياغة بين الأسئلة.
+أعد الناتج ككائن JSON (مصفوفة فقط) بدون أي نص أو شرح أو علامات ترميز إضافية، بالشكل التالي بالضبط:
+[{"domain":"...","q":"نص السؤال","options":["الخيار الأول","الخيار الثاني","الخيار الثالث","الخيار الرابع"],"correctIndex":0}]
+حيث correctIndex رقم فهرس الإجابة الصحيحة داخل مصفوفة options (0 أو 1 أو 2 أو 3).`;
+}
+ 
+/* ---- توليد الأسئلة عبر Gemini، مع تحديث حالة الواجهة ---- */
+function setAiStatus(text, kind){
+  const statusEl = $('aiGenStatus'); if(!statusEl) return;
+  statusEl.textContent = text;
+  statusEl.style.color = kind === 'bad' ? 'var(--bad)' : kind === 'good' ? 'var(--good)' : kind === 'warn' ? 'var(--warn)' : 'var(--ink-dim)';
+  statusEl.style.fontWeight = kind ? '700' : '500';
+}
+async function generateQuestionsWithAI(qCount){
+  if(!localStorage.getItem('mansour_gemini_api_key')){
+    setAiStatus('⚠️ لم يتم إدخال مفتاح Gemini API بعد. اذهب لصفحة "المزيد" وأدخل المفتاح واحفظه، ثم أعد التوليد. تم الآن استخدام نموذج احتياطي مؤقت.', 'warn');
+    return false;
+  }
+  let prompt;
+  try{ prompt = buildGeminiPrompt(qCount); }
+  catch(e){
+    if(e.message === 'NO_DOMAIN'){ alert('اختر مجالاً واحداً على الأقل من مجالات نافس.'); }
+    else if(e.message === 'NO_LESSON'){ alert('اختر درساً واحداً على الأقل من قائمة "الدروس المستهدفة بالاختبار".'); }
+    return false;
+  }
+  setAiStatus('جارٍ توليد أسئلة جديدة بالذكاء الاصطناعي (Gemini)…', null);
+  try{
+    const raw = await callGemini(prompt);
+    const clean = raw.replace(/```json|```/g,'').trim();
+    const arr = JSON.parse(clean);
+    if(!Array.isArray(arr) || !arr.length) throw new Error('EMPTY');
+    const built = arr.map(it => {
+      const idx = Number(it.correctIndex);
+      const opts = Array.isArray(it.options) ? it.options.slice(0,4) : [];
+      return { domain: it.domain || 'عام', q: it.q || it.question || '', options: opts, correctLetter: LETTERS[isNaN(idx) ? 0 : Math.min(3, Math.max(0, idx))] };
+    }).filter(q => q.q && q.options.length === 4);
+    if(!built.length) throw new Error('EMPTY');
+    activeQuestions = built;
+    setAiStatus(`تم توليد ${built.length} سؤالاً جديداً بالذكاء الاصطناعي بنجاح ✅`, 'good');
+    return true;
+  }catch(err){
+    console.error(err);
+    const detail = (err && err.message) ? String(err.message).slice(0,180) : '';
+    setAiStatus('❌ تعذّر توليد الأسئلة بالذكاء الاصطناعي (تحقّق من صحة المفتاح/اسم النموذج/الاتصال). تم استخدام نموذج احتياطي مؤقت. تفصيل الخطأ: ' + detail, 'bad');
+    return false;
+  }
+}
+ 
+/* ---- نموذج احتياطي عند عدم توفر الذكاء الاصطناعي ---- */
+function buildFallbackQuestions(qCount){
+  const isNafis = $('selectExamType').value === "اختبارات نافس الوطنية";
+  if(isNafis){
+    const domains = Array.from(document.querySelectorAll('.nafis-cb:checked')).map(c => c.value);
+    let pool = nafisQuestions.filter(q => !domains.length || domains.includes(q.domain));
+    if(!pool.length) pool = nafisQuestions;
+    const out = [];
+    for(let i=0;i<qCount;i++) out.push(JSON.parse(JSON.stringify(pool[i % pool.length])));
+    return out;
+  }
+  const grade = $('selectGrade').value, list = fetchLessonsForGrade(grade);
+  const chosen = Array.from(document.querySelectorAll('.lesson-cb:checked')).map(c => list[+c.value]).filter(Boolean);
+  const src = chosen.length ? chosen : list;
+  if(!src.length) return JSON.parse(JSON.stringify(nafisQuestions)).slice(0, qCount);
+  const out = [];
+  for(let i=0;i<qCount;i++){
+    const l = src[i % src.length];
+    out.push({domain:l.title, q:`أي مما يلي يرتبط بدرس "${l.title}"؟`, options:[l.title,'إجابة غير صحيحة 1','إجابة غير صحيحة 2','إجابة غير صحيحة 3'], correctLetter:'أ'});
+  }
+  return out;
+}
+ 
+function onGradeChangeInit(){ /* legacy placeholder kept intentionally empty */ }
+ 
+function fileToBase64(file){
+  return new Promise((resolve,reject)=>{
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result).split(',')[1]);
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+}
+
+async function callGeminiVision(promptText, base64, mimeType){
+  const key = localStorage.getItem('mansour_gemini_api_key');
+  if(!key) throw new Error('NO_KEY');
+  const model = (localStorage.getItem('mansour_gemini_model') || 'gemini-2.5-flash').trim();
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`;
+  const res = await fetch(url, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      contents:[{parts:[{text:promptText},{inline_data:{mime_type:mimeType || 'image/jpeg', data:base64}}]}],
+      generationConfig:{ temperature:0.2, responseMimeType:'application/json' }
+    })
+  });
+  if(!res.ok){ const t = await res.text().catch(()=>''); throw new Error('HTTP_' + res.status + '_' + t.slice(0,300)); }
+  const data = await res.json();
+  const parts = (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+  return parts.map(p => p.text || '').join('');
+}
+
+async function handleExamImageUpload(ev){
+  const f = ev.target.files[0];
+  if(!f) return;
+  if(!localStorage.getItem('mansour_gemini_api_key')){
+    $('imageUploadStatus').textContent = '⚠️ أدخل مفتاح Gemini API أولاً من صفحة "المزيد" حتى يمكن قراءة الأسئلة من الصورة.';
+    ev.target.value = ''; return;
+  }
+  $('imageUploadStatus').textContent = 'جاري قراءة الأسئلة من الصورة وحلّها بالذكاء الاصطناعي…';
+  try{
+    const b64 = await fileToBase64(f);
+    const grade = $('selectGrade').value, subject = subjectNames[$('selectSubject').value] || 'العلوم';
+    const qCount = Math.max(4, Number($('selectQuestionCount').value) || 10);
+    const prompt = `هذه صورة ورقة اختبار خارجية (اختيار من متعدد) في مادة ${subject} لطلاب الصف ${grade}. اقرأ كل الأسئلة الظاهرة في الصورة (يُفترض أنها ${qCount} سؤالاً تقريباً)، ولكل سؤال انسخ نص السؤال والخيارات الأربعة كما وردت حرفياً، ثم حلّ السؤال بنفسك بدقة وحدد فهرس الإجابة الصحيحة (correctIndex من 0 إلى 3)، وصنّف كل سؤال ضمن مجال مناسب (اسم الدرس أو الموضوع العلمي).
+أعد الناتج ككائن JSON (مصفوفة فقط) بدون أي نص أو شرح أو علامات ترميز إضافية، بالشكل التالي بالضبط:
+[{"domain":"...","q":"نص السؤال","options":["الخيار الأول","الخيار الثاني","الخيار الثالث","الخيار الرابع"],"correctIndex":0}]`;
+    const raw = await callGeminiVision(prompt, b64, f.type || 'image/jpeg');
+    const clean = raw.replace(/```json|```/g,'').trim();
+    const arr = JSON.parse(clean);
+    if(!Array.isArray(arr) || !arr.length) throw new Error('EMPTY');
+    const built = arr.map(it => {
+      const idx = Number(it.correctIndex);
+      const opts = Array.isArray(it.options) ? it.options.slice(0,4) : [];
+      return { domain: it.domain || 'من الورقة المصوَّرة', q: it.q || it.question || '', options: opts, correctLetter: LETTERS[isNaN(idx) ? 0 : Math.min(3, Math.max(0, idx))] };
+    }).filter(q => q.q && q.options.length === 4);
+    if(!built.length) throw new Error('EMPTY');
+    activeQuestions = built;
+    globalMaxScore = activeQuestions.length * 2;
+    currentModelName = $('selectModelLetter').value;
+    const keyword = $('examKeywordInput').value.trim() || 'ورقة مصوَّرة';
+    paperMeta(keyword); renderPaperQuestions(); saveLatestExamState();
+    $('imageUploadStatus').textContent = `✅ تم استخراج وحلّ ${built.length} سؤالاً من الصورة بنجاح. راجعها في ورقة الاختبار أدناه، ثم ابدأ جلسة التصحيح.`;
+    $('paper').scrollIntoView({behavior:'smooth', block:'start'});
+  }catch(err){
+    console.error(err);
+    const detail = (err && err.message) ? String(err.message).slice(0,180) : '';
+    $('imageUploadStatus').textContent = '❌ تعذّر قراءة الأسئلة من الصورة (تحقّق من وضوح الصورة أو المفتاح أو الاتصال). تفصيل الخطأ: ' + detail;
+  } finally {
+    ev.target.value = '';
+  }
+}
+ 
+ 
+function clearAllExamAndAnalysisData(){
+  if(!confirm("هل تريد حذف الاختبار الحالي وجميع نتائج الطلاب والتحليل والبدء من جديد؟")) return;
+  ['mansour_last_exam_full_state','dashboardLatestExamResults','examResultsHistory','mansour_last_analysis_report'].forEach(k => localStorage.removeItem(k));
+  const keys = []; for(let i=0;i<localStorage.length;i++){ const k = localStorage.key(i); if(k && k.startsWith('mansour_exam_state_')) keys.push(k); }
+  keys.forEach(k => localStorage.removeItem(k));
+  activeQuestions = []; allClassResults = {}; globalMaxScore = 20;
+  $('paper').hidden = true; $('printExamRow').hidden = true; $('touchGradingCard').hidden = true; $('analysisPanel').hidden = true;
+  $('imageUploadStatus').textContent = ''; $('examKeywordInput').value = '';
+  if($('aiGenStatus')) $('aiGenStatus').textContent = '';
+  filterStudentResults(); showToast('تم مسح البيانات السابقة');
+}
+ 
+/* الطلاب من لوحة التحكم */
+function fetchStudentsForSelectedClass(){
+  const grade = $('selectGrade').value, digit = $('selectClassDigit').value;
+  let list = [];
+  try{
+    const parsed = JSON.parse(localStorage.getItem('mansour_students_science_' + grade + '_v5'));
+    if(Array.isArray(parsed)) parsed.forEach(it => {
+      const c = String(it.classCustom || '');
+      if(digit === 'all' || c.includes(digit)) list.push({name:it.name, className:c || grade, phone:it.phone || ''});
+    });
+  }catch(e){}
+  $('studentsNote').textContent = '';
+  if(!list.length){
+    const short = grade.replace(" الابتدائي","");
+    const cls = digit === 'all' ? short : `${short} - فصل ${digit}`;
+    list = [1,2,3].map(n => ({name:`طالب تجريبي (${n})`, className:cls, phone:''}));
+    $('studentsNote').textContent = 'لا توجد بيانات طلاب لهذا الصف/الفصل في لوحة التحكم، فاستُخدمت أسماء تجريبية.';
+  }
+  const m = new Map(); list.forEach(s => m.set(s.name, s));
+  studentsList = Array.from(m.values());
+}
+ 
+function classLabel(){ const g = $('selectGrade').value.replace(" الابتدائي",""), d = $('selectClassDigit').value; return d === 'all' ? g : `${g} - فصل ${d}`; }
+function paperMeta(keyword){
+  const examType = $('selectExamType').value, grade = $('selectGrade').value, subj = $('selectSubject').value;
+  $('printTestInfo').textContent = `الصف: ${grade} | المادة: ${subjectNames[subj]} | نوع الاختبار: ${examType}` + (keyword ? ` | ${keyword}` : '');
+  $('printModelBadge').textContent = `رقم النموذج: ${currentModelName} | عدد الأسئلة: ${activeQuestions.length}`;
+  $('printClassValue').textContent = classLabel();
+}
+function renderPaperQuestions(){
+  $('generatedQuestionsList').innerHTML = activeQuestions.map((q,i) => `<div class="qrow"><b>س${i+1}: ${esc(q.q)}</b> <span class="dom">[${esc(q.domain)}]</span>
+    <div class="opts">${q.options.map((o,k) => `<div class="opt"><i>${LETTERS[k]}</i>${esc(o)}</div>`).join('')}</div></div>`).join('');
+  $('paper').hidden = false; $('printExamRow').hidden = false;
+}
+ 
+function stateKey(){ return `mansour_exam_state_${$('selectExamType').value}_${$('selectSubject').value}_${$('selectGrade').value}_${$('selectModelLetter').value}`; }
+function switchExamModel(){
+  currentModelName = $('selectModelLetter').value;
+  let saved = null; try{ saved = JSON.parse(localStorage.getItem(stateKey())); }catch(e){}
+  if(saved && saved.activeQuestions && saved.activeQuestions.length){
+    activeQuestions = saved.activeQuestions; allClassResults = saved.allClassResults || {}; globalMaxScore = saved.globalMaxScore || 20;
+    if(saved.examKeyword) $('examKeywordInput').value = saved.examKeyword;
+    paperMeta(saved.examKeyword); renderPaperQuestions();
+    filterStudentResults(); prepareGradesPrintSheet(); prepareAnalysisContent();
+    return;
+  }
+  $('paper').hidden = true; $('printExamRow').hidden = true; $('examKeywordInput').value = '';
+  activeQuestions = []; allClassResults = {};
+  filterStudentResults();
+}
+ 
+async function generateTestModel(){
+  currentModelName = $('selectModelLetter').value;
+  const isNafis = $('selectExamType').value === "اختبارات نافس الوطنية";
+  const keywordDefault = isNafis ? `نموذج نافس (${currentModelName})` : `نموذج (${currentModelName})`;
+  const keyword = $('examKeywordInput').value.trim() || keywordDefault;
+  const qCount = Math.max(4, Number($('selectQuestionCount').value) || 10);
+ 
+  const btn = $('genTestBtn');
+  if(btn){ btn.disabled = true; btn.textContent = 'جارٍ توليد الأسئلة…'; }
+ 
+  const ok = await generateQuestionsWithAI(qCount);
+  if(!ok) activeQuestions = buildFallbackQuestions(qCount);
+ 
+  if(btn){ btn.disabled = false; btn.textContent = 'توليد ورقة الاختبار'; }
+ 
+  globalMaxScore = activeQuestions.length * 2;
+  paperMeta(keyword); renderPaperQuestions();
+  saveLatestExamState();
+  $('paper').scrollIntoView({behavior:'smooth', block:'start'});
+  showToast(ok ? 'تم توليد أسئلة جديدة بالذكاء الاصطناعي' : 'تم توليد ورقة الاختبار (نموذج احتياطي)');
+}
+ 
+/* الطباعة */
+function printGradesSheet(){ prepareGradesPrintSheet(); printSection('gradesSheet'); }
+ 
+/* جلسة التصحيح */
+function startTouchGradingSession(){
+  if(!activeQuestions.length){ alert('ولّد ورقة الاختبار أولاً من قسم "الورقة".'); return; }
+  fetchStudentsForSelectedClass();
+  if(!studentsList.length){ alert('لا توجد قائمة طلاب'); return; }
+  currentStudentIndex = 0; $('touchGradingCard').hidden = false;
+  startNewStudentSession(); $('touchGradingCard').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function startNewStudentSession(){ currentQuestionStep = 0; studentAnswers = {}; renderCurrentStepView(); }
+ 
+function renderCurrentStepView(){
+  const st = studentsList[currentStudentIndex], total = activeQuestions.length;
+  $('studentHeader').innerHTML = `<span><b>${esc(st.name)}</b> <span class="tag">${esc(st.className)}</span></span>
+    <span class="hint">الطالب <span dir="ltr">${currentStudentIndex+1} / ${studentsList.length}</span></span>`;
+  $('progBar').style.width = ((currentQuestionStep+1)/total*100) + '%';
+  const q = activeQuestions[currentQuestionStep], n = currentQuestionStep + 1, saved = studentAnswers[n] || '';
+  $('singleQuestionContainer').innerHTML = `<div class="q-box"><span class="dm">${esc(q.domain)} · سؤال <span dir="ltr">${n} / ${total}</span></span>
+    <h4>${esc(q.q)}</h4>
+    <div class="ans">${LETTERS.map((L,k) => {
+      let cls = '';
+      if(saved){ if(L === q.correctLetter) cls = 'ok'; else if(L === saved) cls = 'no'; }
+      return `<button type="button" class="${cls}" data-l="${L}" onclick="selectFastOpt(${n},'${L}')"><strong>${L}</strong><span>${esc(q.options[k])}</span></button>`;
+    }).join('')}</div></div>`;
+}
+function selectFastOpt(n, L){
+  if(advanceTimer) return;
+  studentAnswers[n] = L;
+  const q = activeQuestions[n-1];
+  document.querySelectorAll('#singleQuestionContainer .ans button').forEach(b => {
+    const l = b.dataset.l; b.classList.remove('ok','no');
+    if(l === q.correctLetter) b.classList.add('ok'); else if(l === L) b.classList.add('no');
+  });
+  if(currentQuestionStep < activeQuestions.length - 1){
+    advanceTimer = setTimeout(() => { advanceTimer = null; currentQuestionStep++; renderCurrentStepView(); }, 350);
+  }
+}
+function prevQuestionStep(){ if(advanceTimer) return; if(currentQuestionStep > 0){ currentQuestionStep--; renderCurrentStepView(); } }
+function nextQuestionStepOrFinish(){
+  if(advanceTimer) return;
+  if(currentQuestionStep < activeQuestions.length - 1){ currentQuestionStep++; renderCurrentStepView(); }
+  else saveCurrentStudentAndProceed();
+}
+function skipStudent(){
+  if(advanceTimer) return;
+  currentStudentIndex++;
+  if(currentStudentIndex < studentsList.length) startNewStudentSession(); else finishGradingSession();
+}
+function saveCurrentStudentAndProceed(){
+  const st = studentsList[currentStudentIndex];
+  let correct = 0; const domainStats = {}, missed = [];
+  activeQuestions.forEach((q,i) => {
+    const n = i + 1, dom = q.domain || "عام";
+    if(!domainStats[dom]) domainStats[dom] = {total:0, correct:0};
+    domainStats[dom].total++;
+    if(studentAnswers[n] && studentAnswers[n] === q.correctLetter){ correct++; domainStats[dom].correct++; }
+    else missed.push({qNum:n, qText:q.q, domain:dom});
+  });
+  allClassResults[st.name] = {score:correct*2, maxScore:activeQuestions.length*2, correct, className:st.className, phone:st.phone || '', domainStats, missed};
+  updateLocalStorageAndResults();
+  currentStudentIndex++;
+  if(currentStudentIndex < studentsList.length){ showToast('تم حفظ درجة ' + st.name); startNewStudentSession(); }
+  else finishGradingSession();
+}
+function finishGradingSession(){
+  $('touchGradingCard').hidden = true; showToast('اكتملت جلسة التصحيح');
+  $('results').scrollIntoView({behavior:'smooth', block:'start'});
+}
+ 
+function saveLatestExamState(){
+  const st = {gradeKey:$('selectGrade').value, subjectKey:$('selectSubject').value, subjectName:subjectNames[$('selectSubject').value],
+    examType:$('selectExamType').value, classDigit:$('selectClassDigit').value, currentModelName, examKeyword:$('examKeywordInput').value.trim(),
+    activeQuestions, globalMaxScore, allClassResults, date:new Date().toLocaleDateString('en-GB')};
+  localStorage.setItem(stateKey(), JSON.stringify(st));
+  localStorage.setItem('mansour_last_exam_full_state', JSON.stringify(st));
+}
+function updateLocalStorageAndResults(){
+  const examType = $('selectExamType').value, records = [];
+  for(const n in allClassResults){ const d = allClassResults[n];
+    records.push({name:n, className:d.className, score:d.score, maxScore:d.maxScore || globalMaxScore, examType:`${examType} - ${currentModelName}`, date:new Date().toLocaleDateString('en-GB')}); }
+  localStorage.setItem('dashboardLatestExamResults', JSON.stringify(records));
+  localStorage.setItem('examResultsHistory', JSON.stringify(records));
+  saveLatestExamState(); filterStudentResults(); prepareGradesPrintSheet(); prepareAnalysisContent();
+}
+ 
+/* النتائج */
+function filterStudentResults(){
+  const q = $('searchStudentInput').value.toLowerCase().trim(), out = $('correctionOutput');
+  const names = Object.keys(allClassResults);
+  $('summaryBox').hidden = !names.length;
+  if(names.length){
+    let sum = 0, mast = 0;
+    names.forEach(n => { const d = allClassResults[n], m = d.maxScore || globalMaxScore; sum += d.score; if(m && d.score/m >= .75) mast++; });
+    $('sumCount').textContent = names.length; $('sumAvg').textContent = (sum/names.length).toFixed(1); $('sumMastered').textContent = mast;
+  }
+  const shown = names.filter(n => !q || n.toLowerCase().includes(q));
+  if(!shown.length){ out.innerHTML = '<div class="empty">لا توجد نتائج بعد. صحّح طالباً واحداً على الأقل من جلسة التصحيح السريع.</div>'; return; }
+  out.innerHTML = shown.map(n => {
+    const d = allClassResults[n], m = d.maxScore || globalMaxScore;
+    const msg = `مدرسة داوود بن عروة الثقفي الابتدائية\nولي الأمر الفاضل، نود إفادتكم بحصول الابن: ${n} (${d.className})\nعلى درجة الاختبار (${currentModelName}): ${d.score} / ${m} (${d.correct} إجابات صحيحة من أصل ${activeQuestions.length}).\nمع تحيات المعلم: منصور عامر الرحيلي`;
+    return `<div class="res"><span><b>${esc(n)}</b> <span class="tag">${esc(d.className)}</span></span>
+      <span class="sc" dir="ltr">${d.score} / ${m}</span>
+      <a class="btn wa sm noprint" target="_blank" href="${waLink(d.phone, msg)}">إرسال لولي الأمر</a></div>`;
+  }).join('');
+}
+function prepareGradesPrintSheet(){
+  $('sheetPrintMeta').textContent = `الصف: ${$('selectGrade').value} | المادة: ${subjectNames[$('selectSubject').value]} | نوع الاختبار: ${$('selectExamType').value} (${currentModelName}) | عدد الطلاب: ${Object.keys(allClassResults).length}`;
+  let i = 1;
+  $('sheetPrintTableBody').innerHTML = Object.keys(allClassResults).map(n => {
+    const d = allClassResults[n], m = d.maxScore || globalMaxScore, p = m > 0 ? d.score/m*100 : 0;
+    return `<tr><td>${i++}</td><td style="text-align:right;font-weight:700">${esc(n)}</td><td>${esc(d.className)}</td><td><b>${d.score}</b></td><td>${m}</td>
+      <td style="font-weight:700">${p >= 75 ? 'متقن' : 'يحتاج دعم وتدخل علاجي'}</td></tr>`;
+  }).join('');
+}
+ 
+/* التحليل */
+function toggleAnalysisBox(){
+  const b = $('analysisPanel'); b.hidden = !b.hidden;
+  if(!b.hidden){ prepareAnalysisContent(); b.scrollIntoView({behavior:'smooth', block:'start'}); }
+}
+const REMEDIAL = {
+  "علوم الحياة":["مهارات ومفاهيم علوم الحياة (الكائنات الحية، الخلايا، والبيئة)","إعداد بطاقات رسومية توضيحية لأجزاء الكائنات الحية والعمليات الحيوية، وتكليف الطلاب بأنشطة عملية إضافية."],
+  "العلوم الفيزيائية":["مهارات ومفاهيم العلوم الفيزيائية (المادة، الطاقة، والتغيرات)","تنفيذ تجارب عملية مبسطة داخل الفصل لتوضيح حالات المادة والتغيرات الفيزيائية والكيميائية والطاقة."],
+  "علوم الأرض والفضاء":["مهارات ومفاهيم علوم الأرض والفضاء (الكون، المجموعة الشمسية، وحركة الأرض)","استخدام مجسمات ونماذج توضيحية لدوران الأرض حول محورها وحول الشمس، وتوضيح طبقات الغلاف الجوي والفصول الأربعة."],
+  "الاستقصاء العلمي":["مهارات ومفاهيم الاستقصاء العلمي والتفكير الناقد","تدريب الطلاب على خطوات البحث العلمي وطرح تساؤلات تجريبية وتنمية مهارات الملاحظة والاستنتاج والقياس."]
+};
+function prepareAnalysisContent(){
+  const box = $('analysisContentText');
+  if(!Object.keys(allClassResults).length){ box.innerHTML = '<div class="empty">ارصد درجات الطلاب أولاً لعرض التحليل والخطط العلاجية.</div>'; return; }
+  const agg = {};
+  Object.values(allClassResults).forEach(s => { const ds = s.domainStats || {};
+    for(const d in ds){ if(!agg[d]) agg[d] = {correct:0,total:0}; agg[d].correct += ds[d].correct; agg[d].total += ds[d].total; } });
+  const weak = []; let rows = '';
+  for(const d in agg){
+    const pct = agg[d].total ? agg[d].correct/agg[d].total*100 : 0, ok = pct >= 75; if(!ok) weak.push(d);
+    rows += `<tr><td><b>${esc(d)}</b></td><td>${agg[d].correct} / ${agg[d].total}</td>
+      <td><div class="bar"><b style="width:${pct.toFixed(0)}%;background:${ok ? 'var(--good)' : 'var(--bad)'}"></b></div></td>
+      <td style="color:${ok ? 'var(--good)' : 'var(--bad)'};font-weight:600">${pct.toFixed(1)}%</td>
+      <td style="color:${ok ? 'var(--good)' : 'var(--bad)'}">${ok ? 'متقن' : 'يحتاج معالجة'}</td></tr>`;
+  }
+  const plans = weak.length ? weak.map((d,i) => { const r = REMEDIAL[d] || REMEDIAL["الاستقصاء العلمي"];
+    return `<div class="plan"><b>${i+1}. الهدف غير المتقن:</b> ${esc(r[0])}<br><span class="a">الخطة العلاجية المقترحة:</span> ${esc(r[1])}</div>`; }).join('')
+    : '<div class="plan" style="border-color:rgba(94,234,212,.4);background:rgba(94,234,212,.08);color:var(--good)">ممتاز! أتقن طلاب الفصل جميع المجالات ولا توجد فجوات تستدعي خطة علاجية.</div>';
+  const html = `<div class="tbl-wrap"><table><thead><tr><th>المجال</th><th>الإجابات الصحيحة</th><th>الإتقان</th><th>النسبة</th><th>التقييم</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <h4 style="margin:14px 0 8px;font-size:14px;color:var(--warn)">الخطط العلاجية الميدانية</h4>${plans}`;
+  box.innerHTML = html;
+  localStorage.setItem('mansour_last_analysis_report', JSON.stringify({gradeKey:$('selectGrade').value, subjectKey:$('selectSubject').value, content:html, date:new Date().toLocaleDateString('en-GB')}));
+}
+ 
+ 
+/* ================= التشغيل ================= */
+function bootApp(){
+  localStorage.setItem('mansour_current_grade_science_v5', currentGrade);
+  loadSchedule(); loadGradeData();
+  buildOrbit(); applyGradeTheme();
+  renderLessons(); render(); syncGrading();
+  loadGeminiSettingsUI();
+  updateClock(); setInterval(updateClock, 1000);
+  checkBackupReminder();
+  if(isStandalone()){ $('installTop').hidden = true; $('pwaInstallBtn').hidden = true; }
+  try{ const t = sessionStorage.getItem('mansour_tab'); if(t) showView(t); }catch(e){}
+}
+// ألوان الصف حتى قبل الدخول
+(function(){ const g = GRADES.find(x => x.key === currentGrade) || GRADES[0]; document.documentElement.style.setProperty('--accent', g.color); document.documentElement.style.setProperty('--accent-rgb', hexRgb(g.color)); })();
+initLock();
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(() => {}); }
+</script>
+</body>
+</html>
+ 
+
