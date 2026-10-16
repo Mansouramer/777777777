@@ -1,12 +1,13 @@
-const page = (msg, status = 401) => new Response(
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width">
-  <body style="font-family:sans-serif;text-align:center;margin-top:20vh" dir="rtl">
-  <form method="POST"><h3>أدخل الرقم السري</h3>
-  <input name="pw" type="password" autofocus style="padding:10px;font-size:18px">
-  <button style="padding:10px 20px;font-size:18px">دخول</button>
-  <p style="color:red">${msg}</p></form></body>,
-  { status, headers: { "Content-Type": "text/html;charset=utf-8" } }
-);
+const page = (msg, status = 401) => {
+  const html = '<!DOCTYPE html><html dir="rtl"><head><meta charset="utf-8">'
+    + '<meta name="viewport" content="width=device-width,initial-scale=1"></head>'
+    + '<body style="font-family:sans-serif;text-align:center;margin-top:20vh">'
+    + '<form method="POST"><h3>أدخل الرقم السري</h3>'
+    + '<input name="pw" type="password" autofocus style="padding:10px;font-size:18px"> '
+    + '<button type="submit" style="padding:10px 20px;font-size:18px">دخول</button>'
+    + '<p style="color:red">' + msg + '</p></form></body></html>';
+  return new Response(html, { status, headers: { "Content-Type": "text/html;charset=utf-8" } });
+};
 
 export default {
   async fetch(request, env) {
@@ -45,8 +46,8 @@ export default {
       devices.push(t);
       await env.KV.put("devices", JSON.stringify(devices));
       return new Response(null, { status: 303, headers: {
-        Location: "/",
-        "Set-Cookie": dev=${t}; Max-Age=31536000; Path=/; HttpOnly; Secure; SameSite=Strict
+        "Location": "/",
+        "Set-Cookie": "dev=" + t + "; Max-Age=31536000; Path=/; HttpOnly; Secure; SameSite=Strict"
       }});
     }
     return page("");
