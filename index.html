@@ -469,6 +469,10 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
         <div class="panel noprint">
           <div class="panel-h"><h3>إضافة طالب</h3></div>
           <div class="form">
+            <select id="studentGender">
+  <option value="">الجنس (حسب الإعداد الافتراضي)</option>
+  <option value="m">ذكر</option><option value="f">أنثى</option>
+</select>
             <input type="text" id="studentName" placeholder="اسم الطالب">
             <input type="text" id="studentClassCustom" placeholder="الصف والفصل (مثال: رابع ابتدائي أول)">
             <input type="tel" id="studentPhone" maxlength="10" inputmode="numeric" placeholder="جوال ولي الأمر (10 أرقام)">
