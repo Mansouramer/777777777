@@ -398,7 +398,7 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
           <div class="eyebrow">مادة العلوم – المرحلة الابتدائية</div>
           <h2 id="gradeTitle">الصف الأول</h2>
           <div class="planet" id="planetName">مدار عطارد</div>
-          <p class="hint" style="margin-top:8px;max-width:340px">كل كوكب يمثّل صفاً دراسياً. المس كوكباً لتنتقل إلى بيانات ذلك الصف.</p>
+          <p class="hint" id="orbitHint" style="margin-top:8px;max-width:340px">كل كوكب يمثّل صفاً دراسياً. المس كوكباً لتنتقل إلى بيانات ذلك الصف.</p>
           <div class="panel clock-panel noprint" style="margin-top:14px">
             <div class="clock" onclick="toggleSched()">
               <div class="clock-ring">
@@ -1083,13 +1083,23 @@ const NONE = '__NONE__';
 let currentGrade = localStorage.getItem('mansour_current_grade_science_v5') || GRADES[0].key;
 if(!GRADES.some(g => g.key === currentGrade)) currentGrade = GRADES[0].key;
 const gradeInfo = () => GRADES.find(g => g.key === currentGrade);
+const THEMES = {
+  science:{hint:'كل كوكب يمثّل صفاً دراسياً. المس كوكباً لتنتقل إلى بيانات ذلك الصف.'},
+  math:{center:'π', glyphs:['+','−','×','÷','%','√'], names:['الجمع','الطرح','الضرب','القسمة','النسبة','الجذر'],
+    hint:'كل رمز رياضي يمثّل صفاً دراسياً. المس رمزاً لتنتقل إلى بيانات ذلك الصف.'},
+  arabic:{center:'ض', glyphs:['أ','ب','ت','ث','ج','ح'], names:['حرف الألف','حرف الباء','حرف التاء','حرف الثاء','حرف الجيم','حرف الحاء'],
+    hint:'كل حرف يمثّل صفاً دراسياً. المس حرفاً لتنتقل إلى بيانات ذلك الصف.'}
+};
+const theme = () => THEMES[profile.subject] || THEMES.science;
+const orbitName = (g, i) => { const t = theme(); return t.names ? t.names[i] : g.planet; };
+const orbitLabel = () => orbitName(gradeInfo(), GRADES.indexOf(gradeInfo()));
 
 function hexRgb(h){ const n = parseInt(h.slice(1),16); return [(n>>16)&255,(n>>8)&255,n&255].join(','); }
 function applyGradeTheme(){
   const g = gradeInfo(), root = document.documentElement.style;
   root.setProperty('--accent', g.color); root.setProperty('--accent-rgb', hexRgb(g.color));
   $('gradeTitle').textContent = 'الصف ' + g.short;
-  $('planetName').textContent = 'مدار ' + g.planet;
+  $('planetName').textContent = 'مدار ' + orbitLabel(); $('orbitHint').textContent = theme().hint;
   $('curriculumTitle').textContent = 'مقرر ' + subjName() + ' – ' + currentGrade;
   document.querySelector('meta[name=theme-color]').setAttribute('content', '#05060f');
   document.querySelectorAll('#gradeChips .chip').forEach((c,i) => c.classList.toggle('active', GRADES[i].key === currentGrade));
@@ -1101,27 +1111,39 @@ function applyGradeTheme(){
 }
 
 function buildOrbit(){
+  const th = theme(), isSci = !th.glyphs;
+  const center = isSci
+    ? `<circle cx="180" cy="180" r="34" fill="#ffb547" opacity=".35" filter="url(#glow)"/>
+  <circle cx="180" cy="180" r="17" fill="url(#sunG)"/>`
+    : `<circle cx="180" cy="180" r="30" fill="var(--accent)" opacity=".25" filter="url(#glow)"/>
+  <circle cx="180" cy="180" r="18" fill="var(--accent)"/>
+  <text x="180" y="180" text-anchor="middle" dominant-baseline="central" font-size="21" font-weight="700" fill="#05060f">${th.center}</text>`;
   let svg = `<defs>
     <radialGradient id="sunG" cx="40%" cy="38%"><stop offset="0" stop-color="#fff5cc"/><stop offset=".45" stop-color="#ffb547"/><stop offset="1" stop-color="#e2711d"/></radialGradient>
     <radialGradient id="shade" cx="35%" cy="32%" r="80%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>
     <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="9"/></filter>
-  </defs>
-  <circle cx="180" cy="180" r="34" fill="#ffb547" opacity=".35" filter="url(#glow)"/>
-  <circle cx="180" cy="180" r="17" fill="url(#sunG)"/>`;
+  </defs>${center}`;
   GRADES.forEach(g => { svg += `<circle class="orbit-line" cx="180" cy="180" r="${g.r}" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1"/>`; });
   GRADES.forEach((g,i) => {
-    const cx = 180 + g.r, s = g.size;
+    const cx = 180 + g.r, s = isSci ? g.size : 10;
     const anim = reduceMotion ? '' : `<animateTransform attributeName="transform" type="rotate" from="${g.start} 180 180" to="${g.start+360} 180 180" dur="${g.dur}s" repeatCount="indefinite"/>`;
     const init = reduceMotion ? ` transform="rotate(${g.start} 180 180)"` : '';
-    const ring = g.planet === 'زحل' ? `<ellipse cx="${cx}" cy="180" rx="${s*1.9}" ry="${s*.55}" fill="none" stroke="${g.color}" stroke-width="1.6" opacity=".85" transform="rotate(-22 ${cx} 180)"/>` : '';
     const pulse = reduceMotion ? '' : `<animate attributeName="r" values="${s+4};${s+7};${s+4}" dur="2.4s" repeatCount="indefinite"/>`;
+    let body;
+    if(isSci){
+      const ring = g.planet === 'زحل' ? `<ellipse cx="${cx}" cy="180" rx="${s*1.9}" ry="${s*.55}" fill="none" stroke="${g.color}" stroke-width="1.6" opacity=".85" transform="rotate(-22 ${cx} 180)"/>` : '';
+      body = `<circle cx="${cx}" cy="180" r="${s}" fill="${g.color}"/><circle cx="${cx}" cy="180" r="${s}" fill="url(#shade)"/>${ring}`;
+    } else {
+      const counter = reduceMotion ? '' : `<animateTransform attributeName="transform" type="rotate" from="${-g.start} ${cx} 180" to="${-(g.start+360)} ${cx} 180" dur="${g.dur}s" repeatCount="indefinite"/>`;
+      const cinit = reduceMotion ? ` transform="rotate(${-g.start} ${cx} 180)"` : '';
+      body = `<circle cx="${cx}" cy="180" r="${s}" fill="${g.color}"/><circle cx="${cx}" cy="180" r="${s}" fill="url(#shade)"/>
+        <g${cinit}><text x="${cx}" y="180" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="700" fill="#05060f">${th.glyphs[i]}</text>${counter}</g>`;
+    }
     svg += `<g${init}>
-      <g class="planet-g" data-i="${i}" tabindex="0" role="button" aria-label="الصف ${g.short} – ${g.planet}">
+      <g class="planet-g" data-i="${i}" tabindex="0" role="button" aria-label="الصف ${g.short} – ${orbitName(g,i)}">
         <circle class="hit" cx="${cx}" cy="180" r="15"/>
         <circle class="active-ring" cx="${cx}" cy="180" r="${s+5}" fill="none" stroke="${g.color}" stroke-width="1.5" opacity="0">${pulse}</circle>
-        <circle cx="${cx}" cy="180" r="${s}" fill="${g.color}"/>
-        <circle cx="${cx}" cy="180" r="${s}" fill="url(#shade)"/>
-        ${ring}
+        ${body}
       </g>${anim}</g>`;
   });
   $('orbit').innerHTML = svg;
@@ -1351,7 +1373,7 @@ function changeGradeLevel(grade){
   activeQueryClass = NONE; selectedStudentIndex = ''; currentPage = 1;
   $('filterStudentNameInput').value = ''; $('bulkPanel').hidden = true; $('studentCard').hidden = true; $('studentSearchInput').value = '';
   applyGradeTheme(); renderLessons(); render(); syncGrading();
-  showToast(`الصف ${gradeInfo().short} – مدار ${gradeInfo().planet}`);
+  showToast(`الصف ${gradeInfo().short} – مدار ${orbitLabel()}`);
 }
 
 /* ================= الدروس ================= */
