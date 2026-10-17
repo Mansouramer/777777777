@@ -379,9 +379,6 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
     <button class="icon-btn" id="installTop" onclick="installPWA()" aria-label="تثبيت التطبيق" title="تثبيت التطبيق">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 20h14"/></svg>
     </button>
-    <button class="icon-btn" onclick="lockNow()" aria-label="قفل اللوحة" title="قفل اللوحة">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
-    </button>
     </div>
   </header>
 
@@ -834,16 +831,6 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
         </div>
 
         <div class="panel noprint">
-          <div class="panel-h"><h3>الرقم السري</h3></div>
-          <div class="form">
-            <input type="password" id="curPw" placeholder="الرقم السري الحالي" autocomplete="off">
-            <input type="password" id="newPw" placeholder="الرقم السري الجديد (4 خانات على الأقل)" autocomplete="off">
-            <button class="btn ghost block" onclick="changePassword()">تغيير الرقم السري</button>
-            <button class="btn danger block" onclick="lockNow()">قفل اللوحة الآن</button>
-          </div>
-        </div>
-
-        <div class="panel noprint">
           <div class="panel-h"><h3>التطبيق والدعم</h3></div>
           <div class="form">
             <button class="btn block" id="pwaInstallBtn" onclick="installPWA()">تثبيت اللوحة على الشاشة الرئيسية</button>
@@ -999,12 +986,7 @@ async function hashPw(pw, salt){
 }
 function newSalt(){ return Math.random().toString(36).slice(2) + Date.now().toString(36); }
 
-function initLock(){
-  const hash = localStorage.getItem(PW_KEY);
-  if(!hash){ setLockMode('setup'); return; }
-  if(localStorage.getItem(REMEMBER_KEY) === hash || sessionStorage.getItem(SESSION_KEY) === hash){ unlock(); return; }
-  setLockMode('login');
-}
+function initLock(){ unlock(); }
 function setLockMode(mode){
   lockMode = mode;
   $('lock').hidden = false; document.body.classList.add('locked'); $('app').hidden = true;
