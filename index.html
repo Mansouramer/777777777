@@ -2487,6 +2487,10 @@ function loadProfileUI(){
   $('pfName').value = profile.teacherName; $('pfSchool').value = profile.school;
   $('pfTeacherGender').value = profile.teacherGender; $('pfStudentGender').value = profile.studentGender;
   $('pfSubject').value = profile.subject;
+  if(window.CFG){
+    $('pfSchool').disabled = true;
+    if(window.CFG.teacher) $('pfName').disabled = true;
+  }
 }
 function saveProfile(){
   profile = {
@@ -2539,8 +2543,22 @@ function bootApp(){
 }
 // ألوان الصف حتى قبل الدخول
 (function(){ const g = GRADES.find(x => x.key === currentGrade) || GRADES[0]; document.documentElement.style.setProperty('--accent', g.color); document.documentElement.style.setProperty('--accent-rgb', hexRgb(g.color)); })();
-localizeStatic();
-initLock();
+/* ===== بيانات العميل من الخادم (/api/config) ===== */
+function applyCfg(c){
+  window.CFG = c;
+  if(c.school) profile.school = String(c.school).replace(/\s*الابتدائية\s*$/, '');
+  if(c.teacher) profile.teacherName = c.teacher;
+  if(c.teacherGender) profile.teacherGender = c.teacherGender === 'female' ? 'f' : 'm';
+  if(c.gender) profile.studentGender = c.gender === 'female' ? 'f' : 'm';
+}
+(async function(){
+  try{
+    const r = await fetch('/api/config', { credentials: 'same-origin' });
+    if(r.ok) applyCfg(await r.json());
+  }catch(e){}
+  localizeStatic();
+  initLock();
+})();
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(() => {}); }
 </script>
 </body>
