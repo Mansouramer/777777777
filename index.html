@@ -906,6 +906,24 @@ input[type=file]{width:100%;padding:9px;border-radius:10px;border:1px solid var(
     <button class="btn ghost block" style="margin-top:8px" onclick="$('masteryModal').hidden=true">إغلاق</button>
   </div>
 </div>
+  <div id="currModal" class="curr noprint" hidden>
+  <div class="curr-bar">
+    <b id="currTitle">توزيع المنهج</b>
+    <div class="acts">
+      <button class="btn sm" id="currAddBtn" onclick="$('currFile').click()">+ إضافة صورة</button>
+      <button class="btn sm danger" id="currDelBtn" onclick="deleteCurr()" hidden>حذف</button>
+      <button class="btn sm ghost" onclick="closeCurr()">إغلاق ✕</button>
+    </div>
+  </div>
+  <div class="curr-body" id="currBody">
+    <img id="currImg" alt="توزيع المنهج" onclick="toggleCurrZoom()" hidden>
+    <div class="curr-empty" id="currEmpty">
+      <p>لم تتم إضافة صورة توزيع المنهج لهذا الصف بعد.</p>
+      <button class="btn" onclick="$('currFile').click()">+ إضافة صورة</button>
+    </div>
+  </div>
+  <input type="file" id="currFile" accept="image/*" hidden onchange="addCurrImage(event)">
+</div>
 <div id="toast" class="toast" role="status"></div>
 
 <script>
